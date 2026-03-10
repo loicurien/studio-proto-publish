@@ -1,0 +1,47 @@
+import { PrismaService } from '../../../prisma.service';
+import { UrlPresignerService } from '../../../common/url-presigner/url-presigner.service';
+import { UserRequestCredentialsService } from '../../../common/http-client/user-request-credentials.service';
+import { AyrshareRepository } from '../spi/ayrshare.repository';
+import { AyrshareProfileService } from './ayrshare-profile.service';
+import { Distribution } from '@prisma/client';
+export interface CreateDistributionInput {
+    platform: string;
+    postText?: string;
+    mediaUrls?: string[];
+    scheduledAt?: Date;
+    platformOptions?: Record<string, unknown>;
+    preferredFormat?: string;
+    hashtags?: string[];
+}
+export interface UpdateDistributionInput {
+    postText?: string;
+    mediaUrls?: string[];
+    scheduledAt?: Date;
+    platformOptions?: Record<string, unknown>;
+    hashtags?: string[];
+}
+export declare class DistributionService {
+    private readonly prisma;
+    private readonly ayrshare;
+    private readonly ayrshareProfiles;
+    private readonly userRequest;
+    private readonly urlPresigner;
+    constructor(prisma: PrismaService, ayrshare: AyrshareRepository, ayrshareProfiles: AyrshareProfileService, userRequest: UserRequestCredentialsService, urlPresigner: UrlPresignerService);
+    findByPublicationId(publicationId: string): Promise<Distribution[]>;
+    getTopViewedHashtags(limit?: number): Promise<{
+        items: {
+            tag: string;
+            views: number;
+        }[];
+        error?: string;
+    }>;
+    findOne(id: string): Promise<Distribution>;
+    create(publicationId: string, input: CreateDistributionInput): Promise<Distribution>;
+    update(id: string, input: UpdateDistributionInput): Promise<Distribution>;
+    remove(id: string): Promise<void>;
+    markPublicationForReview(publicationId: string): Promise<void>;
+    approvePublicationReview(publicationId: string): Promise<void>;
+    private effective;
+    publish(id: string): Promise<Distribution>;
+    refreshAyrshareStatusForPublication(publicationId: string): Promise<void>;
+}

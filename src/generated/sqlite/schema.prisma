@@ -1,0 +1,58 @@
+generator sqliteClient {
+  provider = "prisma-client-js"
+  output   = "../src/generated/sqlite"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Publication {
+  id                String           @id @default(uuid())
+  title             String
+  description       String?
+  postText          String?
+  mediaUrls         String?
+  mediaUrlsByFormat String?
+  scheduledAt       DateTime?
+  ayrshareProfileId String?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  distributions     Distribution[]
+  ayrshareProfile   AyrshareProfile? @relation(fields: [ayrshareProfileId], references: [id])
+}
+
+model Distribution {
+  id              String      @id @default(uuid())
+  publicationId   String
+  publication     Publication @relation(fields: [publicationId], references: [id], onDelete: Cascade)
+  platform        String
+  status          String      @default("draft")
+  ayrsharePostId  String?
+  platformPostId  String?
+  postUrl         String?
+  errorMessage    String?
+  scheduledAt     DateTime?
+  publishedAt     DateTime?
+  postText        String?
+  mediaUrls       String?
+  platformOptions String?
+  hashtags        String?
+  preferredFormat String?
+  viewCount       Int?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model AyrshareProfile {
+  id           String        @id @default(uuid())
+  workspaceId  String
+  name         String
+  profileKey   String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  publications Publication[]
+
+  @@unique([workspaceId, profileKey])
+}

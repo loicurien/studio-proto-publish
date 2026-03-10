@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Publication {
+  id                  String   @id @default(uuid())
+  title               String
+  description         String?
+  postText            String?
+  mediaUrls           String?  // JSON array as string, e.g. ["https://..."]
+  mediaUrlsByFormat   String?  // JSON object e.g. {"16:9":["..."],"9:16":["..."]}
+  scheduledAt         DateTime?
+  ayrshareProfileId   String?  // which Ayrshare profile to use when publishing distributions
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  distributions       Distribution[]
+  ayrshareProfile     AyrshareProfile? @relation(fields: [ayrshareProfileId], references: [id])
+}
+
+model Distribution {
+  id               String       @id @default(uuid())
+  publicationId    String
+  publication      Publication  @relation(fields: [publicationId], references: [id], onDelete: Cascade)
+  platform         String       // tiktok, youtube, facebook, instagram, linkedin, twitter, etc.
+  status           String       @default("draft") // draft, pending, processing, success, error, deleted, paused, awaiting_approval
+  ayrsharePostId   String?
+  platformPostId   String?
+  postUrl          String?
+  errorMessage     String?
+  scheduledAt      DateTime?
+  publishedAt      DateTime?
+  postText         String?      // override from publication
+  mediaUrls        String?      // override from publication (JSON array)
+  platformOptions  String?      // JSON e.g. youTubeOptions
+  hashtags         String?      // JSON array of hashtags, e.g. ["#tag1","#tag2"]
+  preferredFormat  String?      // e.g. 16:9, 9:16, 4:5
+  viewCount        Int?         // from Ayrshare post analytics (refreshed when loading publication)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+}
+
+/// Ayrshare profile for a workspace (one workspace can have multiple profiles).
+model AyrshareProfile {
+  id           String         @id @default(uuid())
+  /// Workspace UID (X-Nb-Workspace).
+  workspaceId  String
+  /// Display name for the profile.
+  name         String
+  /// Ayrshare Profile Key for this profile.
+  profileKey   String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  publications Publication[]
+
+  @@unique([workspaceId, profileKey])
+}
+
