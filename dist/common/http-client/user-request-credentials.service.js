@@ -23,6 +23,15 @@ let UserRequestCredentialsService = class UserRequestCredentialsService {
         const raw = (_b = (_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a[exports.WORKSPACE_ID_HEADER]) !== null && _b !== void 0 ? _b : (_c = req === null || req === void 0 ? void 0 : req.headers) === null || _c === void 0 ? void 0 : _c['x-nb-workspace'];
         return typeof raw === 'string' && raw.trim() ? raw : 'default-workspace';
     }
+    get token() {
+        var _a, _b, _c;
+        const req = this.request;
+        const raw = (_b = (_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a['Authorization']) !== null && _b !== void 0 ? _b : (_c = req === null || req === void 0 ? void 0 : req.headers) === null || _c === void 0 ? void 0 : _c['authorization'];
+        const s = Array.isArray(raw) ? raw[0] : raw;
+        if (typeof s !== 'string' || !s.trim())
+            return undefined;
+        return s.startsWith('Bearer ') ? s.slice(7).trim() : s.trim();
+    }
     constructor(request) {
         this.request = request;
     }

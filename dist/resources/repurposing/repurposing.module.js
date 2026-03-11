@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RepurposingModule = void 0;
 const common_1 = require("@nestjs/common");
 const url_presigner_module_1 = require("../../common/url-presigner/url-presigner.module");
+const http_client_module_1 = require("../../common/http-client/http-client.module");
 const ayrshare_repository_1 = require("./spi/ayrshare.repository");
 const trends_repository_1 = require("./spi/trends.repository");
 const publication_service_1 = require("./domain/publication.service");
@@ -23,7 +24,7 @@ let RepurposingModule = class RepurposingModule {
 exports.RepurposingModule = RepurposingModule;
 exports.RepurposingModule = RepurposingModule = __decorate([
     (0, common_1.Module)({
-        imports: [url_presigner_module_1.UrlPresignerModule],
+        imports: [url_presigner_module_1.UrlPresignerModule, http_client_module_1.HttpClientModule],
         controllers: [
             publications_controller_1.PublicationsController,
             distributions_controller_1.DistributionsController,
