@@ -8,7 +8,7 @@ async function bootstrap() {
     app.setGlobalPrefix('api/web');
     app.enableCors({ origin: true });
     const port = process.env.PORT ? Number(process.env.PORT) : 3000;
-    await app.listen(port);
+    await app.listen(port, '0.0.0.0');
     console.log(`API listening on port ${port}`);
 }
 void bootstrap();
