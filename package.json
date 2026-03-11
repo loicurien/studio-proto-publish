@@ -5,10 +5,11 @@
   "description": "Minimal NestJS backend for prototype publishing, deployed on Railway.",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "start": "ts-node-dev --respawn --transpile-only src/main.ts",
+    "start": "node dist/main.js",
     "start:prod": "node dist/main.js",
     "prisma:generate": "prisma generate",
     "prisma:db:push": "prisma db push",
+    "postinstall": "prisma generate",
     "migrate:from-sqlite": "ts-node scripts/migrate-from-sqlite.ts"
   },
   "dependencies": {
