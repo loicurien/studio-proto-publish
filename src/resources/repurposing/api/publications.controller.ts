@@ -47,6 +47,29 @@ export class PublicationsController {
     return Promise.all(list.map((p) => this.withPresignedMediaUrls(p)));
   }
 
+  /**
+   * Most viewed posts by live Ayrshare view count (one card per distribution).
+   */
+  @Get('most-viewed/ayrshare')
+  async getMostViewedFromAyrshare(
+    @Query('limit') limitStr?: string,
+  ): Promise<{ items: PublicationResponseDto[] }> {
+    const limit = limitStr
+      ? Math.min(20, parseInt(limitStr, 10) || 12)
+      : 12;
+    const rows =
+      await this.distributionService.getMostViewedFromAyrshare(limit);
+    const items = await Promise.all(
+      rows.map(({ publication, distribution, viewCount }) =>
+        this.withPresignedMediaUrls({
+          ...publication,
+          distributions: [{ ...distribution, viewCount }],
+        }),
+      ),
+    );
+    return { items };
+  }
+
   @Get(':id/refresh-ayrshare-status')
   async refreshAyrshareStatus(
     @Param('id') id: string,

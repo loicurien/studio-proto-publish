@@ -9,7 +9,7 @@ import { UrlPresignerService } from '../../../common/url-presigner/url-presigner
 import { UserRequestCredentialsService } from '../../../common/http-client/user-request-credentials.service';
 import { AyrshareRepository } from '../spi/ayrshare.repository';
 import { AyrshareProfileService } from './ayrshare-profile.service';
-import { Distribution } from '@prisma/client';
+import { Distribution, Publication } from '@prisma/client';
 
 export interface CreateDistributionInput {
   platform: string;
@@ -510,6 +510,63 @@ export class DistributionService {
       );
     }
     return ayrshareProfileId ? { ayrshareProfileId } : {};
+  }
+
+  /**
+   * Fetch live view counts from Ayrshare for distributions that have been published,
+   * then return the top ones sorted by view count (for "Most viewed" list).
+   */
+  async getMostViewedFromAyrshare(
+    limit = 12,
+  ): Promise<
+    {
+      publication: Publication & { distributions: Distribution[] };
+      distribution: Distribution;
+      viewCount: number;
+    }[]
+  > {
+    const cap = Math.min(80, limit * 4);
+    const rows = await this.prisma.distribution.findMany({
+      where: { ayrsharePostId: { not: null } },
+      include: { publication: { include: { distributions: true } } },
+      orderBy: { updatedAt: 'desc' },
+      take: cap,
+    });
+    const withViews = await Promise.all(
+      rows.map(async (d) => {
+        let profileKey: string | undefined;
+        if (d.publication.ayrshareProfileId) {
+          try {
+            profileKey = await this.ayrshareProfiles.getProfileKeyByIdOnly(
+              d.publication.ayrshareProfileId,
+            );
+          } catch {
+            // use primary profile
+          }
+        }
+        let viewCount = 0;
+        try {
+          const analytics = await this.ayrshare.getPostAnalytics(
+            d.ayrsharePostId!,
+            [d.platform],
+            profileKey,
+          );
+          const v = analytics[d.platform]?.views;
+          if (typeof v === 'number' && !Number.isNaN(v)) viewCount = v;
+        } catch {
+          // skip failed analytics
+        }
+        return {
+          publication: d.publication as Publication & { distributions: Distribution[] },
+          distribution: d,
+          viewCount,
+        };
+      }),
+    );
+    return withViews
+      .filter((x) => x.viewCount > 0)
+      .sort((a, b) => b.viewCount - a.viewCount)
+      .slice(0, limit);
   }
 
   /**
