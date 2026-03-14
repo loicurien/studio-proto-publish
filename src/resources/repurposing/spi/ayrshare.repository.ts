@@ -2,6 +2,7 @@ import { BadGatewayException, Injectable, Logger } from '@nestjs/common';
 import axios, { AxiosInstance, isAxiosError } from 'axios';
 
 const AYRSHARE_BASE_URL = 'https://api.ayrshare.com/api';
+const AYRSHARE_CACHE_TTL_MS = 60_000; // 1 minute
 
 function redactApiKey(key: string | undefined): string {
   if (!key || key.length < 12) return key ? '***' : '(none)';
@@ -88,10 +89,16 @@ function normalizeAyrshareErrors(
     .filter(Boolean);
 }
 
+interface CacheEntry<T> {
+  data: T;
+  expiresAt: number;
+}
+
 @Injectable()
 export class AyrshareRepository {
   private readonly client: AxiosInstance;
   private readonly logger = new Logger(AyrshareRepository.name);
+  private readonly cache = new Map<string, CacheEntry<unknown>>();
 
   constructor() {
     const apiKey = process.env.AYRSHARE_API_KEY;
@@ -108,6 +115,22 @@ export class AyrshareRepository {
     if (!process.env.AYRSHARE_API_KEY) {
       throw new Error('AYRSHARE_API_KEY is not configured');
     }
+  }
+
+  private getCached<T>(key: string): T | undefined {
+    const entry = this.cache.get(key) as CacheEntry<T> | undefined;
+    if (!entry || Date.now() >= entry.expiresAt) {
+      if (entry) this.cache.delete(key);
+      return undefined;
+    }
+    return entry.data;
+  }
+
+  private setCache<T>(key: string, data: T): void {
+    this.cache.set(key, {
+      data,
+      expiresAt: Date.now() + AYRSHARE_CACHE_TTL_MS,
+    });
   }
 
   async publishPost(
@@ -207,6 +230,10 @@ export class AyrshareRepository {
     platforms: string[],
     profileKey?: string,
   ): Promise<Record<string, { views?: number }>> {
+    const cacheKey = `analytics:post:${ayrsharePostId}:${[...platforms].sort().join(',')}:${profileKey ?? ''}`;
+    const cached = this.getCached<Record<string, { views?: number }>>(cacheKey);
+    if (cached !== undefined) return cached;
+
     this.requireApiKey();
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
@@ -234,6 +261,7 @@ export class AyrshareRepository {
       const views = this.extractViewsFromAnalytics(platform, analytics);
       if (views != null) result[platform] = { views };
     }
+    this.setCache(cacheKey, result);
     return result;
   }
 
@@ -298,6 +326,10 @@ export class AyrshareRepository {
     options: { daily?: boolean; quarters?: number } = {},
     profileKey?: string,
   ): Promise<Record<string, unknown>> {
+    const cacheKey = `analytics:social:${[...platforms].sort().join(',')}:${options.daily ?? ''}:${options.quarters ?? ''}:${profileKey ?? ''}`;
+    const cached = this.getCached<Record<string, unknown>>(cacheKey);
+    if (cached !== undefined) return cached;
+
     this.requireApiKey();
     const body: Record<string, unknown> = {
       platforms: platforms.map((p) => p.toLowerCase()),
@@ -314,7 +346,9 @@ export class AyrshareRepository {
         body,
         { headers },
       );
-      return data ?? {};
+      const result = data ?? {};
+      this.setCache(cacheKey, result);
+      return result;
     } catch (err) {
       if (isAxiosError(err)) {
         const status = err.response?.status;
