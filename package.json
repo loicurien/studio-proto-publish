@@ -11,7 +11,8 @@
     "prisma:generate": "prisma generate",
     "prisma:db:push": "prisma db push",
     "postinstall": "prisma generate",
-    "migrate:from-sqlite": "ts-node scripts/migrate-from-sqlite.ts"
+    "migrate:from-sqlite": "ts-node scripts/migrate-from-sqlite.ts",
+    "script:rename-studio-profile": "ts-node scripts/rename-ayrshare-profile.ts"
   },
   "dependencies": {
     "axios": "^1.9.0",

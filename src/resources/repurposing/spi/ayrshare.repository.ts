@@ -1,5 +1,5 @@
-import { Injectable, Logger } from '@nestjs/common';
-import axios, { AxiosInstance } from 'axios';
+import { BadGatewayException, Injectable, Logger } from '@nestjs/common';
+import axios, { AxiosInstance, isAxiosError } from 'axios';
 
 const AYRSHARE_BASE_URL = 'https://api.ayrshare.com/api';
 
@@ -286,5 +286,51 @@ export class AyrshareRepository {
       },
     );
     return data;
+  }
+
+  /**
+   * Social (account-level) analytics. With daily: true returns daily time-series
+   * for views/impressions (Facebook, Instagram, TikTok, YouTube).
+   * @see https://www.ayrshare.com/docs/apis/analytics/social
+   */
+  async getSocialAnalytics(
+    platforms: string[],
+    options: { daily?: boolean; quarters?: number } = {},
+    profileKey?: string,
+  ): Promise<Record<string, unknown>> {
+    this.requireApiKey();
+    const body: Record<string, unknown> = {
+      platforms: platforms.map((p) => p.toLowerCase()),
+    };
+    if (options.daily === true) body.daily = true;
+    if (options.quarters != null) body.quarters = options.quarters;
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+    if (profileKey) headers['Profile-Key'] = profileKey;
+    try {
+      const { data } = await this.client.post<Record<string, unknown>>(
+        '/analytics/social',
+        body,
+        { headers },
+      );
+      return data ?? {};
+    } catch (err) {
+      if (isAxiosError(err)) {
+        const status = err.response?.status;
+        const resBody = err.response?.data as Record<string, unknown> | undefined;
+        const message =
+          typeof resBody?.message === 'string'
+            ? resBody.message
+            : Array.isArray(resBody?.errors)
+              ? (resBody.errors as string[]).join('; ')
+              : err.message ?? 'Ayrshare social analytics request failed';
+        this.logger.warn(
+          `[Ayrshare] getSocialAnalytics failed status=${status} message=${message}`,
+        );
+        throw new BadGatewayException(`Ayrshare analytics: ${message}`);
+      }
+      throw err;
+    }
   }
 }

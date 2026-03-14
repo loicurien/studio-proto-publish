@@ -177,6 +177,23 @@ let AyrshareRepository = AyrshareRepository_1 = class AyrshareRepository {
         });
         return data;
     }
+    async getSocialAnalytics(platforms, options = {}, profileKey) {
+        this.requireApiKey();
+        const body = {
+            platforms: platforms.map((p) => p.toLowerCase()),
+        };
+        if (options.daily === true)
+            body.daily = true;
+        if (options.quarters != null)
+            body.quarters = options.quarters;
+        const headers = {
+            'Content-Type': 'application/json',
+        };
+        if (profileKey)
+            headers['Profile-Key'] = profileKey;
+        const { data } = await this.client.post('/analytics/social', body, { headers });
+        return data !== null && data !== void 0 ? data : {};
+    }
 };
 exports.AyrshareRepository = AyrshareRepository;
 exports.AyrshareRepository = AyrshareRepository = AyrshareRepository_1 = __decorate([

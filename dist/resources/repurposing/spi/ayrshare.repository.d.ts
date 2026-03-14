@@ -50,4 +50,8 @@ export declare class AyrshareRepository {
     }>>;
     private extractViewsFromAnalytics;
     getUserProfile(profileKey: string): Promise<AyrshareUserProfileResponse>;
+    getSocialAnalytics(platforms: string[], options?: {
+        daily?: boolean;
+        quarters?: number;
+    }, profileKey?: string): Promise<Record<string, unknown>>;
 }

@@ -16,9 +16,11 @@ exports.AyrshareController = void 0;
 const common_1 = require("@nestjs/common");
 const user_request_credentials_service_1 = require("../../../common/http-client/user-request-credentials.service");
 const ayrshare_profile_service_1 = require("../domain/ayrshare-profile.service");
+const ayrshare_repository_1 = require("../spi/ayrshare.repository");
 let AyrshareController = class AyrshareController {
-    constructor(ayrshareProfiles, userRequest) {
+    constructor(ayrshareProfiles, ayrshare, userRequest) {
         this.ayrshareProfiles = ayrshareProfiles;
+        this.ayrshare = ayrshare;
         this.userRequest = userRequest;
     }
     async listProfiles() {
@@ -54,6 +56,24 @@ let AyrshareController = class AyrshareController {
         }
         await this.ayrshareProfiles.upsertProfileForWorkspace(workspaceId, 'Default', body.profileKey);
     }
+    async getSocialAnalytics(profileId, platformsStr, dailyStr, quartersStr) {
+        const workspaceId = this.userRequest.workspaceId;
+        if (!workspaceId) {
+            throw new Error(`${user_request_credentials_service_1.WORKSPACE_ID_HEADER} header is required`);
+        }
+        if (!(profileId === null || profileId === void 0 ? void 0 : profileId.trim())) {
+            throw new Error('profileId query is required');
+        }
+        const profileKey = await this.ayrshareProfiles.getProfileKeyById(profileId, workspaceId);
+        const platforms = platformsStr
+            ? platformsStr.split(',').map((p) => p.trim()).filter(Boolean)
+            : ['facebook', 'instagram', 'tiktok', 'youtube'];
+        const daily = dailyStr === 'true' || dailyStr === '1';
+        const quarters = quartersStr !== undefined && quartersStr !== ''
+            ? Math.min(4, Math.max(1, Number(quartersStr) || 1))
+            : undefined;
+        return this.ayrshare.getSocialAnalytics(platforms, { daily, quarters }, profileKey);
+    }
 };
 exports.AyrshareController = AyrshareController;
 __decorate([
@@ -83,9 +103,20 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AyrshareController.prototype, "upsertProfileKey", null);
+__decorate([
+    (0, common_1.Get)('analytics/social'),
+    __param(0, (0, common_1.Query)('profileId')),
+    __param(1, (0, common_1.Query)('platforms')),
+    __param(2, (0, common_1.Query)('daily')),
+    __param(3, (0, common_1.Query)('quarters')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, String, String]),
+    __metadata("design:returntype", Promise)
+], AyrshareController.prototype, "getSocialAnalytics", null);
 exports.AyrshareController = AyrshareController = __decorate([
     (0, common_1.Controller)('repurposing/ayrshare'),
     __metadata("design:paramtypes", [ayrshare_profile_service_1.AyrshareProfileService,
+        ayrshare_repository_1.AyrshareRepository,
         user_request_credentials_service_1.UserRequestCredentialsService])
 ], AyrshareController);
 //# sourceMappingURL=ayrshare.controller.js.map

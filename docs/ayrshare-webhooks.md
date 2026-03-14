@@ -106,3 +106,34 @@ View counts are also refreshed when you call the **refresh status** endpoint for
 - **Unregister**: `DELETE https://api.ayrshare.com/api/hook/webhook` with body `{ "action": "scheduled" }`
 
 See [Ayrshare webhook docs](https://www.ayrshare.com/docs/apis/webhooks/overview) for details.
+
+---
+
+## Views per day (social analytics)
+
+Ayrshare provides **account-level** analytics with an option for **daily time-series** (views per day). This is available for **Facebook, Instagram, TikTok, and YouTube**.
+
+### Endpoint
+
+```
+GET /api/web/repurposing/ayrshare/analytics/social?profileId=<uuid>&daily=true&platforms=instagram,facebook,youtube,tiktok&quarters=1
+```
+
+| Query       | Required | Description |
+|------------|----------|-------------|
+| profileId  | Yes      | Your Ayrshare profile id (from `GET /repurposing/ayrshare/profiles`). |
+| platforms  | No       | Comma-separated: `facebook`, `instagram`, `tiktok`, `youtube`. Default: all four. |
+| daily      | No       | Set to `true` to get **daily time-series** (views per day). Default: false (aggregated totals). |
+| quarters   | No       | 1–4 quarters of history. A quarter ≈ 85–90 days. When `daily=true`, default is 1 quarter. |
+
+Requires the same workspace header as other repurposing endpoints (e.g. `X-Nb-Workspace`).
+
+### Response
+
+The response is the raw Ayrshare social analytics payload: per platform you get an object with `analytics` (and when `daily=true`, daily breakdowns such as `period: "day"` and `values` arrays). Structure varies by platform; see [Ayrshare social analytics](https://www.ayrshare.com/docs/apis/analytics/social).
+
+### Notes
+
+- **Post-level** analytics (per publication/distribution) from Ayrshare are **point-in-time totals**, not daily breakdowns. For “views per day” at **account** level, use this social analytics endpoint with `daily=true`.
+- TikTok: as of March 2025, TikTok may only return 60-day totals; `daily=true` is not supported for TikTok in that case.
+- Data can be delayed (e.g. Instagram up to 48h, TikTok 24–48h).

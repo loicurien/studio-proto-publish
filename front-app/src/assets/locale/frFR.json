@@ -1,0 +1,3317 @@
+{
+  "ACTIVITY": {
+    "LIST": {
+      "EMPTY": "Aucune activité enregistrée"
+    },
+    "REJECT": {
+      "PREFIX": "Médias rejeté:"
+    },
+    "TITLE": "Activité",
+    "day": "Dernière mise à jour",
+    "month": "Mois avant",
+    "past": "Passé",
+    "today": "Aujourd'hui",
+    "week": "Une semaine avant",
+    "year": "Année avant"
+  },
+  "ADMINISTRATION": {
+    "ADMIN_LIST": {
+      "DELETE_SELECTED": "Supprimer {{value}} Utilisateurs sélectionnés",
+      "SEARCH": "Chercher",
+      "SELECT_ALL": "Tout sélectionner",
+      "PAGINATOR": "Page {{page}} sur {{pageSize}} ({{length}} resultat(s))",
+      "PAGINATOR_LABEL": "Nombre de résultat par page"
+    },
+    "CUSTOM_FIELDS": {
+      "ACTIVATE": "Activer le champ",
+      "ADD_FIELD_AFTER": "Ajouter un champ au dessous",
+      "ADD_FIELD_BEFORE": "Ajouter un champ au dessus",
+      "ADD_GROUP_AFTER": "Ajouter un groupe au dessous",
+      "ADD_GROUP_BEFORE": "Ajouter un groupe au dessus",
+      "BUTTONS": {
+        "ADD_CUSTOM_FIELD": "Ajouter un champ",
+        "ADD_GROUP": "Ajouter un groupe",
+        "OPEN_PREVIEW": "Prévisualiser"
+      },
+      "CONTEXT": {
+        "ANNOTATION": "Champs Annotation",
+        "CART": "Champs Panier",
+        "MEDIA": "Champs Media / Évènement",
+        "MISSION": "Champs Media / Évènement",
+        "USER": "Champs Utilisateur"
+      },
+      "CONTEXT_FIELD": "Contexte",
+      "CONTROLS": {
+        "ACTIVE": "Actif",
+        "ADD_FILTER_GROUP": "Ajouter un groupe de valeurs",
+        "ADD_FILTER_ITEM": "Ajouter une valeur",
+        "ALLOW_TEXT": "Autoriser Texte libre",
+        "CATEGORY": "Categorie",
+        "GROUP_LABEL": "Libellé du groupe",
+        "LABEL": "Libellé du champ",
+        "LINK_TO_THESAURUS": "Lier au thésaurus",
+        "MULTIPLE_SELECT": "Selection multiple",
+        "RELATED_FROM": "Filtre parents",
+        "SCOPE": "Valeurs de la liste",
+        "TYPE": "Type de champ",
+        "UID": "Identifiant Technique",
+        "ENTITIES_FILTER": "Filtre d'entités",
+        "ENTITIES_FILTER_NONE": "Labels et Personnes",
+        "ENTITIES_FILTER_PERSONS": "Personnes seulement",
+        "ENTITIES_FILTER_LABELS": "Labels seulement",
+        "UPLOAD_NOTICE": "Téléverser un fichier",
+        "UPLOAD_PROGRESS": "Téléversement du fichier {{filename}}... {{progress}}%"
+      },
+      "CREATE_FIELD": "Ajouter un champ personnalisé",
+      "CREATE_GROUP": "Ajouter un groupe personnalisé",
+      "DEACTIVATE": "Désactiver le champ",
+      "DELETE_FIELD": "Supprimer le champ",
+      "DELETE_GROUP": "Supprimer le groupe",
+      "DELETE_MODAL": {
+        "DELETE_BUTTON": "Supprimer le {{entity}}",
+        "FIELD_ENTITY": "champ",
+        "GROUP_ENTITY": "groupe",
+        "MESSAGE_1": "Attention: la suppression de ce {{entity}} supprimera toutes les données qui y sont rattachées.",
+        "MESSAGE_2": "Les règles comportant l'identifiant: <em>{{uid}}</em> seront inutilisables.",
+        "MESSAGE_3": "Merci de saisir l'identifiant du {{entity}}: <em>{{uid}}</em> pour confirmer cette suppression.",
+        "MESSAGE_GROUP": "En tant que groupe les champs suivants seront également supprimés :",
+        "TITLE": "Suppression de {{entity}} personnalisé"
+      },
+      "DISABLED": "[Désactivé]",
+      "DOWN": "Descendre",
+      "EDIT_FIELD": "Éditer champ personnalisé",
+      "EDIT_GROUP": "Éditer groupe personnalisé",
+      "FIRST": "Premier",
+      "LAST": "Dernier",
+      "MANDATORY": "Champ requis",
+      "MEDIA_TITLE": "Champs Personnalisés Média",
+      "MISSION_TITLE": "Champs Personnalisés Évènement",
+      "MOVE": "Déplacer",
+      "MOVE_FROM_GROUP": "Retirer du groupe",
+      "MOVE_TO_GROUP": "Déplacer vers le groupe",
+      "PREVIEW": "Previsualisation",
+      "SAVED_CUSTOMFIELDS_MSG": "Champs personnalisés enregistrés",
+      "SEARCH_FACET": "Filtre de recherche",
+      "TYPES": {
+        "AUTOCOMPLETE": "Autocomplétion",
+        "BOOLEAN": "Case à cocher",
+        "DATE": "Date",
+        "DATE_TIME": "Date et heure",
+        "FILE": "Fichier",
+        "MULTIPLE_SELECT": "Liste de sélection multiple",
+        "SELECT": "Liste de sélection",
+        "TEXT": "Texte"
+      },
+      "UP": "Monter",
+      "RESTRICTED": "Activer la restriction du champ",
+      "ADMIN_RESTRICTED": "Restreint aux administrateurs",
+      "INTERNAL_RESTRICTED": "Restreint en interne",
+      "NO_RESTRICTION": "Aucune restriction",
+      "RESTRICTION_LEVEL": "Niveau de restriction"
+    },
+    "MENU": {
+      "BILLING": "Facturation",
+      "CUSTOMFIELDS": "Champs Personnalisés",
+      "ORGANIZATIONS": "Organisations",
+      "PROFILES": "Profils d'encodage",
+      "PROGRAMS": "Programmes",
+      "STATS": "Statistiques",
+      "USERS": "Utilisateurs"
+    },
+    "ORGANIZATIONS": {
+      "EDIT_ORGANIZATION": "Modifier l'organisation",
+      "FIELDS": {
+        "LABEL": "Nom"
+      },
+      "NEW_ORGANIZATION": "Nouvelle organisation",
+      "TITLE": "Organisations"
+    },
+    "PROGRAMS": {
+      "EDIT_PROGRAM": "Modifier le programme",
+      "FIELDS": {
+        "LABEL": "Nom"
+      },
+      "NEW_PROGRAM": "Nouveau programme",
+      "TITLE": "Programmes",
+      "NO_PROGRAM": "Pas de programme pour le moment.",
+      "CLICK_BUTTON": "Cliquer sur",
+      "ADD_PROGRAM": "pour ajouter un programme.",
+      "CREATED": "Programme créé",
+      "EDITED": "Programme édité"
+    },
+    "USERS": {
+      "EDIT_USER": "Modifier l'utilisateur",
+      "LIST": {
+        "ACCOUNT_REQUEST": "Demande de compte",
+        "ACCOUNT_VALIDATED": "Compte utilisateur",
+        "FIELDS": {
+          "EMAIL": "Email",
+          "FIRSTNAME": "Prénom",
+          "LASTLOGIN": "Dernière connexion",
+          "LASTNAME": "Nom",
+          "ORGANIZATION": "Organisation",
+          "PASSWORD": "Mot de passe",
+          "PHONE": "Téléphone",
+          "ROLE": "Rôle",
+          "SLACK": "Slack",
+          "SOURCE": "Source",
+          "STATUS": "Statut"
+        },
+        "INVITATION_SENT": "Invitation envoyée",
+        "NO_RESULTS": "Aucun utilisateur trouvé.",
+        "NO_RESULTS_SEARCH": "Aucun utilisateur ne correspond à ces critères: '{{value}}'",
+        "SELECT": {
+          "ALL": "Tout afficher",
+          "FILTER_USERS": "Filtrer les utilisateurs",
+          "INVITEES": "Invitations envoyées",
+          "REQUESTERS": "Demandes de compte",
+          "USERS": "Comptes utilisateurs"
+        }
+      },
+      "NEW_USER": "Nouvel utilisateur",
+      "PANEL": {
+        "ADVANCED_PARAMS": "Options avancées",
+        "APPROVE_ACCOUNT_REQUEST": "Valider la demande",
+        "EMAIL_ALREADY_IN_USE": "Cette adresse email est déjà utilisée.",
+        "FIELDS": {
+          "EMAIL": "Email",
+          "FIRSTNAME": "Prénom",
+          "LASTNAME": "Nom",
+          "ORGANIZATION": "Organisation",
+          "PASSWORD": "Mot de passe",
+          "PASSWORD_EDIT": "Mot de passe (inchangé)",
+          "PASSWORD_OPTIONAL": "Mot de passe",
+          "PHONE": "Téléphone",
+          "ROLE": "Rôle",
+          "SLACK": "Slack",
+          "LINKED_ENTITY": "Entité du thésaurus liée"
+        },
+        "SAVE_AND_RESEND_INVITATION": "Enregistrer et renvoyer l'invitation",
+        "SEND_INVITATION": "Envoyer invitation",
+        "SERVICE_ACCOUNT": "Compte de service",
+        "DISPLAY_ASSET_TYPE_SEARCH_PAGE": "Affichage du type de média par défaut dans la vue de recherche",
+        "SYSTEM_MODE": "Configuration du navigateur",
+        "TITLE": "Utilisateur",
+        "TITLE_DISPLAY_SETTINGS": "Préférences d'affichage",
+        "DARK_MODE": "Foncé",
+        "LIGHT_MODE": "Clair",
+        "GRID": "Grille",
+        "LIST": "Liste",
+        "THEME": "Thème",
+        "AUTOPLAY_PREVIEW": "Lecture automatique des aperçus vidéo",
+        "AUTOPLAY_MEDIA": "Lecture automatique des vidéo dans les medias",
+        "DISPLAY_EVENT_PAGE": "Disposition de la liste des médias dans la vue évènements",
+        "DISPLAY_SEARCH_PAGE": "Disposition de la liste des médias dans la recherche",
+        "SKIP_MEDIA_PREVIEW": "Passer l’aperçu du média",
+        "CUSTOM_FIELDS_SETTINGS": "Champs personnalisés à afficher dans les médias"
+      },
+      "RESEND_INVITATION": "Renvoyer l'invitation",
+      "SEARCH_USERS": "Rechercher des utilisateurs",
+      "TITLE": "Utilisateurs",
+      "USER_SELECTOR_LANGUAGE_LABEL": "Langages disponibles"
+    }
+  },
+  "ANNOTATIONS": {
+    "ALL_CATEGORIES": "Toutes les catégories",
+    "CATEGORY": "Catégorie",
+    "CREATE_TITLE": "Ajouter un moment de {{val_tc_in}} à {{val_tc_out}}",
+    "DESCRIPTION": "Description",
+    "DETECTION_DONE": "Détection OCR terminée",
+    "DETECTION_IN_PROGRESS": "Détection OCR en cours...",
+    "EDIT_TITLE": "Modifier une annotation",
+    "LABEL_TEXT": "Titre",
+    "LAUNCH_OCR_DETECTION": "Lancer la détection OCR"
+  },
+  "APP_UPDATE": "Nouvelle version disponible",
+  "AUTH": {
+    "ACCEPT_INVITATION": {
+      "AGREEMENT": "J'ai lu et j'accepte la ",
+      "AGREEMENTS": "J'ai lu et j'accepte les ",
+      "ALREADY_ACCOUNT": "Compte existant ? ",
+      "CONDITIONS_OF_USE": "conditions générales de vente et d'utilisation",
+      "DATA_PRIVACY": "politique de confidentialité",
+      "DEFINE_PASSWORD_NOTICE": "Merci de renseigner les informations suivantes afin d'activer votre compte :",
+      "HIDE": "Masquer le mot de passe",
+      "LAST_STEP_NOTICE": "On y est presque ! 🚀",
+      "LOGIN": "Se connecter",
+      "MESSAGE": {
+        "COMPLETE": "Bienvenue ! Votre compte a été créé",
+        "ERROR": "Une erreur est survenue. Merci de réessayer.",
+        "NO_DATA": "Aucun utilisateur ne correspond à votre demande."
+      },
+      "PASSWORD": "Mot de passe",
+      "SHOW": "Voir le mot de passe",
+      "SUBMIT": "Valider",
+      "TERMS_CONDITIONS": "termes et conditions d'utilisation",
+      "TERMS_OF_SALE": "conditions générales de vente",
+      "WELCOME": "Bienvenue sur "
+    },
+    "CHECK_PASSWORD": {
+      "LOWERCASE": "Un caractère minuscule",
+      "MIN_CHAR": "8 caractères minimum",
+      "NUMBER": "Un chiffre",
+      "SPECIAL": "Un caractère spécial",
+      "UPPERCASE": "Un caractère majuscule",
+      "VALID_PASSWORD": "Mot de passe sécurisé"
+    },
+    "ERRORS": {
+      "CONFIG_LOADING_ERROR": "Erreur lors du chargement de la configuration.",
+      "DEFAULT": "Auth0 error:",
+      "INVALID_CUSTOMER": "Désolé, votre compte n'est plus actif.",
+      "LOGIN_EMPTY": "Veuillez s'il vous plaît saisir un login",
+      "MAILTO_ERROR": "Impossible d'envoyer l'e-mail de demande de compte.",
+      "MAINTENANCE": {
+        "MESSAGE": "Ne vous inquiétez pas, nous serons de retour en un éclair!",
+        "REFRESH": "Cliquez ici pour vérifier",
+        "TITLE": "Maintenance en cours"
+      },
+      "MISSING_PARAMETER": "Merci de renseigner les champs ci-dessous.",
+      "NO_METADATA": "Profil incomplet (NO_METADATA): Veuillez contacter votre administrateur.",
+      "PASSWORD_EMPTY": "Veuillez s'il vous plaît saisir un mot de passe",
+      "SERVER_ERROR": "Erreur du serveur.",
+      "SESSION_EXPIRED": "Votre session a expiré.",
+      "TOO_MANY_ATTEMPTS": "Votre compte a été bloqué après plusieurs tentatives de connexion consécutives. Nous vous avons envoyé un courrier électronique avec les instructions pour le débloquer.",
+      "WRONG_DOMAIN": "Vous êtes sur un domaine inattendu par votre profil.",
+      "INVALID_GRANT": "Mauvais email ou mot de passe."
+    },
+    "REGISTER": {
+      "ABOUT_YOU": "Votre Profil",
+      "BACK_TO_LOGIN": "Revenir à l'authentification",
+      "BUTTONS": {
+        "BACK": "Précédent",
+        "CHECKING": "Envoi en cours",
+        "NEXT": "Suivant",
+        "SUBMIT": "Envoyer"
+      },
+      "CONFIRM_MESSAGE": "Vous recevrez prochainement un email vous invitant à définir votre mot de passe.",
+      "EMAIL": "Email",
+      "FIRST_NAME": "Prénom",
+      "LAST_NAME": "Nom",
+      "PASSWORD": "Mot de Passe",
+      "PHONE": "Téléphone",
+      "RECAPTCHA_SETUP_ERROR": "erreur : reCaptcha non configuré.",
+      "RECAPTCHA_VERIFICATION_ERROR": "erreur lors de la vérification recaptcha.",
+      "REGISTER_NOTICE": "🚀 Ceci ne devrait prendre que quelques secondes :",
+      "REGISTER_TITLE": "Demande de création de compte",
+      "SLACK": "Slack",
+      "THANKS_MESSAGE": "Merci pour votre demande de compte !",
+      "YOUR_COMPANY": "Votre Société",
+      "YOUR_PROFILE": "Votre Profil"
+    },
+    "RESET": {
+      "LOGIN": "Email",
+      "SUBMIT": "Réinitialiser",
+      "TEXT": "Un email sera envoyé.",
+      "TITLE": "réinitialisez votre mot de passe"
+    },
+    "SIGNIN": {
+      "ACCOUNT_CREATION": "Demande de création de compte",
+      "BACK_TO_LOGIN": "Revenir à l'authentification",
+      "CHECKING": "Vérification",
+      "IDENTIFIED": "D'accord !",
+      "LOGIN": "Email",
+      "LOGIN_WITH": "Login with {{value}}",
+      "LOST": "Mot de passe perdu ?",
+      "PASSWORD": "Mot de passe",
+      "RECOVER": "Récupérer",
+      "RECOVERY_DONE": "Si un utilisateur valide existe avec cet email et dispose d'un mot de passe, un email sera envoyé",
+      "RECOVERY_ERROR": "Erreur de récupération.",
+      "REMEMBER": "Enregistrer",
+      "SUBMIT": "Entrer",
+      "INVITE": "Connectez vous à votre compte Moments Lab",
+      "INVITE_2": "Ou connectez vous avec votre email",
+      "ACCOUNT_CREATION_INVITE": "Vous n'avez pas de compte ?"
+    },
+    "TEXT": "Moments Lab est une plateforme de contribution qui vous donne plus de contrôle sur vos productions vidéo.",
+    "TITLE": "Valorisons vos contenus"
+  },
+  "BROWSER": {
+    "BAD": {
+      "MESSAGE": "Certaines fonctionnalités intéressantes sont désactivées sur votre navigateur. Veuillez installer ou utiliser Chrome, Firefox ou Safari",
+      "TITLE": "Erreur"
+    },
+    "WARNING": {
+      "MESSAGE": "Ce site Web est optimisé pour les navigateurs modernes tels que Firefox, Google Chrome ou Safari.",
+      "TITLE": "Attention"
+    }
+  },
+  "BUTTONS": {
+    "ABORT": "abort",
+    "ACTIVATE": "Activer",
+    "ADD": "Ajouter",
+    "ADD_AN_ANNOTATION": "Ajouter une annotation",
+    "ADD_A_LABEL": "Ajouter un label",
+    "ADD_A_PERSON": "Ajouter une personne",
+    "ADD_MEDIA": "Ajouter un media",
+    "ADD_MEDIA_TO_CART": "Ajouter le media au panier",
+    "ADD_NEW_DATA": "Ajouter une nouvelle donnée",
+    "ADD_OCCURRENCE": "Ajouter une occurrence",
+    "ADD_SEQUENCE_TO_CART": "Ajouter la sequence au panier",
+    "ADD_TO_CART": "Ajouter au panier",
+    "APPLY": "Filtrer",
+    "APPROVE": "Approuver",
+    "APPROVE_PRESENCE": "Valider le label",
+    "ASK_AGENT": "Demander à l'Agent",
+    "BACK": "Retour",
+    "BROWSE_FILES": "Parcourir",
+    "CANCEL": "Annuler",
+    "CART_HISTORY": "Historique des paniers",
+    "CLEAR": "Effacer",
+    "CLOSE": "Fermer",
+    "CONFIRM": "Confirmer",
+    "CONFIRM_ORDER": "Valider la commande {{file_type}}",
+    "CONNECTION_TEST": "Tester la connexion",
+    "COPY_LINK_TO_CLIPBOARD": "Copier le lien",
+    "COPY_ORIGINAL_URL": "Copier l'adresse de l'original",
+    "COPY_TO_CLIPBOARD": "Copier",
+    "CREATE": "Créer",
+    "DELETE": "Supprimer",
+    "DELIVER": "Livrer",
+    "DISABLE": "Désactiver",
+    "DISAPPROVE_PRESENCE": "Invalider la présence",
+    "DISCARD_PRESENCE": "Exclure le label",
+    "DOWNLOAD": "Télécharger",
+    "DOWNLOAD_FILE": "Télécharger {{filename}}",
+    "DUPLICATE": "Dupliquer",
+    "EDIT": "Éditer",
+    "EDIT_COVER": "Changer Visuel",
+    "EMPTY": "Vider",
+    "EXPORT": "Exporter",
+    "EXPORT_DATA_TEXT": "Exporter données/sous-titres",
+    "EXPORT_TEXT": "Exporter texte",
+    "GENERATE": "Générer",
+    "GENERATE_FILE": "Générer un fichier",
+    "GENERATE_OTHER_FILE": "Générer un autre fichier",
+    "GET_COMPANION": "Obtenir le srt",
+    "GET_LINK": "obtenir le lien",
+    "LEARN_MORE": "En savoir plus",
+    "MAKE_A_CLIP": "Clip",
+    "NEW_EXPORT": "Nouvel export",
+    "NEW_REQUEST": "Nouvelle demande",
+    "NEW_RECORDING": "Nouvel enregistrement",
+    "NEXT": "Suivant",
+    "OK": "Ok",
+    "OPEN": "Ouvrir",
+    "OPEN_CART": "Ouvrir le panier",
+    "OPEN_SUBCLIP_TOOLS": "Ouvrir clipping tools",
+    "OPEN_MEDIA": "Ouvrir le media",
+    "OPEN_MOMENT": "Ouvrir le moment",
+    "OPEN_SHOT": "Ouvrir le shot",
+    "OPEN_STUDIO": "Ouvrir le Studio",
+    "OPEN_IN_NEW_TAB": "Ouvrir dans un nouvel onglet",
+    "ORDER": "Commander",
+    "ORDER_HISTORY": "Historique des commandes",
+    "PREVIOUS": "Précédent",
+    "QUOTATION": "Demande de devis",
+    "REMOVE": "Retirer",
+    "REQUEST": "Faire une demande",
+    "REQUEST_HD": "Demande de Fichier HD",
+    "REQUEST_PROXY": "Demande de Fichier Proxy",
+    "RESET": "Réinitialiser",
+    "RESTART": "Restart",
+    "SAVE": "Enregistrer",
+    "SAVED": "Enregistré !",
+    "SAVE_CHANGES": "Enregistrer modifications",
+    "SAVING": "Enregistrement ...",
+    "SEARCH": "Rechercher",
+    "SEARCH_IN_MEDIA": "Rechercher dans le media",
+    "SELECT": "Sélectionner",
+    "SELECT_ALL": "Tout",
+    "SEND": "Envoyer",
+    "SHARE": "Partager",
+    "SHARING": "partage",
+    "SHUFFLE": "Aléatoire",
+    "SKIP": "Passer",
+    "UPDATE": "Mettre à jour",
+    "UPLOAD": "Téléverser",
+    "VALIDATE": "Valider",
+    "VALIDATE_ORDER": "Confirmer la commande",
+    "BROKEN": "Cassé",
+    "RESTART_BROKEN": "Relancer & Mettre à Cassé",
+    "PREVIEW": "Prévisualisation",
+    "MOVE": "Déplacer",
+    "DOWNLOAD_MOMENT": "Télécharger le moment",
+    "SELECT_MODE": "Activer le mode sélection",
+    "QUIT_SELECT": "Quitter le mode sélection",
+    "EDIT_VIDEO": "Éditer la vidéo",
+    "RENAME": "Renommer",
+    "SEND_TO": "Envoyer vers une destination",
+    "GO_BACK": "Retour",
+    "CANCEL_ALL": "Tout annuler",
+    "DELETE_PROJECT": "Supprimer"
+  },
+  "CARTS": {
+    "DESTINATIONS": {
+      "NO_DESTINATION_AVAILABLE": "Pas de destination disponible.",
+      "PROFILE": "Profil : {{ profile }}",
+      "TYPE": {
+        "export_txt": "Export Texte",
+        "pickup_point": "Téléchargement",
+        "remote_server": "Serveur Distant"
+      }
+    },
+    "EXPORT_FILE_LABEL": "Type de fichier",
+    "EXPORT_TEXT": "Export Données / Sous-Titres",
+    "EXPORT_TYPE": {
+      "ASSEMBLY": "Fichier assemblé",
+      "DATA": "Données / Sous-Titres",
+      "PACKAGE": "Lot de fichiers",
+      "QUOTE_REQUEST": "Demande de devis"
+    },
+    "FILE_REQUEST_SENT": "Demande de {{label}} effectuée.",
+    "GIVE_NAME": "Merci de nommer votre panier :",
+    "MEDIA_DELETED": "Media Supprimé",
+    "MEDIA_INCOMPLETE_DELETED": "Média incomplet ou supprimé.",
+    "MIXED_CONTENT_ALERT": "L'export de contenu mixte n'est pas encore disponible",
+    "NAME": "Nom :",
+    "NO_CART": "Pas de panier pour le moment.",
+    "NO_OUTPUT": "Aucun export compatible",
+    "NO_OUTPUT_TOOLTIP": "Aucun export compatible",
+    "NUM_SUBCLIP": "élément",
+    "NUM_SUBCLIPS": "éléments",
+    "REQUEST_SENT": "Demande effectuée.",
+    "RESUME": {
+      "DATE": "Date : ",
+      "DESCRIPTION": "Motif de la demande :",
+      "USER": "Utilisateur : "
+    },
+    "SELECT_EXPORT_TYPE": "Sélectionnez un type d'export :",
+    "TOOLTIPS": {
+      "MEDIA": "Media :",
+      "MISSION": "Évènement :",
+      "NO_DATA": "Pas de donnée",
+      "RECORDED_AT": "Date :"
+    },
+    "FILTERS": {
+      "FILTER": "Filtrer",
+      "SEARCH": "Rechercher"
+    }
+  },
+  "COLLECTIONS": {
+    "ACTIONS": {
+      "CREATE": "Créer une collection",
+      "CREATE_FIRST": "Créez votre première collection",
+      "DELETE": "Supprimer la collection",
+      "EDIT": "Éditer la collection"
+    },
+    "CHANGE_COVER_TITLE": "Changer le visuel de couverture",
+    "DEFAULT": {
+      "DESCRIPTION": "L'opportunité de créer et partager des accès rapides à des collections de médias, grâce à des facettes de recherche.",
+      "EVER_GROWING": "Une collection de contenu en permanente évolution. Les nouveaux médias téléchargés sur Moments Lab dont le contenu correspond aux critères de recherche associés à une collection y seront automatiquement ajoutés.",
+      "FILTER_MEDIAS": "Filtrez les médias qui apparaitront dans la collection avec des facettes de recherches telles que <em>@</em>personnalités, <em>#</em>labels,<br><em>\"</em>mots-clefs prononcés, dates...",
+      "QUICK_SHARE": "Délivrez en un clin d'œil à votre équipe et vos partenaires un accès rapide à une collection de médias pertinents. Définissez en toute simplicité vos options de partage.",
+      "WELCOME": "Bienvenue dans Collections !"
+    },
+    "DEFAULT_COLLECTION_TITLE": "Nouvelle Collection",
+    "DEFAULT_DESCRIPTION_PLACEHOLDER": "Cliquez pour ajouter une description",
+    "DESCRIPTION_PLACEHOLDER": "Description",
+    "FOR_NOW": "pour le moment...",
+    "MEDIA": "{{value}} Media",
+    "MEDIAS": "{{value}} Medias",
+    "NOTIFICATIONS": {
+      "COLLECTION_CREATED": "Collection créée",
+      "COLLECTION_DELETED": "Collection supprimée",
+      "COLLECTION_UPDATED": "Collection modifiée",
+      "TOPICS_UPDATED": "Topics mis à jour"
+    },
+    "NO_MATCHING_MEDIAS": "Pas de média correspondant",
+    "TITLE_PLACEHOLDER": "Titre de la Collection",
+    "UPDATE": "{{value}} mise à jour",
+    "UPDATES": "{{value}} mise à jour",
+    "UPLOAD_NOTICE": {
+      "ALLOWED_FILES": ".jpg/.png",
+      "DIMENSIONS": "Dimensions :",
+      "FILE_FORMAT": "Format de fichier :",
+      "FILE_RATIO": "Ratio 16:9ème (minimum 450x255px)",
+      "HEADING_RATIO": "Ratio 13:2 (minimum 1950x300px)"
+    },
+    "DEFAULT_TITLE_PLACEHOLDER": "Cliquez pour ajouter un titre",
+    "PERSONAL_COLLECTION": "Ma collection",
+    "TOPICS_ADMIN": "Administration des topics",
+    "COLLECTIONS_ADMIN": "Administration des collections ",
+    "CAROUSEL_ADMIN": "Administration du carousel",
+    "SELECT_ORGANIZATION": "Partage aux organisations",
+    "ERRORS": {
+      "NO_PERMISSION_ACCESS": "L'accès à ce contenu est restreint. Merci de contacter votre administrateur ({{code}})",
+      "SERVER_ERROR": "Erreur de serveur. Si le problème persiste, merci de contacter votre administrateur ({{code}})",
+      "ERROR_OCCURRED": "Une erreur interne est survenue. Si le problème persiste, merci de contacter votre administrateur ({{code}})"
+    },
+    "TOPICS": {
+      "BACK_HOME": "Accueil",
+      "TOPICS": "Topics",
+      "ALL": "Toutes les collections",
+      "OTHER": "Autres collections",
+      "PERSONAL": "Ma collection",
+      "DISPLAY_ALL": "Tout afficher",
+      "COLLECTION": "{{value}} Collection",
+      "COLLECTIONS": "{{value}} Collections",
+      "NO_RESULT": "Aucun résultat",
+      "MEDIA": "({{value}} média)",
+      "MEDIAS": "({{value}} médias)"
+    },
+    "ADMIN": {
+      "TITLE": "Administration des collections",
+      "HEADING_TITLE": "Administration des entêtes de collections",
+      "COLLECTION_TOPICS": "Topics",
+      "AVAILABLE_COLLECTIONS": "Collections disponibles",
+      "COLLECTIONS": "Collections",
+      "DROP_COLLECTION": "Glissez-déposez une collections ici",
+      "SEARCH_COLLECTION": "Rechercher une collection",
+      "HEADING": {
+        "LINK": "Lier à",
+        "LINK_TYPE": "Type de lien",
+        "ORGANIZE_HEADING_ITEMS": "Gestion des entêtes",
+        "ADD_HEADING_ITEM": "Ajouter un entête",
+        "EDIT_HEADING_ITEM": "Éditer une entête",
+        "HEADING_IMAGE": "Image d'entête :",
+        "DISPLAY_TITLE": "Afficher le titre",
+        "LINK_LABELS": {
+          "none": "Aucun",
+          "topics": "Topics",
+          "collections": "Collections"
+        },
+        "ACTIONS": {
+          "DELETE_HEADING_ITEM": "Supprimer l'entête",
+          "EDIT_HEADING_ITEM": "Éditer l'entête"
+        }
+      },
+      "TOPICS": {
+        "ACTIVE": "actif",
+        "TITLE": "titre*",
+        "DESCRIPTION": "Description",
+        "ADD_TOPIC": "Ajouter un topic",
+        "EDIT_TOPIC": "éditer le topic",
+        "ACTIONS": {
+          "DELETE_TOPIC": "Supprimer le topic",
+          "EDIT_TOPIC": "Éditer le topic",
+          "ADD_TOPIC": "Ajouter un topic",
+          "SAVE_TOPICS": "Enregistrer les Topics",
+          "CREATE_COLLECTION": "Créer une collection",
+          "REMOVE_COLLECTION": "Enlever la collection du topic",
+          "DELETE_COLLECTION": "Supprimer la collection",
+          "EDIT_COLLECTION": "Éditer la collection",
+          "MOVE_UP": "Déplacer vers le haut",
+          "MOVE_DOWN": "Déplacer vers le bas",
+          "MOVE_FIRST": "Déplacer en première position",
+          "MOVE_LAST": "Déplacer en dernière position"
+        }
+      },
+      "MANDATORY_FIELDS": "Les champs marqués d'un * sont obligatoires",
+      "MANDATORY_FIELDS_EVERY_LANGUAGE": "Les champs marqués d'un * sont obligatoires pour chaque langue"
+    },
+    "EMPTY_STATE": "Pas de collection pour le moment.",
+    "CREATION_NOTICE": "À partir de votre recherche, créez une collection dynamique mise à jour en temps réel et définissez qui peut y accéder.",
+    "QUERY_FIELD_LABEL": "Recherche",
+    "SEARCH_SECTION": "Vue par défaut",
+    "RESULT": "{{value}}  Résultat",
+    "RESULTS": "{{value}}  Résultats",
+    "MOMENTS": "{{value}} Moments",
+    "MOMENT": "{{value}} Moment",
+    "BREADCRUMB_ROOT": "Collections",
+    "TRANSLATIONS": "Traductions",
+    "SORT_ORDER": "Ordre de tri"
+  },
+  "COMPANION_FILE": {
+    "PREVIEW": "Prévisualisation"
+  },
+  "CONFIRM": {
+    "DEFAULT": {
+      "CANCEL": "Annuler",
+      "CONFIRM": "Oui",
+      "TITLE": "Êtes-vous sûr ?"
+    }
+  },
+  "CUSTOM_FIELDS": {
+    "MANDATORY_FIELDS_NOTICE": "* : Champs obligatoires",
+    "MESSAGES": {
+      "free_text_not_allowed": "Free text is not allowed in this field"
+    },
+    "SELECT_NONE": "Aucun",
+    "EVENT": "Evénement : "
+  },
+  "DASHBOARD": {
+    "CATEGORIES": {
+      "APPROVAL": "Validation",
+      "DATE": "Date de création",
+      "DURATION": "Durée",
+      "NAME": "Nom de fichier",
+      "RECORDED_AT": "Date d'enregistrement",
+      "TITLE": "Titre",
+      "TYPE": "Type",
+      "START_DATE": "Date de début",
+      "RELEVANCE": "Pertinence"
+    },
+    "CHANGE_FILTERS": "Merci de modifier les filtres pour afficher les médias de l'Event",
+    "CLIPBOARD": {
+      "ACTIONS": {
+        "ADD_TO_CART": "Ajouter au panier",
+        "COPY": "Copier",
+        "CUT": "Couper",
+        "DELETE": "Effacer le média",
+        "DOWNLOAD": "Télécharger",
+        "DOWNLOAD_OPTIMIZED": "Média optimisé {{value}} ",
+        "DOWNLOAD_ORIGINAL": "Original",
+        "INDEXATION": "Indexation",
+        "INVALIDATE": "Suppr. approbation",
+        "MOVE_TO": "Déplacer vers",
+        "PASTE": "Coller",
+        "SELECT_ALL": "Tout sélectionner",
+        "SEND_TO": "Envoyer vers",
+        "UNSELECT": "Désélectionner",
+        "VALIDATE": "Approuver",
+        "DOWNLOAD_FULL_MEDIA": "Télécharger média entier",
+        "SET_DATE": "Remplacer la date du média…",
+        "SET_TITLE": "Remplacer le nom du média…",
+        "ADD_ORGANIZATION": "Partager avec une organisation",
+        "DOWNLOAD_OPTION": "Télécharger au format {{value}} ",
+        "EDIT": "Éditer les infos media...",
+        "MOVE_MEDIA": "Déplacer dans un autre évènement...",
+        "MOVE_MEDIA_CURRENT_EVENT": "Déplacer dans l'évènement courant",
+        "SET_THUMBNAIL": "Changer de vignette",
+        "SHARE": "Partager"
+      },
+      "MEDIAS_SELECTED": "Médias sélectionnés",
+      "ONE_MEDIA_SELECTED": "Média sélectionné",
+      "TOTAL_MEDIAS_SELECTED": "{{value}} médias sélectionnés",
+      "TOTAL_MEDIA_SELECTED": "{{value}} média sélectionné"
+    },
+    "DATALABELS": {
+      "DUE_DATE": "Date d'échéance",
+      "JOUNRNALIST": "Journaliste",
+      "MISSION_TYPE": "Type",
+      "MISSON_LABEL": "prénom",
+      "OPTIONS": "Les options"
+    },
+    "DATE": {
+      "DAYS": "jours",
+      "HOUR": "heures",
+      "LATE": "en retard",
+      "LEFT": "restant",
+      "MINUTES": "minutes",
+      "SECONDS": "secondes",
+      "SHORT": {
+        "DAYS": "j",
+        "HOURS": "h",
+        "MINUTES": "m",
+        "SECONDS": "s"
+      }
+    },
+    "DATE_PICK": {
+      "TITLE": "Choisir une date"
+    },
+    "ERRORS": {
+      "400": "Impossible de trouver cet évènement.",
+      "ERROR_OCCURRED": "Oups, une erreur est survenue..."
+    },
+    "EVENTS": {
+      "CREATE_EVENT": "Créer un nouvel évènement",
+      "DRAG_DROP_FILES": "Déposez vos fichiers",
+      "DROP_FILES": "Déposez vos fichiers ici",
+      "FLASHCODE": "Flashcode",
+      "INFOS_TAB": "INFOS",
+      "MEDIA": "{{value}} média",
+      "MEDIAS": "{{value}} médias",
+      "MEDIAS_TAB": "MEDIAS ({{ count }})",
+      "NEW_EVENT": "Nouvel évènement",
+      "NO_DESTINATION": "Pas de destination compatible",
+      "NO_EVENT": "Pas d'évènement pour cette section pour le moment",
+      "NO_EVENT_MATCHING": "Pas d'évènement correpondant à votre recherche...",
+      "NO_EVENT_YET": "Pas d'évènement.",
+      "OR": "ou",
+      "TOOLTIPS": {
+        "SWITCH_GRID": "Passer en vue grille",
+        "SWITCH_LIST": "Passer en vue liste",
+        "SWITCH_SPLIT": "Passer en vue détaillée"
+      },
+      "NO_DEVICE": "Aucun appareil",
+      "EDIT_FORM": {
+        "CREATE_EVENT": "Créer un nouvel évènement",
+        "EDIT_EVENT": "Editer un évènement",
+        "FIELDS": {
+          "TYPE": "Type",
+          "PROGRAM": "Programme",
+          "TITLE": "Titre",
+          "DESCRIPTION": "Description",
+          "DEVICES": "Appareils",
+          "DESTINATIONS": "Destinations",
+          "ORGANIZATIONS": "Organisations"
+        }
+      },
+      "MEDIA_NO_EVENT": "media ne fait partie d'aucun évènement.",
+      "MEDIAS_NO_EVENT": "medias ne font partie d'aucun évènement.",
+      "EMPTY_EVENT": "Pas de media pour le moment.",
+      "EDIT_EVENT": "Edition d'évènement",
+      "FIELDS": {
+        "TYPE": "Type",
+        "PROGRAM": "Programme",
+        "TITLE": "Titre",
+        "DESCRIPTION": "Description",
+        "DEVICES": "Appareils",
+        "DESTINATIONS": "Destinations"
+      }
+    },
+    "EVENT_CARD": {
+      "COGNITIVE_TASKS": "Tâches Cognitives",
+      "DATE": "Date",
+      "ORGANIZATIONS": "Organisations",
+      "OWNER": "Propriétaire",
+      "PROGRAM": "Programme",
+      "STATUS": "Statut",
+      "TOOLTIPS": {
+        "LABEL_DETECTION": "Détection de labels",
+        "NO_LABEL_DETECTION": "Pas de détection de labels",
+        "NO_PERSON_DETECTION": "Pas de détection de personnes",
+        "NO_TEXT_RECOGNITION": "Pas de reconnaissance optique de caractères",
+        "NO_TRANSCRIPTION": "Pas de transcription",
+        "PERSON_DETECTION": "Détection de personnes",
+        "TEXT_RECOGNITION": "Reconnaissance optique de caractères",
+        "TRANSCRIPTION": "Transcription",
+        "MXT_ANALYSIS": "Analyse MXT"
+      },
+      "TYPE": "Type"
+    },
+    "EVENT_INFOS": {
+      "FROM_USER": "De ",
+      "INFOS": "Infos",
+      "LAST_EDIT": "dernière modification le ",
+      "TOTAL_MEDIA": "{{value}} media",
+      "TOTAL_MEDIAS": "{{value}} medias"
+    },
+    "EVENT_MENU": {
+      "APPROVE": "Approuver l'évènement",
+      "DELETE": "Supprimer l'évènement",
+      "EDIT": "Éditer l'évènement",
+      "FLASHCODE": "Flashcode",
+      "UNAPPROVE": "Désapprouver l'évènement",
+      "DUPLICATE": "Dupliquer l'évènement"
+    },
+    "FILTERS": "Filtres",
+    "FILTER_VALUES": {
+      "APPROVAL": {
+        "approved": "approuvé",
+        "not_approved": "non approuvé"
+      },
+      "MEDIA_TYPE": {
+        "audio": "audio",
+        "document": "document",
+        "image": "image",
+        "unknown": "autre",
+        "video": "vidéo"
+      }
+    },
+    "JOURNALIST_PICK": {
+      "TITLE": "Sélectionner un journaliste"
+    },
+    "LIST": {
+      "END": "C'est tout pour le moment :)",
+      "NO_MISSIONS": {
+        "HINT_PART1": "Utilisez le",
+        "HINT_PART2": "pour créer un évènement.",
+        "TITLE": "Aucun évènement disponible"
+      }
+    },
+    "MAIN_SEARCH": {
+      "ADD_MEDIA_CART": "Ajouter le média au panier",
+      "ADD_SEQUENCE_CART": "Ajouter la séquence au panier",
+      "ADD_TO_CART": "Ajouter au panier",
+      "ADD_TO_SEARCH": "Ajouter à la recherche",
+      "AUTOCOMPLETE": {
+        "ANNOTATION_WITH": "Toutes les annotations incluant ",
+        "LABEL_WITH": "Tous les labels incluant ",
+        "MEDIA_WITH": "Tous les medias incluant ",
+        "MISSION_WITH": "Toutes les évènements incluant ",
+        "NOTICE": "Pressez ↵ pour ajouter l'élément à la sélection",
+        "PERSON_WITH": "Toutes les personnes incluant ",
+        "SEARCH": "Rechercher ",
+        "SEARCH_ANNOTATION": "rechercher une annotation",
+        "SEARCH_LABEL": "rechercher un label",
+        "SEARCH_MEDIA": "rechercher un media",
+        "SEARCH_MISSION": "rechercher un évènement",
+        "SEARCH_PERSON": "rechercher une personne",
+        "SEARCH_TRANSCRIPT": "rechercher une citation",
+        "SELECT": "- sélectionnez",
+        "TRANSCRIPT_WITH": "Toutes les citations incluant "
+      },
+      "COLLECTION": "(Collection)",
+      "COLLECTIONS": {
+        "BUTTONS": {
+          "CREATE": "Enregistrer comme collection",
+          "UPDATE": "Mettre à jour la recherche"
+        }
+      },
+      "EMPTY_MISSION": "Cette misison est vide",
+      "FACETS": {
+        "ADVANCED_SEARCH": {
+          "DOCTYPES": "Je souhaite retrouver des: ",
+          "SEARCH_IN": "Je souhaite rechercher <em>\"{{value}}\"</em> dans: ",
+          "TITLE": "Recherche avancée"
+        },
+        "ALL_MEDIAS": "Tous les médias",
+        "COLLECTION": "(Collection)",
+        "DATE_RANGE_FROM": "Depuis le:",
+        "DATE_RANGE_TO": "Jusqu'au:",
+        "END_DATE_FILTER": "Au : (JJ/MM/AAAA)",
+        "EXCERPT": "Extrait",
+        "INVALID_DATE": "Format de date non valide",
+        "INVALID_DATE_RANGE": "La date de fin précède la date de début",
+        "LABEL_NAMES": "Labels",
+        "LABEL_HYPERLINKS": "Labels",
+        "LESS_OPTIONS": "Moins",
+        "MEDIAS_FACET": "Médias",
+        "MEDIA_TYPES": {
+          "ALL_TYPES": "Tout sélectionner",
+          "PLACEHOLDER": "Types de Media",
+          "audio": "Audio",
+          "document": "Document",
+          "image": "Photo",
+          "unknown": "Autre",
+          "video": "Video",
+          "PLACEHOLDER_MEDIA": "Type média",
+          "PLACEHOLDER_MOMENT": "Type Moment"
+        },
+        "MISSION": "Évènement",
+        "MORE_OPTIONS": "Plus",
+        "ORDER_BY": {
+          "DATE": "Date",
+          "PERTINENCE": "Pertinence",
+          "PLACEHOLDER": "Tri par:"
+        },
+        "ORGANIZATION": "Organisation",
+        "ORGANIZATIONS": "Organisations",
+        "PERSON_NAMES": "Personnes",
+        "PERSON_HYPERLINKS": "Personnes",
+        "PHOTO": "Photo",
+        "PROGRAMS": "Programmes",
+        "RECORDED_DATE_RANGE": "Date",
+        "SEARCH_IN": {
+          "ALL_FIELDS": "Dans tous les champs",
+          "FILTERED_FIELDS": "Champs filtrés",
+          "NO_FILTER": "Aucun filtre",
+          "TITLE": "Rechercher dans:",
+          "TOOLTIP": "Rechercher dans...",
+          "annotation": "Annotations",
+          "annotation.description": "Description de l'annotation",
+          "annotation.title": "Titre de l'annotation",
+          "annotations": "Annotations",
+          "custom_fields": "Infos média",
+          "label_names": "Nom des labels",
+          "media_basename": "Nom du fichier",
+          "media_title": "Nom du media",
+          "medias": "Médias",
+          "mission_titles": "Titre de l'évènement",
+          "person_names": "Nom des personnes",
+          "segments": "Transcriptions",
+          "transcript": "Transcription"
+        },
+        "SHOW_PARTIAL_MATCH": "Correspondance partielle",
+        "START_DATE_FILTER": "Du : (JJ/MM/AAAA)",
+        "UNVALIDATED_MEDIAS_ONLY": "Seulement les médias non-approuvés",
+        "VALIDATED_MEDIAS_ONLY": "Seulement les médias approuvés",
+        "VIDEO": "Vidéo",
+        "PROGRAM": "Programme",
+        "SHOW_GRAPH": "Afficher graphique (beta)",
+        "IS_SHARED": "Lien de partage",
+        "SHARING": {
+          "ALL": "Tous les médias",
+          "ACTIVE": "Médias partagés",
+          "INACTIVE": "Médias non partagés"
+        },
+        "MOMENT_ORIGIN": "Type de moment",
+        "MOMENT_IS_HIGHLIGHTED": "Moment mis en avant",
+        "CLASSIFICATION_CATEGORIES": "Catégories classifiées"
+      },
+      "HIDE_FILTERS": "Masquer les filtres",
+      "NO_MEDIA_IN_THIS_MISSION": "Pas de media dans cet évènement",
+      "NO_RESULT": "Aucun résultat trouvé.",
+      "REMOVE_FILTERS": "Peut-être devriez-vous essayer de désactiver l'un de ces filtres :",
+      "RESULTS_COUNT_AVERAGE_MEDIAS": "Plus de {{count}} Medias",
+      "RESULTS_COUNT_MULTIPLE_EXCERPTS": "{{count}} Correspondances",
+      "RESULTS_COUNT_MULTIPLE_MEDIAS": "{{count}} Medias",
+      "RESULTS_COUNT_MULTIPLE_MISSIONS": "{{count}} Évènements",
+      "RESULTS_COUNT_MULTIPLE_RESULTS": "{{count}} Résultats",
+      "RESULTS_COUNT_NO": "Pas de Resultat",
+      "RESULTS_COUNT_SINGLE_EXCERPT": "{{count}} Correspondance",
+      "RESULTS_COUNT_SINGLE_MEDIA": "{{count}} Media",
+      "RESULTS_COUNT_SINGLE_MISSION": "{{count}} Évènement",
+      "RESULTS_COUNT_SINGLE_RESULT": "{{count}} Résultat",
+      "SEARCH_PERSON_QUOTE_TOPIC": "Rechercher une personne, une citation, un thème…",
+      "SHOW_FILTERS": "Afficher les filtres",
+      "SHOW_MORE_ITEM": "Afficher {{number}} Résultat Sup.",
+      "SHOW_MORE_ITEMS": "Afficher {{number}} Résultats Sup.",
+      "SUGGESTIONS": "suggestions :",
+      "TOOLTIP_RESUME_LABELS": "Labels :",
+      "TOOLTIP_RESUME_PERSONS": "Personnes :",
+      "RESULTS_COUNT_AVERAGE_RESULTS": "Plus de {{count}} Résultats",
+      "DOWNLOAD_MEDIA": "Télécharger le média",
+      "OPEN_EVENT": "Ouvrir l'évènement",
+      "DELETE_MEDIA": "Supprimer le media",
+      "COUNT_MEDIA": "{{count}} Media",
+      "COUNT_MEDIAS": "{{count}} Medias",
+      "COUNT_MOMENT": "{{count}} Moment",
+      "COUNT_MOMENTS": "{{count}} Moments",
+      "RECENT_SEARCHES": "Recherches récentes",
+      "CLEAR_HISTORY": "Effacer la recherche",
+      "ASK_DISCOVERY_AGENT": {
+        "TOOLTIP": "Demander au Discovery Agent"
+      },
+      "BANNER_AGENT": {
+        "TITLE": "Utilisez le Discovery Agent dans ce media",
+        "ACTION": "Rechercher avec Discovery Agent",
+        "PROMPT": "Trouve les moments les plus intéressants à propos de {{search}}."
+      },
+      "SEGMENTS": {
+        "MEDIA": "Dans les Medias",
+        "SEQUENCES": "Dans les Séquences"
+      },
+      "NOTICE": {
+        "SEQUENCE_MEDIA": "Vous pouvez facilement rechercher des sequences ou des medias en utilisant",
+        "FIND_PERSONALITY": "Afin de chercher une personne présente dans le Thesaurus",
+        "FIND_LABEL": "Afin de chercher un label particulier",
+        "USE_TEXT": "Vous pouvez également utilser du texte brut",
+        "GO_FURTHER": "et vous pouvez aller plus loin en utilisant",
+        "CLICK_EXCLUSION": "Double cliquez sur un item pour l'exclure de votre recherche",
+        "DRAG_ITEM": "Glissez un item sur un autre pour créer une logique de \"OU\" entre eux",
+        "FIND_A_PERSONALITY": "Trouvez une personne",
+        "FIND_A_LABEL": "Trouvez un label",
+        "USE_PLAIN_TEXT": "Utilisez le texte brut",
+        "MORE_TRICKS": "Plus d'astuces de recherche"
+      },
+      "EMPTY_STATE": {
+        "TITLE": "Aucun résultat trouvé.",
+        "TEXT_SEMANTIC": "Essayez de rechercher à nouveau avec des termes différents ou utilisez le mode sémantique afin de trouver les résultats les plus pertinents",
+        "TEXT": "Essayez de rechercher à nouveau avec des termes différents",
+        "SEARCH_WITH_SEMANTIC": "Rechercher avec le mode sémantique"
+      }
+    },
+    "MEDIAS": {
+      "APPROVED": "Approuvé",
+      "DATE": "Date de création",
+      "DURATION": "Durée",
+      "NAME": "Nom",
+      "PROPERTIES": "Propriétés",
+      "RECORDED_AT": "Date",
+      "STATUS": "Statut",
+      "TYPE": "Type",
+      "UNAPPROVED": "Non approuvé"
+    },
+    "MEDIA_MENU": {
+      "ADD_CART": "Ajouter au panier",
+      "APPROVE": "Approuver",
+      "DELETE": "Supprimer",
+      "DOWNLOAD": "Télécharger",
+      "INDEXATION": "Indexation",
+      "SEND_TO": "Envoyer vers",
+      "UNAPPROVE": "Désapprouver",
+      "MEDIA_INFOS": "Infos Media"
+    },
+    "MISSION_STATUS": {
+      "MEDIAS": "médias téléchargés",
+      "ONE_MEDIA": "média téléchargé",
+      "WAITING": "En attente de média live"
+    },
+    "MISSION_TYPES": {
+      "DEFAULT": "Défaut",
+      "DUPLEX": "Duplex",
+      "LIVE": "Vivre",
+      "MISSION": "Évènement",
+      "REPORT": "Reportage",
+      "RUSH": "se ruer"
+    },
+    "NEW_MISSION": {
+      "CREATE_NEW_MISSION": "Nouveau évènement",
+      "ERRORS": {
+        "FIELD_REQUIRED": "Ce champ est requis",
+        "HINT": "* Champ requis"
+      },
+      "SUBMIT": "Créer"
+    },
+    "NO_MATCHING_ITEM": "Pas de média correspondant...",
+    "ORDER_BY": "Trier Par",
+    "SEARCH": {
+      "ADD_SEARCH_ITEM_TO_CART": "Ajouter un {{value}} séquence au panier",
+      "AS_A_PROGRAM": "comme Programme",
+      "CLEAR_HISTORY": "Clear",
+      "DOWNLOAD_ENTIRE_MEDIA": "Télécharger le média entier",
+      "DOWNLOAD_ORIGINAL_IMAGE": "Télécharger l'image originale",
+      "IN": "dans",
+      "LAST_SEARCHES": "Dernières recherches:",
+      "LATEST_CONTRIBUTIONS": "Dernières contributions",
+      "MISSION_RESULT": "trouvé {{number}} fois dans",
+      "MISSION_RESULT_SINGLE": "trouvé 1 fois dans",
+      "MOST_PRESENT_LABELS": "Les labels les plus présents",
+      "MOST_VIEWED_PEOPLE": "Les personnes les plus vues",
+      "OPEN_MISSION": "plus...",
+      "OPEN_ORIGINAL_IMAGE_IN_TAB": "Ouvrir l'image dans un nouvel onglet",
+      "OPEN_PROXY_IN_TAB": "Ouvrir la preview dans un nouvel onglet",
+      "RESULTS_FOR": "résultats pour",
+      "SEARCH_EVENT": "Rechercher un évènement",
+      "SEARCH_MISSION": "Rechercher un évènement",
+      "SHOW_MORE_RESULTS": "afficher plus de résultats",
+      "placeholder": "Chercher",
+      "FILTER_MOMENTS": "Moments",
+      "FILTER_MEDIAS": "Médias complets",
+      "FILTER_MANAGER": {
+        "TITLE": "Opérateurs booléens",
+        "OR": "OU",
+        "AND": "ET",
+        "NOTICE_DND": "Glissez et déposez des items pour les combiner et réaliser des inclusions",
+        "NOTICE_EXCLUDE": "Faites un double click sur un item pour l'exclure de la recherche ",
+        "OK": "OK!",
+        "DROPDOWN_LABELS": {
+          "PLACEHOLDER": "Trier par",
+          "RELEVANCE": "Pertinence",
+          "DATE_ASC": "Le plus ancien",
+          "DATE_DESC": "Le plus récent",
+          "LANG": "Langue",
+          "TITLE_ASC": "Titre asc",
+          "TITLE_DESC": "Titre desc",
+          "COLLECTION_LANG": "Langue de la collection"
+        }
+      },
+      "SEARCH_CONTENT": "Rechercher du contenu...",
+      "SEARCH_CONTEXT.collection": "dans la Collection",
+      "SEARCH_SCORE_LOG": "Score de recherche",
+      "WHY_THIS_RESULT": "Pourquoi ce résultat?",
+      "MATCH": " correspondance",
+      "MATCHES": " correspondances",
+      "MATCHING_KEYWORDS": "Ce résultat contient plusieurs mots-clefs correpondants:",
+      "VISUAL_SIMILARITY": "Ce résultat présente une similarité visuelle avec votre recherche",
+      "TEXTUAL_SIMILARITY": "Ce résultat présente une similarité textuelle avec votre recherche",
+      "MEDIA_FIELDS": {
+        "ANNOTATION": {
+          "TITLE": "Titre de la séquence",
+          "DESCRIPTION": "Description de la séquence"
+        },
+        "LABEL_ALIASES": "Alias de Labels",
+        "LABEL_NAMES": "Noms de Labels",
+        "PERSON_ALIASES": "Alias de Personnes",
+        "PERSON_NAMES": "Noms de Personnes",
+        "MEDIA_TITLE": "Titre du Media",
+        "MEDIA_BASENAME": "Nom du Fichier",
+        "MISSION_TITLES": "Titre de l'Évènement",
+        "MXT_SUMMARY": "Résumé MXT",
+        "SEGMENTS": {
+          "TEXT": "Transcript"
+        }
+      },
+      "TOOLTIPS": {
+        "MEDIA_FILES": "Afficher uniquement les médias complets",
+        "MOMENTS": "Aficher uniquement des extraits de médias",
+        "GRID_VIEW": "Vue grille",
+        "LIST_VIEW": "Vue liste",
+        "SMALL_THUMB": "Vignettes de petite taille",
+        "MEDIUM_THUMB": "Vignettes de taille moyenne",
+        "LARGE_THUMB": "Vignettes de grande taille",
+        "FILTERS": "Filtres"
+      }
+    },
+    "SELECT_SECTION": "Section",
+    "SORT_BY": {
+      "LABEL": "Filtrer par",
+      "VALUES": {
+        "priority": "Priorité",
+        "title": "Titre"
+      }
+    },
+    "SUBCLIP_CART": {
+      "ABORTED": "Annulé",
+      "ADD_TO_CART": "Ajouter au panier",
+      "ADD_TO_MY_CART": "Ajouter à mon panier",
+      "CANCEL_DOWNLOAD_CART": "Annuler",
+      "CART_NAME": "Nom du panier",
+      "CURRENT_CART": "Mon panier",
+      "DELIVERY_DATE": "Livré: {{ date_value }}",
+      "DESTINATION": "Destination",
+      "DOWNLOAD_CART": "Télécharger le panier",
+      "DOWNLOAD_LAUNCHED": "Votre téléchargement a commencé.",
+      "EMPTY": "Votre panier est vide",
+      "GENERATE": "Generer",
+      "GENERATION_DATE": "Créé: {{ date_value }}",
+      "GET_URL": "Obtenir l'url",
+      "HIDE_SAVED_CARTS": "Masquer les paniers",
+      "NO_DESTINATIONS_AVAILABLE": "Aucune destination active sur cet espace",
+      "OPEN_AS_MY_CART": "Ouvrir en tant que mon panier",
+      "PENDING_ORDER": "commande en attente",
+      "PICKUP_POINTS_LIST": "Téléchargeables",
+      "PROCESSING_PENDING": "Votre panier est en attente",
+      "PROCESSING_RUNNING": "Votre panier est en cours de traitement: {{percent}}%. {{remaining}} restant.",
+      "PROFILE": "Profil d'encodage",
+      "REMOTE_SERVERS_LIST": "Livraisons",
+      "REPAIR_ASSEMBLY": "Réparer",
+      "RESUME": "{{count}} séquence dans le panier. Durée {{duration}}",
+      "SAVED_CARTS": "Autres paniers",
+      "SAVING_CART": "Sauvegarder votre panier ...",
+      "SHARE": "Partager",
+      "SHARING": "Partage",
+      "SHOW_ALL_CARTS": "Afficher tous les paniers",
+      "SHOW_SAVED_CARTS": "Afficher les paniers",
+      "TOOLTIPS": {
+        "DELETE": "Supprimer"
+      }
+    },
+    "SWITCH": {
+      "BRAND_NEW": "Les missions se nomment désormais <b>évènements</b> au sein d'un tout <b>nouveau dashboard</b> !",
+      "GET_STARTED": "Cliquez ici pour le découvrir",
+      "LEGACY": "Afficher l'ancienne version du dashboard :",
+      "SWITCH_BACK": "Revenir",
+      "SWITCH_LEGACY": "Revenir à l'ancienne version du Dashboard",
+      "SWITCH_NEW": "Accéder au nouveau Dashboard"
+    },
+    "TIMELINE": {
+      "MONTH": "Reste du mois",
+      "PAST": "Passé",
+      "TODAY": "Les évènements d'aujourd'hui",
+      "TOMORROW": "Demain"
+    },
+    "TRANSCRIPT": {
+      "AUTO_SEGMENT": "Génération Auto.",
+      "DELETE_SEGMENT": "Supprimer le segment",
+      "DOWNLOAD_TEXT": "Copier le texte",
+      "EDITED_SEGMENT": "Édité",
+      "EMPTY_SEARCH_RESULTS": "Aucun résultat pour {{translate_value}}",
+      "IN_PROGRESS_TRANSCRIPT": "Transcription en cours...",
+      "MXT_IMPROVING_TRANSCRIPT": "MXT améliore la transcription",
+      "LANGUAGE": "Langue",
+      "NO_TRANSCRIPT": "Pas de transcription",
+      "NO_TRANSCRIPT_DEFINED": "Pas de transcription définie pour ce média",
+      "PENDING_TRANSCRIPT": "Cette transcription sera disponible bientôt.",
+      "SAVING_SEGMENT": "Enregistrement ...",
+      "SET_CAPTION_SPEAKER": "Définir <em>{{ speaker }}</em> comme <em>locuteur</em>",
+      "SOURCE": "Langue originale",
+      "SPEAKER": "Locuteur",
+      "TRACK": "Piste",
+      "TRANSCRIPT_NOT_AVAILABLE": "Transcription en cours... Revenez bientôt! La transcription complète sera disponible quelques secondes après la fin de votre transmission.",
+      "TRANSLATE": "Affichage",
+      "UNSET_SPEAKER": "Effacer le locuteur",
+      "MXT_SEGMENT": "Généré par MXT",
+      "EXPORT": "Export",
+      "CHOOSE_TRANSLATION": "Traduire..."
+    },
+    "UNASSIGNED_MEDIAS": {
+      "DRAG_EXISTING_MISSION": "Traîne",
+      "DRAG_NEW_MISSION": "ou ajouter à un nouveau évènement",
+      "MEDIA_ADDED": "Média ajouté",
+      "NEW_MEDIAS": "Nouveaux médias",
+      "NO_MEDIAS": "Aucun média non assigné",
+      "TITLE": "Médias inconnus"
+    },
+    "UPLOAD": {
+      "ADD_TO_A_MISSION": "Ajouter à un évènement",
+      "BUTTONS": {
+        "CANCEL": "Annuler",
+        "SEND": "Envoyer"
+      },
+      "FILE_URL": "Url du fichier",
+      "MESSAGE_ON_CLOSE": "Un téléchargement est en cours d'exécution. Ne fermez pas la page avant que votre média ne soit transféré.",
+      "MESSAGE_WARNING_UPLOAD_TYPE_ASPERA": "Fichier (s) non pris en charge. Format (s) détecté (s). Le mode de transfert Aspera est limité aux fichiers vidéo pour le moment. Veuillez désactiver le mode de transfert Aspera et relancer votre téléchargement.",
+      "MESSAGE_WARNING_UPLOAD_TYPE_MULTIPART": "Fichier (s) non pris en charge. Format (s) détecté (s).",
+      "SELECT_FILE": "Sélectionner un fichier",
+      "SEND": "ENVOYER",
+      "SEND_URL": "Envoyer une url",
+      "SOURCE": "Source",
+      "TITLE": "Ajouter un média",
+      "TOOLTIP": "Télécharger un fichier",
+      "TUTO": {
+        "TEXT": "Traîne",
+        "TITLE": "Encore mieux !"
+      }
+    },
+    "TABS": {
+      "ALL": "Tous les évènements"
+    }
+  },
+  "DATE": {
+    "DAYS_AGO": "il y a {{value}}"
+  },
+  "DELIVERY": {
+    "DETAILS": {
+      "TITLE": "Livraison"
+    }
+  },
+  "DIALOGS": {
+    "ABORT_TRANSCRIPT": "Si vous annulez la transcription tous les changements seront perdus.",
+    "CANCEL_EDIT": {
+      "CONFIRM": "Enregistrer les modifications ?",
+      "CONFIRM_MSG": "Souhaitez-vous enregistrer vos modifications avant de quitter ?"
+    },
+    "CART_CONFIRM": {
+      "CARTS": "Paniers",
+      "MESSAGE": "Votre demande a été prise en compte.<br> Vous pouvez suivre l'état de votre demande sur la vue ",
+      "ORDERS": "Commandes",
+      "THANK_YOU": "Merci {{user}} !"
+    },
+    "CART_NEXUS": {
+      "CONFIRM": "Confirmation",
+      "DESCRIPTION": "Merci de décrire l'utilisation (territoire, format)",
+      "REQUEST": {
+        "HD": "Demande de fichier HD",
+        "PROXY": "Demande de fichier Proxy",
+        "QUOTATION": "Demande de devis"
+      },
+      "REQUEST_SENT": "Votre demande a bien été envoyée.",
+      "VIEW_ORDER": "Voir demande"
+    },
+    "CHANGE_MISSION_WARNING": "Les médias déplacés hériteront des metadatas de l'évènement cible.",
+    "CHANGE_TRANSCRIPT_LANGUAGE": "Si vous changez la langue de la transcription, tous les changements seront perdus.",
+    "CONDITIONS_OF_USE": "conditions générales de vente et d'utilisation",
+    "CONFIRM": {
+      "ARE_YOU_SURE": "Êtes-vous sûr ?",
+      "CANCEL": "Annuler",
+      "CONFIRM": "Confirmer",
+      "DELETE_ITEM": "Voulez vous supprimer cet item ?",
+      "DONT_ASK_ME_AGAIN": "Ne me demande plus. Je sais ce que je fais.",
+      "MAYBE_NOT": "Peut être pas ...",
+      "NO": "Non",
+      "OK": "D'accord",
+      "YES": "Oui",
+      "YES_TO_ALL": "Oui à tous"
+    },
+    "DATA_PRIVACY": "Politique de confidentialité",
+    "DELETE_LABEL": "Supprimer le label",
+    "DELETE_MEDIA": "Supprimer le média",
+    "DELETE_MISSION": "Supprimer l'évènement",
+    "DELETE_ORGANIZATION": "Supprimer l'organisation",
+    "DELETE_PERSON": "Supprimer la personne",
+    "DELETE_PROGRAM": "Supprimer le programme",
+    "DELETE_SUBCLIPS": "Supprimer la séquence",
+    "DELETE_TRANSCRIPT_SEGMENT": "Supprimer le segment",
+    "DELETE_USER": "Supprimer l'utilisateur",
+    "STOP_RECORDING": "Arrêter l'enregistrement",
+    "TERMS_OF_SALE": "Conditions générales de vente",
+    "WAIT_RECORDING": "Si oui, merci de patienter 60sec. avant de lancer un nouvel enregistrement.",
+    "WARNING": "Attention !",
+    "UPLOAD_IMG": {
+      "IMG_TOO_LARGE": "Votre photo ne peux exéder la taille de 2MB",
+      "FILE_REQUIREMENTS": "Seulement JPG, JPEG, PNG or GIF. Maximum 2MB au ratio 16:9 <br> (dimensions 1280x720 )",
+      "UPLOAD_IMG": "Sélectionner un fichier image",
+      "NOT_AN_IMAGE": "Votre photo ne respect pas le format JPG ou PNG "
+    }
+  },
+  "ERROR": {
+    "ACTIONS": {
+      "BACK_TO_LOGIN": "Retour connexion",
+      "CONTACT_US": "Contactez nous"
+    },
+    "TITLES": {
+      "MAINTENANCE": "Nous sommes en cours de maintenance",
+      "SERVER_ERROR": "erreur du serveur"
+    }
+  },
+  "FILTERS": {
+    "LABEL": {
+      "USERS": "Utilisateurs"
+    },
+    "SELECTED": "{{total}} sélectionné",
+    "SELECTED_PLURAL": "{{total}} sélectionnés"
+  },
+  "FORM_VALIDATION": {
+    "DUPLICATE_EMAIL": "ce courriel existe déjà",
+    "DUPLICATE_UID": "Cet identifiant existe déjà",
+    "EMPTY_FIELD": "Ce champ est requis",
+    "INVALID_FORMAT": "Le format n'est pas valide",
+    "INVALID_MAIL": "L'email est invalide",
+    "INVALID_PHONE": "Le numéro de téléphone est invalide.",
+    "INVALID_START_END_DATES": "La date de fin précède la date de début",
+    "CHARACTERS_LEFT": "caractères maximum"
+  },
+  "INDEXATION": {
+    "ACTIONS": {
+      "DELETE": "Supprimer de tous les médias sélectionnés",
+      "DELETE_ITEM": "Supprimer l'item",
+      "FULLMATCH": "Appliquer à tous les médias sélectionnés",
+      "VALIDATE_ITEM": "Ajouter l'item"
+    },
+    "ALIAS": {
+      "ACTIONS": {
+        "ADD": "+ Ajouter un alias",
+        "DELETE": "Supprimer l'alias"
+      }
+    },
+    "AUTOCOMPLETE": {
+      "ADD_INDEXATION": "Ajouter au Thésaurus",
+      "ADD_TO_THESAURUS": "Ajouter \"{{input}}\" au Thésaurus",
+      "NO_RESULT": "Pas de résultat"
+    },
+    "INPUT": {
+      "ADD_DATA": "Ajouter une donnée"
+    },
+    "KEYWORDS_APPLIED_ALL": "Appliqués à toute la sélection :",
+    "KEYWORDS_APPLIED_PART": "Appliqués à une partie de la sélection :",
+    "LABELS": {
+      "APPROVED": "Labels approuvés",
+      "SUGGESTED": "Labels suggérés"
+    },
+    "MESSAGES": {
+      "INDEXATION_ADDED": "Indexation ajoutée",
+      "INDEXATION_REMOVED": "Indexation supprimée"
+    },
+    "MODAL": {
+      "ADD_ANNOTATION": "Ajouter une donnée de type Annotation",
+      "ADD_DATA": "Quel type de donnée souhaitez vous ajouter ?",
+      "ADD_LABEL": "Ajouter une donnée de type Label",
+      "ADD_PERSON": "Ajouter une donnée de type Personne",
+      "ALREADY_IN_THESAURUS": "donnée déjà présente dans le Thésaurus",
+      "CARDS": {
+        "ANNOTATION": {
+          "CONTENT": "Ajouter une Annotation libre",
+          "TITLE": "Annotation"
+        },
+        "LABEL": {
+          "CONTENT": "Ajouter un Label au Thésaurus",
+          "TITLE": "Label"
+        },
+        "PERSON": {
+          "CONTENT": "Ajouter une Personnalité au Thésaurus",
+          "TITLE": "Personnalité"
+        }
+      },
+      "CHOOSE_DATA_TYPE": "Quel type de donnée souhaitez vous ajouter pour ",
+      "CREATE_TAG": "Ajouter des données d'indexation",
+      "LABELS": {
+        "DESCRIPTION": "Description",
+        "LABEL": "Label",
+        "NAME": "Nom"
+      },
+      "OCR_RULE": "Ajouter <entity>{{value}}</entity> au media lorsque l'OCR détecte:",
+      "TRANSCRIPT_RULE": "Ajouter <entity>{{value}}</entity> au media lorsque la transcription ou la traduction contient:",
+      "MXT_SHOT_DESCRIPTION_RULE": "Ajouter <entity>{{value}}</entity> au media lorsque la description de shot contient:"
+    },
+    "PANEL": {
+      "CREATE": {
+        "TITLE": "Indexation"
+      }
+    },
+    "PARENTS": {
+      "ADD_VALUE": "Ajouter un parent",
+      "FIELD_NAME": "Parents",
+      "REMOVE_VALUE": "Supprimer le parent"
+    },
+    "TYPES": {
+      "label": "Label",
+      "person": "Personne"
+    }
+  },
+  "JOURNALIST": {
+    "STATUS_AVAILABLE": "Disponible",
+    "STATUS_BUSY": "Occupé"
+  },
+  "LABELS": {
+    "CREATE_TITLE": "Ajouter un label",
+    "CREATE_TITLE_OCCURRENCE": "Ajouter un label de {{val_tc_in}} à {{val_tc_out}}",
+    "LABEL_TEXT": "Libellé"
+  },
+  "LANGUAGES": {
+    "ORIGINAL": "Version originale",
+    "TRANSLATION": "(Traduction Auto.)",
+    "ar": "Arabe",
+    "bn": "Bengali (beta)",
+    "ca": "Catalan (beta)",
+    "da": "Danois",
+    "de": "Allemand",
+    "de-CH": "Allemand (Suisse)",
+    "el": "Grec moderne",
+    "en": "Anglais",
+    "es": "Espagnol",
+    "eu": "Basque (beta)",
+    "fa": "Persan",
+    "fi": "Finnois",
+    "fr": "Français",
+    "gl": "Galician (beta)",
+    "gu": "Gujarati (beta)",
+    "he": "Hébreu (beta)",
+    "hi": "Hindi",
+    "hu": "Hongrois",
+    "id": "Indonésien (beta)",
+    "it": "Italien",
+    "ja": "Japonais (beta)",
+    "kn": "Kannada  (beta)",
+    "ko": "Coréen",
+    "lt": "Lituanien",
+    "lv": "Letton",
+    "ml": "Malayalam (beta)",
+    "mr": "Marathi (beta)",
+    "ms": "Malais (beta)",
+    "nl": "Néerlandais",
+    "pl": "Polonais",
+    "pt": "Portugais",
+    "ps": "Pashto",
+    "bz": "Portugais brésilien",
+    "ro": "Roumain",
+    "ru": "Russe",
+    "sv": "Suédois",
+    "sw": "Swahili (beta)",
+    "ta": "Tamil (beta)",
+    "te": "Telugu (beta)",
+    "tr": "Turque",
+    "ur": "Urdu (beta)",
+    "zh": "Mandarin",
+    "af": "Afrikaans",
+    "MXT": "Multilingue par MXT",
+    "uk": "Ukrainien",
+    "is": "Islandais",
+    "fil": "Philippin (Philippines)",
+    "ha": "Haoussa (Nigeria) (beta)",
+    "multi": "Multilingue par MXT"
+  },
+  "MAINTENANCE": {
+    "IN_PROGRESS": "Un déploiement est en cours. Vous serez rafraîchi bientôt."
+  },
+  "MEDIA": {
+    "ACTIONS": {
+      "DELETE": "Supprimer le média",
+      "DOWNLOAD": "Télécharger le média",
+      "DOWNLOAD_MASTER": "Télécharger le master",
+      "DOWNLOAD_MASTER_BROADCAST": "Télécharger le master-broadcast",
+      "DOWNLOAD_PROFILE": "Télécharger média optimisé {{value}}",
+      "DOWNLOAD_PROXY": "Proxy",
+      "DOWNLOAD_REPRESENTATION": "Télécharger {{value}}",
+      "FAVORITE": "Approuver media",
+      "FEEDBACK": "Retour d'information",
+      "UNFAVORITE": "Media approuvé",
+      "VIEW": "Voir",
+      "DELETE_ONE_CONFIRMATION": "Voulez vous supprimer ce média ?",
+      "DELETE_MANY_CONFIRMATION": "Voulez vous supprimer ces médias ?",
+      "DELETE_WARNING": "Attention cette action est irréversible .",
+      "IMPORT_DATA": "Importer données ...",
+      "IMAGE_EDITOR": "Éditeur d'images...",
+      "OPEN_EVENT": "Ouvrir l'évènement",
+      "DOWNLOAD_OPTION": "Télécharger au format {{value}}",
+      "SEND_TO": "Envoyer vers...",
+      "ADD_THUMBNAIL": "Changer de vignette",
+      "UNFAVORITE_ACTION": "Désapprouver média",
+      "ADD_TO_PROJECT": "Ajouter à un projet"
+    },
+    "COMMENTS": {
+      "LIST": {
+        "EMPTY": "Pas encore d'annotations"
+      }
+    },
+    "FEEDBACK": {
+      "CANCEL": "Annuler",
+      "CONFIRM": "Envoyer",
+      "PLACEHOLDER": "Vos réactions",
+      "TEXT": "Vos réactions :",
+      "TITLE": "Médias de rétroaction"
+    },
+    "INFO": {
+      "ADD": {
+        "DESCRIPTION": "Ajouter une description",
+        "NOTES": "Ajouter des notes",
+        "SUMMARY": "Ajouter un résumé",
+        "TITLE": "Ajouter un titre"
+      },
+      "COPY": "Copier",
+      "COVER": "Image de couverture",
+      "DATE": "Date",
+      "DESCRIPTION": "Description",
+      "EXTERNAL_IDS": "Identifiants externes",
+      "IDENTIFIER": "Identifiant",
+      "NOTES": "Notes",
+      "ORGANIZATIONS": "Organisations",
+      "SUMMARY": "Résumé",
+      "TITLE": "Titre",
+      "INFOS_EDITION": "Éditer les infos"
+    },
+    "LABELS": {
+      "DETAILS": {
+        "LABEL": "Label",
+        "OCCURRENCE": "{{total}} Occurrence",
+        "OCCURRENCES": "{{total}} Occurrences"
+      },
+      "DETECTION_NOTICE": "Moments Lab peut automatiquement détecter les labels pour vous.",
+      "LIST": {
+        "EMPTY": "Aucun label détécté",
+        "TITLE": "Labels"
+      }
+    },
+    "LIST": {
+      "NO_MEDIA": "Aucun média dans cette évènement.",
+      "RESUME": "{{total}} médias - dernière modification {{date}}"
+    },
+    "MESSAGES": {
+      "DELETED": "Oooops, ce média semble être supprimé."
+    },
+    "NEW_MEDIAS": "Médias entrants",
+    "PEOPLE": {
+      "CONFIRM_PERSON": "Confirmer",
+      "DELETE_PERSON": "Effacer",
+      "DETECTION_DONE": "Traitement cognitif terminé",
+      "DETECTION_IN_PROGRESS": "Traitement cognitif en cours",
+      "DETECTION_NOTICE": "Moments Lab peut automatiquement détecter les personnes clés pour vous.",
+      "EDIT_PERSON": "Modifier",
+      "EMPTY": "Aucune personne détectée",
+      "FILTER": "Filtre de confiance",
+      "LAUNCH_PEOPLE_DETECTION": "Activer le traitment cognitif",
+      "PERSON_SORT": "Vue des personnes",
+      "REMOVE_OCCURENCE": "Supprimer l'occurrence",
+      "SAVE_OCCURENCE": "Enregistrer l'occurrence",
+      "TIMELINE_SORT": "Vue temporelle"
+    },
+    "SIDE_PANEL": {
+      "TITLES": {
+        "activity": "Activité",
+        "comments": "Annotations",
+        "info": "Infos média",
+        "labels": "Labels",
+        "my_cart": "Mon panier",
+        "people": "Personnes",
+        "search": "Recherche dans le média",
+        "speech": "Transcription",
+        "subclips": "Séquences",
+        "POWERED_BY_MXT": "Powered by MXT1",
+        "MOMENTS": "Moments",
+        "ANNOTATIONS": "Annotations",
+        "AGENT": "Discovery Agent"
+      }
+    },
+    "STATUS": {
+      "ASSIGNED": "Le média a été assigné",
+      "DELETED": "Le média a été supprimé",
+      "MOVED": "Le média a été déplacé",
+      "NO_PREVIEW": "Pas de prévisualisation possible pour ce média",
+      "TRANSCODING": "Traitement du proxy ...",
+      "TRANSCODING_DETAIL": "Vous pouvez avoir des problèmes lors de la prévisualisation.",
+      "TRANSCODING_WAITING": "Attendez un instant, traitement en cours...",
+      "UPLOADING": "Téléchargement",
+      "UPLOAD_COMPLETE": "Téléchargement complet",
+      "WAITING": "En attente ...",
+      "gathering": {
+        "pending": "Transfert du média suspendu",
+        "running": "Transfert du média en cours : {{value}}%"
+      },
+      "UPLOAD_IN_PROGRESS": "Transfert: {{value}}%",
+      "TRANSFER_ERROR": "Erreur de transfert"
+    },
+    "SUBCLIPING": {
+      "TOOLS": {
+        "ADD_ANNOTATION": "Ajouter une annotation",
+        "ADD_DATA": "Ajouter donnée",
+        "ADD_LABEL": "Ajouter un label",
+        "ADD_PERSON": "Ajouter une personne",
+        "ADD_TO_CART": "Ajouter au panier",
+        "CENTER": "Centrer mon clip",
+        "CUT_FROM_PLAYHEAD": "Couper depuis la tête de lecture (Raccourci : i)",
+        "CUT_TO_PLAYHEAD": "Couper jusqu'à la tête de lecture (Raccourci : o)",
+        "DURATION": "Durée du clip",
+        "GOTO_CUT_IN": "Aller au début de mon clip",
+        "GOTO_CUT_OUT": "Aller à la fin de mon clip",
+        "IN_TIMECODE": "TC In",
+        "OUT_TIMECODE": "TC Out",
+        "DOWNLOAD": "Télécharger le clip",
+        "SHORTCUTS": {
+          "MOVE_CUT_TO_NEXT_FRAME": "Avancer la marque de 1 image",
+          "MOVE_CUT_TO_PREVIOUS_FRAME": "Reculer la marque de 1 image",
+          "NEXT_1_SEC": "Recule de 1 seconde",
+          "NEXT_FRAME": "Avance de 1 image",
+          "PLAYPAUSE": "Play / Pause",
+          "PLAY_FASTER": "Augmente la vitesse",
+          "PLAY_NORMAL": "Vitesse normale (1x)",
+          "PREV_10_SEC": "Recule de 10 secondes",
+          "PREV_1_SEC": "Recule de 1 seconde",
+          "PREV_FRAME": "Recule de 1 image",
+          "QUIT": "Quitter les outils d'édition",
+          "SELECT_CUT_IN": "Se positionner au début",
+          "SELECT_CUT_OUT": "Se positionner à la fin",
+          "SET_CUT_IN_TO_PLAYHEAD": "Marquer le début",
+          "SET_CUT_OUT_TO_PLAYHEAD": "Marquer la fin",
+          "TITLE": "Raccourcis clavier",
+          "ZOOM_FIT": "Tout le média",
+          "ZOOM_IN": "Zoom avant",
+          "ZOOM_OUT": "Zoom arrière"
+        },
+        "TITLE": "Clipping Tools",
+        "ZOOM": "Zoom",
+        "IN_TIMECODE_TOOLTIP": "Timecode d'entrée",
+        "OUT_TIMECODE_TOOLTIP": "Timecode de sortie",
+        "CREATE_SEQUENCE": "Créer un moment"
+      }
+    },
+    "TOOLTIPS": {
+      "ADD_TO_CART": "Ajouter au panier",
+      "DELETE": "Supprimer",
+      "DOWNLOAD": "Télécharger",
+      "UNVALIDATE": "Supprimer l'Approbation",
+      "VALIDATE": "Approuver",
+      "SEARCH_SCORE_LOG": "Voir le score de recherche",
+      "WHY_THIS_RESULT": "Pourquoi ce résultat?"
+    },
+    "SHORT_TYPE": {
+      "FILE_ZIP": "FILE/ZIP",
+      "DOC": "DOC",
+      "IMG": "IMG"
+    },
+    "DATA_IMPORT": {
+      "MODAL_TITLE": "Import de données",
+      "CHOOSE_A_PROVIDER": "Choisir un fournisseur",
+      "CHOOSE_A_SEASON": "Choisir une saison",
+      "CHOOSE_A_COMPETITION": "Choisir une compétition",
+      "CHOOSE_A_MATCH": "Choisir un match",
+      "CHOOSE_A_ROUND": "Choisir un tour",
+      "ADD_OFFSET": "Ajouter un décalage",
+      "PROVIDERS": {
+        "statsperform_rugby": "Rugby Union Stats Perform",
+        "statsperform_soccer": "Football Stats Perform",
+        "statsperform_genius-soccer": "Football Genius",
+        "statsperform_hudl-soccer": "Football Hudl",
+        "statsperform_sportec-soccer": "Football Sportec",
+        "file_csv": "Fichier CSV"
+      },
+      "IMPORTING_DATA": "Importation des données en cours...",
+      "IMPORTING_DATA_SUCCESS": "Importation des données terminée",
+      "IMPORTING_DATA_ERROR": "Erreur lors de l'importation des données"
+    },
+    "SHARE": {
+      "SHARE": "Partager",
+      "LABEL": "Vous pouvez générer un lien partageable pour permettre à toute personne qui le possède de télécharger votre ressource.",
+      "TOGGLE": "Partager le fichier multimédia avec un lien public",
+      "TOAST": {
+        "COPY": "Lien copié",
+        "SHARED": "Le fichier multimédia est partagé",
+        "REVOKED": "Le lien de partage a été révoqué",
+        "CLOSE": "Fermer",
+        "DATE": "La date d'expiration a été modifiée",
+        "ERROR": "Un problème s'est produit, veuillez réessayer plus tard"
+      },
+      "INPUT_DATE": {
+        "LABEL": "Date d'expiration",
+        "FORMAT": "DD/MM/YYYY",
+        "IN_FUTURE": "La date doit être dans le futur"
+      },
+      "FEEDBACK": "Un lien a été généré, valable jusqu'au",
+      "ACTIONS": {
+        "COPY": "Copier le lien",
+        "CLOSE": "Fermer",
+        "CANCEL": "Annuler",
+        "REVOKE": "Révoquer le lien de partage"
+      },
+      "STATE": {
+        "SHARED": "Partagé",
+        "LABEL": "Toute personne ayant le lien peut télécharger",
+        "VALIDITY": "Valable jusqu'au",
+        "ACTIONS": {
+          "COPY": "Copier le lien",
+          "UPDATE": "Modifier"
+        }
+      },
+      "REVOKE": {
+        "TITLE": "Révoquer le lien de partage pour",
+        "TEXT": "Cela révoquera l'accès à toutes les personnes possédant ce lien. Vous devrez générer un autre lien de partage pour redonner l'accès."
+      }
+    }
+  },
+  "MEDIA_INCOMING": {
+    "FIELDS": {
+      "CREATED_AT": "Créé le",
+      "DEVICE": "Appareils",
+      "DUE_AT": "Date d'échéance",
+      "DURATION": "Durée",
+      "MISSION": "Évènement",
+      "PROGRAM": "Programme",
+      "PROPERTIES": "Statut",
+      "USER": "Utilisateur",
+      "VALIDATED": "Validation",
+      "MEDIA_NAME": "Nom du media"
+    },
+    "FILTERS": {
+      "ORDER_BY": {
+        "ASC": "Les nouveaux médias en premier",
+        "DESC": "Les médias les plus anciens en premier",
+        "PLACEHOLDER": "Trier par:"
+      }
+    },
+    "MEDIA_STATUS": {
+      "ANALYSIS": {
+        "done": "Analysée",
+        "error": "Analyse échouée",
+        "in_progress": "Analyse en cours",
+        "no": "Pas d'analyse",
+        "pending": "Analyse en attente",
+        "failed": "Analyse échouée"
+      },
+      "GATHERING": {
+        "COMPLETE": "Téléchargé",
+        "ERROR": "Téléchargment échouée",
+        "NO": "Pas de téléchargement",
+        "PENDING": "Téléchargement en attente",
+        "RUNNING": "Téléchargement en cours",
+        "STARTING": "Téléchargement en préparation"
+      },
+      "INGEST": {
+        "done": "Ingestion terminée",
+        "error": "Ingestion échouée",
+        "in_progress": "Ingestion",
+        "no": "Pas d'ingestion",
+        "pending": "Ingestion en attente",
+        "shelved": "Ingestion mise en attente",
+        "failed": "Ingestion échouée"
+      },
+      "LABELS": {
+        "done": "Détection de labels terminée",
+        "error": "Erreur dans la détection de labels",
+        "failed": "Echec de la détection de labels",
+        "in_progress": "Détection de labels en cours",
+        "no": "Pas de détection de labels",
+        "pending": "Détection de labels en attente",
+        "aborted": "Détection de labels annulée"
+      },
+      "ORIGINAL": {
+        "complete": "Téléchargé",
+        "error": "Téléchargment échouée",
+        "in_progress": "Téléchargement en cours",
+        "pending": "Téléchargement en attente",
+        "starting": "Téléchargement en préparation"
+      },
+      "PERSONS": {
+        "aborted": "Détection de personnes annulée",
+        "done": "Détection de personnes terminée",
+        "error": "Erreur dans la détection de personnes",
+        "failed": "Echec de la détection de personnes ",
+        "in_progress": "Détection de personnes en cours",
+        "no": "Pas de détection de personnes",
+        "pending": "Détection de personnes en attente"
+      },
+      "PROCESSING": {
+        "COMPLETE": "Traité",
+        "ERROR": "Erreur de traitement",
+        "NO": "Pas de traitement",
+        "PENDING": "En attente de traitement",
+        "RUNNING": "En cours de traitement"
+      },
+      "TEXT_RECOGNITION": {
+        "aborted": "Reconnaissance optique de caractères annulée",
+        "done": "Reconnaissance optique de caractères terminée",
+        "error": "Reconnaissance optique de caractères échouée",
+        "failed": "Reconnaissance optique de caractères échouée",
+        "in_progress": "Reconnaissance optique de caractères",
+        "no": "Pas de reconnaissance optique de caractères",
+        "pending": "Reconnaissance optique de caractères en attente",
+        "shelved": "Reconnaissance optique de caractères en attente"
+      },
+      "TRANSCRIBE": {
+        "aborted": "Transcription annulée",
+        "done": "Transcription terminée",
+        "error": "Transcription échouée",
+        "failed": "Transcription échouée",
+        "in_progress": "Transcription en cours",
+        "no": "Pas de transcription",
+        "pending": "Transcription en attente",
+        "shelved": "Transcription en attente"
+      }
+    },
+    "REFRESH": "Actualiser",
+    "TITLE": "Contributions"
+  },
+  "MENU": {
+    "ADMIN": "Admin",
+    "ARCHIVES": "Archives",
+    "CARTS": "Paniers",
+    "COLLECTIONS": "Collections",
+    "CONTACT": "Contact",
+    "DEMO": "Commandes",
+    "EVENT_DASHBOARD": "Évènements",
+    "LOGOUT": "Déconnexion",
+    "MEDIA_INCOMING": "Contributions",
+    "ANALYTICS": "Analytics",
+    "MISSIONS": "Évènements",
+    "MONITORING": "Surveillance",
+    "ORDERS": "Commandes",
+    "RECORDING": "Enregistrements",
+    "SEARCH": "Rechercher",
+    "SETTINGS": "Paramètres",
+    "THESAURUS": "Thésaurus",
+    "WORKSPACES": "Plateformes...",
+    "ORGANIZATIONS": "Organisations",
+    "USER_SETTINGS": "Paramètres utilisateur",
+    "PROJECTS": "Projets",
+    "REPURPOSING": "Repurposing"
+  },
+  "METADATAS": {
+    "TITLE": "Metadatas"
+  },
+  "MISSION": {
+    "ACTIONS": {
+      "APPROVE": "Approuver l'évènement",
+      "ARCHIVE": "archiver",
+      "ASSIGN_JOURNALIST": "Assigner un journaliste",
+      "DELETE": "Supprimer l'évènement",
+      "DOWNLOAD": "Télécharger tous les médias",
+      "EDIT": "Éditer l'évènement",
+      "FLASHCODE": "Flashcode",
+      "STOP": "Stopper l'enregistrement",
+      "UNAPPROVE": "Évènement non approuvé",
+      "UNARCHIVE": "Désarchiver"
+    },
+    "APPROVED": "Approuvé",
+    "COMPLETE": "Achevée",
+    "DELETED": "Cet évènement a été supprimé",
+    "DETAIL": {
+      "DEVICES": {
+        "MULTIPLE_BOUND": "{{value}} appareils associés",
+        "NO_BOUND": "Aucun appareil associé",
+        "PANEL_TITLE": "Appareils",
+        "SINGLE_BOUND": "{{value}} appareil associé"
+      },
+      "ID": "Identifiant d'évènement",
+      "RESEND_CODE": "RENVOYER LE CODE"
+    },
+    "FIELDS": {
+      "CHANNEL": "Chaîne",
+      "COGNITIVE_TASKS": "Tâches cognitives",
+      "COGNITIVE_TASK_LABELS": "Détection de labels",
+      "COGNITIVE_TASK_PERSONS": "Détection de personnes",
+      "COGNITIVE_TASK_TEXT_DETECTION": "Détection de texte",
+      "DESTINATION": "Destination",
+      "DESTINATIONS": "Destinations",
+      "DEVICES": "Appareils associés",
+      "DUE_DATE": "Due à",
+      "EMAIL": "Email",
+      "END_DATE": "Fini le",
+      "INPUT": "Contribution",
+      "METADATA": "Infos média",
+      "NOTIFICATIONS": "Notifications",
+      "ORGANIZATIONS": "Organisations",
+      "OUTPUT": "Destinations",
+      "OWNER": "Propriétaire",
+      "PROGRAM": "Programme",
+      "RECORDING": "Enregistrement",
+      "ROUTING": "Routage",
+      "SEND_VIA": "Envoyer un évènement via",
+      "SLACK": "Slack",
+      "SMS": "SMS",
+      "START_DATE": "Commence le",
+      "STORY": "Récit",
+      "TITLE": "Titre",
+      "TRANSCRIPT": "Langue de transcription",
+      "TRANSCRIPTION": "Transcription",
+      "TRANSCRIPT_CHANNEL": "Canal de transcription",
+      "TRANSCRIPT_CHANNEL_BOTH": "Gauche et droit",
+      "TRANSCRIPT_CHANNEL_LEFT": "Canal gauche seulement",
+      "TRANSCRIPT_CHANNEL_RIGHT": "Canal droit seulement",
+      "TYPE": "Type",
+      "USER": "Propriété",
+      "COGNITIVE_TASK_AI_CAPTIONING": "Detection de lieux remarquables",
+      "COGNITIVE_TASK_MXT": "MXT",
+      "INVALID_DATE_RANGE": "La date de fin précède la date de début"
+    },
+    "FLASHCODE": {
+      "RESEND": "RENVOYER FLASHCODE",
+      "RESEND_TO": "à {{value}}"
+    },
+    "MEDIA_COUNT": {
+      "MULTIPLE": "{{value}} médias",
+      "SIMPLE": "{{value}} média"
+    },
+    "MEDIA_SORT": {
+      "ASC": "Les nouveaux médias en premier",
+      "DSC": "Les médias les plus anciens en premier"
+    },
+    "NO_MEDIA": {
+      "HINT": "Traîne",
+      "TITLE": "Aucun média reçu"
+    },
+    "OPEN_BTN": "Ouvrir l'évènement",
+    "PANEL": {
+      "CREATE": {
+        "EVENT_TITLE": "Créer un évènement",
+        "SUBMIT": "CRÉER",
+        "TIME": "Heure",
+        "TITLE": "Créer un évènement",
+        "OPEN_ONCE_CREATED": "Ouvrir l'évènement"
+      },
+      "DATE_ERROR": "Moments Lab ne peux retourner vers le futur… Pour l'instant. \nMerci de changer la date ou l'heure de début.",
+      "DELETE": "Supprimer l'évènement",
+      "EDIT": {
+        "EVENT_TITLE": "Éditer l'évènement",
+        "SUBMIT": "ENREGISTRER",
+        "TITLE": "Éditer l'évènement"
+      },
+      "PROGRAM": {
+        "SELECT_NONE": "Aucun",
+        "SELECT_PROGRAM": "Sélectionner un programme"
+      },
+      "UNSCHEDULE": "Annuler l'enregistrement"
+    },
+    "SHARED": "(Partagé)"
+  },
+  "MONITORING": {
+    "TASKS": {
+      "ACTIONS": {
+        "DELETE": "Effacer",
+        "MULTIPLE_SELECTION": "{{value}} Tâches sélectionnées",
+        "PAUSE": "Pause",
+        "RESTART": "Redémarrer",
+        "SELECTION": "{{value}} Tâche sélectionnée"
+      },
+      "FIELDS": {
+        "CREATED": "Créé le",
+        "CUSTOMER": "Workspace",
+        "DURATION": "Durée",
+        "INSTANCE": "Exemple",
+        "ORIGINAL": "Original",
+        "PROFILE": "Profil",
+        "STATUS": "Statut",
+        "TYPE": "Type",
+        "UPDATED": "Dernière modification"
+      },
+      "TITLE": "Activité"
+    }
+  },
+  "NEXUS": {
+    "NO_ORDER": "Pas de commande pour le moment",
+    "ORDER_CONFIRMED": "🎉 Commande confirmée !",
+    "ORDER_CONFIRMED_NOTICE": " a reçu une confirmation par email:",
+    "ORDER_DESCRIPTION": "{{profile}} commandée par {{user}} à {{date}}",
+    "ORDER_EMPTY": "Cette commande est vide",
+    "ORDER_REF": "Commande {{value}} ",
+    "REQUEST_DESCRIPTION": "Périmètre de droits / Usage",
+    "REQUEST_NOTICE": "Merci de nous présenter brièvement votre projet. Si vous souhaitez obtenir un devis, merci de nous communiquer les informations suivantes sur le périmètre de droits ainsi que sur l'usage :",
+    "REQUEST_NOTICE_DETAIL": "- Société (Chaîne, Société de Production...)<br>- Support(s) de diffusion (Cinema, TV, SVOD, DVD, Internet, Réseaux Sociaux...)<br>- Territoire(s) (France, Europe...)<br>- Durée des droits (1 an, 2 ans...)",
+    "REQUEST_TEMPLATES": {
+      "DESTINATION_LIST": {
+        "CLEAN_REQUEST": "Pour toute demande de fichier clean, celle-ci doit avoir fait l'objet d'une demande de devis préalable.",
+        "DESCRIPTION": "Une fois votre commande validée par nos administrateurs vous pourrez télécharger votre fichier.",
+        "SELECT_TYPE": "Sélectionnez un type de commande"
+      },
+      "destination": {
+        "CLEAN_REQUEST": "Pour toute demande de fichier clean, celle-ci doit avoir fait l'objet d'une demande de devis préalable.",
+        "DESCRIPTION": "Une fois votre commande validée par nos administrateurs vous pourrez télécharger votre fichier {{destination}}. ",
+        "TITLE": "Commande de {{destination}}"
+      },
+      "quote_request": {
+        "DESCRIPTION": "Recevez un devis pour les extraits sélectionnés.",
+        "TITLE": "Demande de devis"
+      }
+    }
+  },
+  "NOTIFICATIONS": {
+    "ACCOUNT_REQUEST_APPROVED": "Demande de création de compte acceptée.",
+    "ANNOTATION_ADDED": "Annotation ajoutée",
+    "ANNOTATION_DELETED": "Annotation supprimée",
+    "ANNOTATION_EDITED": "Annotation modifiée",
+    "CART_DELIVERED": "Votre panier à été livré",
+    "CART_READY_TO_DOWNLOAD": "Votre panier est prêt à être téléchargé.",
+    "CART_SAVED": "Votre panier est enregistré et va être traité.",
+    "CATEGORY_ADDED": "Catégorie crée",
+    "CATEGORY_DELETED": "Catégorie supprimée",
+    "CATEGORY_UPDATED": "Catégorie mise à jour",
+    "CLIPBOARD_ERROR": "Une erreur est survenue en accédant a votre presse papier.",
+    "CLIP_ADDED_TO_CART": "Votre Séquence a été ajoutée au panier.",
+    "DESTINATION_DELETED": "Destination supprimée",
+    "DETECTION_ADDED": "Occurrence ajoutée",
+    "DETECTION_REMOVED": "Occurrence enlevée",
+    "DETECTION_UPDATED": "Occurrence mise à jour",
+    "DEVICE": {
+      "DELETED": "Dispositif supprimé",
+      "DISABLED": "Dispositif désactivé",
+      "ENABLED": "Dispositif activé"
+    },
+    "ERROR": "Erreur {{value}}",
+    "FLASHCODE_SENT": "Flashcode envoyé.",
+    "INVITEE_DELETED": "Utilisateur invité supprimé",
+    "ITEM_SAVED": "Item sauvegardé",
+    "LABEL_ADDED": "Label ajouté",
+    "LABEL_APPROVED": "Label approuvé",
+    "LABEL_CREATED": "Label créé",
+    "LABEL_DELETED": "Label supprimé",
+    "LABEL_DISCARDED": "Label rejeté",
+    "LABEL_UPDATED": "Label mis à jour",
+    "MEDIAS_COPIED": "Médias copiés",
+    "MEDIAS_DELETED": "Médias supprimés",
+    "MEDIAS_INVALIDATED": "Approbation supprimée",
+    "MEDIAS_MOVED": "Les médias ont déménagé",
+    "MEDIAS_VALIDATED": "Médias approuvés",
+    "MEDIA_COPIED": "Média copié",
+    "MEDIA_DELETED": "Média supprimé",
+    "MEDIA_INVALIDATED": "Approbation supprimée",
+    "MEDIA_MOVED": "Média déplacé",
+    "MEDIA_SAVED": "Media mis à jour",
+    "MEDIA_SENT_TO_DESTINATION": "Média envoyé vers la destination",
+    "MEDIA_VALIDATED": "Média approuvé",
+    "MISSION_DELETED": "Évènement supprimé",
+    "MISSION_SAVED": "Évènement mis à jour",
+    "OCCURRENCE_REMOVED": "Occurrence supprimée",
+    "OCCURRENCE_UPDATED": "Occurrence mise à jour",
+    "ORGANIZATIONS_DELETED": "Organisations supprimées",
+    "ORGANIZATION_CREATED": "Organisation créée",
+    "ORGANIZATION_DELETED": "Organisation supprimée",
+    "ORGANIZATION_EDITED": "Organisation modifiée",
+    "PERSON_ADDED": "Personne ajoutée",
+    "PERSON_CONFIRMED": "Personne vérifiée",
+    "PERSON_CREATED": "Personne créée",
+    "PERSON_DELETED": "Personne supprimée",
+    "PERSON_UPDATED": "Personne mise à jour",
+    "PROGRAMS_DELETED": "Programmes supprimés",
+    "PROGRAM_CREATED": "Programme créé",
+    "PROGRAM_DELETED": "Programme supprimé",
+    "PROGRAM_EDITED": "Programme édité",
+    "SUBCLIPS_DELETED": "Séquences supprimées",
+    "SUBCLIP_DELETED": "Séquences supprimées",
+    "SUBCLIP_UPDATED": "Séquence mise à jour",
+    "TEXT_COPIED": "Le texte à été copié dans votre presse-papier.",
+    "TRANSCRIPT_ABORTED": "Transcription annulée",
+    "TRANSCRIPT_COPIED": "Transcription copiée dans le presse-papier",
+    "TRANSCRIPT_COPY_ERROR": "Erreur lors de la copie de la transcription",
+    "TRANSCRIPT_EDITED": "Transcription modifiée",
+    "TRANSCRIPT_LANGUAGE_CHANGED": "Langue de transcription modifiée",
+    "URL_COPIED": "Le lien à été copié dans votre presse-papier.",
+    "USERS_DELETED": "Utilisateurs supprimés",
+    "USER_DELETED": "Utilisateur supprimé",
+    "USER_DISABLED": "Utilisateur désactivé",
+    "USER_ENABLED": "Utilisateur activé",
+    "USER_INVITED": "Invitation envoyée !",
+    "MEDIA_DELETED_SUCCESS": "Le média a été supprimé avec succès.",
+    "MEDIA_UPDATED": "Media mis à jour",
+    "MEDIAS_UPDATED": "{{total}} medias mis à jour",
+    "PARTIAL_MEDIA_DELETED": "Le média n'a pu être supprimé car vous ne disposez pas des autorisations requises. Merci de contacter votre administrateur.",
+    "PARTIAL_MEDIAS_DELETED": "{{ratio}} médias supprimés. Vous ne disposez pas des autorisations requises pour tous les supprimer. Merci de contacter votre administrateur.",
+    "PENDING_REQUESTER_DELETED": "Demande de compte annulée",
+    "LAUNCH_TASK_SUCCESS": "Lancement de {{task}} réalisé avec succés",
+    "LAUNCH_TASK_ERROR": "Le lancement de {{task}} a échoué",
+    "COGNITIVE_TASK_LAUNCHED": "Analyse cognitive en cours",
+    "MXT_TASK_LAUNCHED": "Analyse MXT en cours",
+    "ANALYSIS_UPDATED": "{{value}} updated",
+    "ANALYSIS_UPDATE_FAILED": "{{value}} update failed",
+    "MEDIAS_DELETED_SUCCESS": "Les médias ont été supprimés avec succès.",
+    "PERSON_ADDED_FEW_SECONDS_TO_BE_VISIBLE": "Nouvelle personne crée. Cela peut prendre quelques secondes pour qu'elle soit visible.",
+    "PERSON_UPDATED_FEW_SECONDS_TO_BE_VISIBLE": "Personne mise à jour. Cela peut prendre quelques secondes pour que les modifications soient visibles.",
+    "MISSION_CREATED": "Évènement ajouté"
+  },
+  "ORDERS": {
+    "CART_NAME": "Panier: ",
+    "CONFIRM_ORDER": "Confirmer la commande {{file_type}}",
+    "CONTENT_RESUME": "Contenu",
+    "ORDER_NUMBER": "Order: ",
+    "QUOTATION_REQUEST": "Demande de devis",
+    "REQUEST_RESUME": "Résumé de la demande"
+  },
+  "PANEL": {
+    "REQUIRED_FIELDS": "* : Champs obligatoires"
+  },
+  "PERMISSIONS": {
+    "WARNING": "Pas autorisé"
+  },
+  "PERSONS": {
+    "CREATE_TITLE": "Ajouter une personne",
+    "CREATE_TITLE_OCCURRENCE": "Ajouter une personne de {{val_tc_in}} à {{val_tc_out}}",
+    "LABEL_TEXT": "Nom"
+  },
+  "PPP": {
+    "MEDIA_PANEL": {
+      "ADD_SELECTION_TO_BIN": "Add select. to bin",
+      "ADD_SELECTION_TO_TIMELINE": "Add select. to timeline",
+      "MEDIA_INFO": {
+        "CREATED_AT": "Date :",
+        "ORGANIZATIONS": "Organisations :"
+      },
+      "TABS": {
+        "MEDIA_INFOS": "Media Infos",
+        "OCCURRENCES": "Occurrences",
+        "TRANSCRIPT": "Transcript"
+      }
+    },
+    "MENU": {
+      "COLLECTIONS": "Collections",
+      "EXPORT": "Export",
+      "RECORDINGS": "Enregistrements",
+      "SEARCH": "Recherche"
+    },
+    "NO_MISSION": "Pas d'évènement",
+    "SETTINGS": {
+      "SGW_EXTENSION": "Extension Sgw",
+      "SGW_PREFIX": "Préfixe Sgw Path"
+    }
+  },
+  "RECORDINGS": {
+    "CREATE": "Nouvel enregistrement",
+    "EDIT": "Éditer l'enregistrement",
+    "FILTERS": {
+      "DEVICES": {
+        "VALUES": {
+          "active": "Appareils actifs",
+          "all": "Tous les appareils",
+          "ONLY_ACTIVE": "Afficher uniquement les appareils actifs"
+        }
+      },
+      "EMPTY_UNASSIGNED_RECORDINGS": "Aucun enregistrement non assigné",
+      "TIME_FROM": "Du ",
+      "TIME_TO": "au ",
+      "UNASSIGNED_RECORDINGS": "Enregistrements non assignés",
+      "SEARCH_DEVICE": "Rechercher un appareil"
+    },
+    "LOST_SIGNAL": "Signal Perdu",
+    "MISSING_SIGNAL": "Signal Perdu",
+    "NOTIFICATIONS": {
+      "CREATED": "Enregistrement ajouté",
+      "DELETED": "Enregistrement supprimé",
+      "FAILED": "Une Erreur est parvenue, merci de ré-essayer",
+      "STOPPED": "Enregistrement arrêté",
+      "UPDATED": "Enregistrement édité"
+    },
+    "NOW": "Maintenant",
+    "PANEL": {
+      "CREATE": {
+        "SUBMIT": "CRÉER",
+        "TITLE": "Nouvel enregistrement"
+      },
+      "DATE_ERROR": "Moments Lab ne peut retourner vers le futur… Pour l'instant. \nMerci de changer la date ou l'heure de fin d'enregistrement.",
+      "DELETE": "Supprimer l'enregistrement",
+      "EDIT": {
+        "SUBMIT": "ENREGISTRER",
+        "TITLE": "Éditer l'enregistrement"
+      },
+      "UNSCHEDULE": "Annuler l'enregistrement"
+    },
+    "RECORDINGS": "Enregistrements",
+    "TIME_FROM": "De",
+    "TIME_TO": "à",
+    "TODAY": "aujourd'hui",
+    "TOOLTIPS": {
+      "CONNECT": "Activer la réception pour la prochaine transmission",
+      "DISCONNECT": "Désactiver la réception",
+      "LIVE": "Afficher le direct",
+      "LOCKED": "Enregistrement possible dans {{value}}s.",
+      "NEXT": "Jour Suivant",
+      "PREV": "Jour Précédent",
+      "RECORD": "Lancer un enregistrement",
+      "SCROLLBWRD": "Scroll Arrière",
+      "SCROLLFWRD": "Scroll Avant",
+      "STOP": "Arrêter l'enregistrement en cours",
+      "TIMEZONE": "Fuseau Horaire",
+      "INACTIVE": "Appareil désactivé"
+    },
+    "UNSTABLE": "Signal Instable",
+    "BUTTONS": {
+      "RECORD": "REC",
+      "STOP": "STOP",
+      "CONNECT": "CONNECTER",
+      "DISCONNECT": "DECONNECTER"
+    }
+  },
+  "REPORTING": {
+    "ALERT": {
+      "FUTURE_DATE": "Nous ne pouvons pas créer de reporting sur des périodes futures ;)",
+      "LONG_RANGE": "Merci de sélectionner une période de temps inférieure à 1 an.",
+      "NO_DATES": "Merci de sélectionner une période de temps.",
+      "SERVER_ERROR": "Une erreur est survenue lors du traitement de votre requête."
+    },
+    "ASSEMBLIES": "Exports",
+    "COGNITIVE_ANALYSIS": "Analyse Cognitive",
+    "DATE": "Date :",
+    "DOWNLOAD_FILE": "Télécharger csv",
+    "GENERATE_FILE": "Générer csv",
+    "HOUR": "Heure",
+    "HOURS": "Heures",
+    "IMAGE": " Image",
+    "IMAGES": " Images",
+    "MEDIA": " Media",
+    "MEDIAS": " Medias",
+    "MINUTE": "Minute",
+    "MINUTES": "Minutes",
+    "NO_DATA_ASSEMBLIES": "Pas de données disponibles sur les Exports",
+    "NO_DATA_AVAILABLE": "Pas de données disponibles",
+    "NO_DATA_COGNITIVE_ANALYSIS": "Pas de données disponibles sur l'Analyse Cognitive",
+    "NO_DATA_IMAGES_INGESTION": "Pas de données disponibles sur le Transfert d'Images",
+    "NO_DATA_TRANSCODING": "Pas de données disponibles sur le Transcodage",
+    "NO_DATA_TRANSCRIPT": "Pas de données disponibles sur la Transcription",
+    "NO_DATA_TRANSLATION": "Pas de données disponibles sur la Traduction",
+    "NO_DATA_VIDEO_INGESTION": "Pas de données disponibles sur le Transfert Vidéo",
+    "ORGANIZATION": "Organisation :",
+    "ORGANIZATION_ALL": "Toutes",
+    "TOTAL_AUDIO_TRANSCRIPTION": "Transcription Audio",
+    "TOTAL_COGNITIVE_ANALYSIS": "Total Analyse Cognitive",
+    "TOTAL_INGESTED_IMAGES": "Total Images Transférées",
+    "TOTAL_INGESTED_VIDEO": "Total Contenu Video Transféré",
+    "TOTAL_TRANSCODED_CONTENT": "Total Contenu Transcodé",
+    "TRANSLATION": "Traduction",
+    "WAITING_FILE": "Génération ..."
+  },
+  "SEARCH": {
+    "AUTOCOMPLETE": {
+      "ANNOTATIONS": "Annotations",
+      "LABELS": "Labels",
+      "MEDIAS": "Médias",
+      "MISSIONS": "Évènement",
+      "PERSONS": "Personnes",
+      "TRANSCRIPT": "Transcription",
+      "USE_SEMANTIC_FOR": "Utilisez la recherche sémantique pour "
+    },
+    "SEARCH_MODE_MENU": {
+      "TEXTUAL": {
+        "LABEL": "Recherche par mot-clé",
+        "TOOLTIP": "Trouve tous les contenus contenant vos mots-clés."
+      },
+      "SEMANTIC": {
+        "LABEL": "Recherche sémantique",
+        "TOOLTIP": "Se concentre sur la recherche des contenus les plus pertinents."
+      },
+      "NEW": "Nouveau"
+    },
+    "SEMANTIC_TITLE": "Résultat les plus pertinents, optimisé par la compréhension sémantique.",
+    "SEMANTIC_INFO": {
+      "TITLE": "Découvrez la recherche sémantique",
+      "TEXT": "Le moteur de recherche utilise la similarité sémantique pour comprendre le sens de votre recherche et vous proposer les contenus les plus pertinents"
+    }
+  },
+  "SETTINGS": {
+    "CATEGORIES": {
+      "ADD_CATEGORY": "Ajouter une catégorie",
+      "CATEGORY_ADD_FILTER": "Ajouter un élémebt",
+      "CATEGORY_FILTERS": "Contient",
+      "CATEGORY_LABEL": "Catégorie"
+    },
+    "DESTINATIONS": {
+      "ACTIONS": {
+        "ACTIVATE": "Activer",
+        "CREATE": "Créer une nouvelle destination",
+        "DESACTIVATE": "Désactiver",
+        "SAVE": "Enregistrer les paramètres",
+        "TEST": "Tester"
+      },
+      "EDIT_DESTINATION": "Modifier la destination",
+      "FIELDS": {
+        "ACTIVE": "Actif",
+        "AUDIO_PROFILE": "Profil d'encodage audio",
+        "AVID": "Avid conforme",
+        "BUCKET": "Compartiment",
+        "DALET": "Conforme à Dalet",
+        "DELIVERY_ITEMS": {
+          "COMPANION": "Compagnon",
+          "LABEL": "Livraison",
+          "REPRESENTATION": "Représentation"
+        },
+        "DIRECTION": "Direction",
+        "DOCUMENT_PROFILE": "Profil d'encodage document",
+        "FOLDER": "Dossier",
+        "FORCED": "Forcé",
+        "HOST": "Hôte",
+        "IMAGE_PROFILE": "Profil d'encodage image",
+        "LABEL": "Nom",
+        "NO_PROFILE": "Non pris en charge",
+        "PACKAGE_PROFILE": "Format de package",
+        "PASSWORD": "Mot de passe",
+        "PATH": "Chemin",
+        "PORT": "Port",
+        "PROFILE": "Profil d'encodage",
+        "PROTOCOL": "Protocole",
+        "TEMPLATE": "Template",
+        "TRIGGERS": {
+          "APPROVE": "Validation",
+          "ASSIGN": "Assignation",
+          "LABEL": "Déclenchement"
+        },
+        "TYPE": "Type",
+        "UID": "Uid",
+        "USER": "Utilisateur",
+        "VIDEO_PROFILE": "Profil d'encodage vidéo",
+        "FILTER_ORGANIZATION": "Organisations autorisées (vide = toutes)"
+      },
+      "NEW_DESTINATION": "Nouvelle destination",
+      "STATUS": {
+        "ACTIVE": {
+          "FALSE": "désactivé",
+          "TRUE": "Activée"
+        }
+      },
+      "TEST_CONNECTION": "Test en cours...",
+      "TITLE": "Destinations"
+    },
+    "DEVICES": {
+      "ACTIONS": {
+        "CREATE": "Créer",
+        "UNBIND": "Délier"
+      },
+      "EDIT_DEVICE": "Éditer l'appareil",
+      "FIELDS": {
+        "ENDPOINT": "Endpoint",
+        "FROM": "De",
+        "MANAGED": "On Rack",
+        "MANAGEMENT": "Management",
+        "MANUFACTURER": "Fabricant",
+        "MISSION": "Évènement",
+        "MODEL": "Modèle",
+        "SERIAL": "En série",
+        "TYPE": "Type",
+        "UID": "Identifiant",
+        "UNMANAGED": "On Field",
+        "UNTIL": "Jusqu'à"
+      },
+      "NEW_DEVICE": "Nouvel appareil",
+      "TITLE": "Appareils"
+    },
+    "ENCODINGPROFILES": {
+      "FIELDS": {
+        "AUDIOBITRATE": "Débit Audio",
+        "AUDIOCODEC": "Codec Audio",
+        "FORMAT": "Format",
+        "LABEL": "Nom",
+        "TYPE": "Type",
+        "UID": "Uid",
+        "VIDEOBITRATE": "Débit Video",
+        "VIDEOCODEC": "Codec Video"
+      },
+      "TITLE": "Profils d'encodage"
+    },
+    "ENDPOINTS": {
+      "ACTIONS": {
+        "ACTIVATE": "Activer",
+        "CREATE": "Créer un nouveau point de terminaison",
+        "DESACTIVATE": "Désactiver",
+        "SAVE": "Enregistrer les paramètres",
+        "TEST": "Tester"
+      },
+      "EDIT_ENDPOINT": "Éditer le point final",
+      "FIELDS": {
+        "DIRECTION": "Direction",
+        "FOLDER": "Dossier",
+        "HOST": "Hôte",
+        "LABEL": "Étiquette",
+        "PASSWORD": "Mot de passe",
+        "PORT": "Port",
+        "PROTOCOL": "Protocole",
+        "TYPE": "Type",
+        "UID": "Uid",
+        "USER": "Utilisateur"
+      },
+      "NEW_ENDPOINT": "Nouveau point final",
+      "STATUS": {
+        "ACTIVE": {
+          "FALSE": "désactivé",
+          "TRUE": "Activée"
+        }
+      },
+      "TITLE": "Points finaux"
+    },
+    "MENU": {
+      "DESTINATIONS": "Destinations",
+      "DEVICES": "Appareils",
+      "ENDPOINTS": "endpoints",
+      "STATS": "Statistiques"
+    }
+  },
+  "STRING_ITEMS_LIST": {
+    "ACTIONS": {
+      "ADD_ITEM": "+ Ajouter ",
+      "DELETE": "Supprimer"
+    },
+    "PLACEHOLDER": {
+      "ADD": "Ajouter un {{type}}"
+    },
+    "TYPES": {
+      "ALIAS": "Alias",
+      "ALIASES_ADD": "Ajouter un alias",
+      "EXTERNAL_IDENTIFIERS": "Identifiants externes",
+      "EXTERNAL_IDENTIFIERS_ADD": "Ajouter un identifiant externe",
+      "IDENTIFIER": "Identifiant"
+    },
+    "ADD_CHIP_NOTICE": "Entrez une valeur puis appuyez sur entrée pour l'ajouter"
+  },
+  "THESAURUS": {
+    "AUTOCOMPLETE_ADD_TO": "Ajouter au thésaurus ",
+    "AUTOCOMPLETE_CREATE": "Créer {{label}} dans le thésaurus",
+    "BUTTONS": {
+      "ADD_CATEGORY": "Créer une catégorie",
+      "CREATE_LABEL": "Créer un label",
+      "LAUNCH_DETECTION": "Lancer la détection",
+      "LAUNCH_THESAURUS": "Qui est-ce ?",
+      "NEXT_IMAGE": "Image suivante",
+      "PREVIOUS_IMAGE": "Image précédente",
+      "NEXT_FRAME": "Frame suivante",
+      "PREVIOUS_FRAME": "Frame précédente",
+      "SCAN_RETRO_DETECTION": "Lancer la rétro-détection"
+    },
+    "CATEGORIES": {
+      "CREATE_CATEGORY": "Créer une catégorie",
+      "EDIT_CATEGORY": "Éditer une catégorie"
+    },
+    "LABELS": {
+      "ADD_AN_ALIAS": "Ajouter un alias",
+      "ALIASES": "Alias",
+      "CREATE_A_LABEL": "Créer un label",
+      "DESCRIPTION": "Description",
+      "IDENTIFIERS": "Identifiants",
+      "LABEL": "Label"
+    },
+    "MENU": {
+      "CATEGORIES": "Catégories",
+      "LABELS": "Labels",
+      "PERSONS": "Personnes"
+    },
+    "NO_RESULTS": "Cette liste est vide",
+    "PERSONS": {
+      "CREATE_PERSONS": "Qui est-ce ?",
+      "DESCRIPTION": "Description",
+      "DISCARDED_FACES": "Désolé, mais ces visages sont trop petits pour être indexés.",
+      "DROP_IMAGE": "Déposez une image pour ajouter une Personne",
+      "FACE_IDS": "Face ids",
+      "IMAGE_QUALITY": "Format portrait haute définition recommandé (.jpg /.png)",
+      "I_DONT_CARE": "I don't care",
+      "LOADING_QUESTIONS": "Chargement des questions",
+      "NAME": "Nom",
+      "NO_FACES_DETECTED": "Aucun visage détecté sur cette image",
+      "SKIP": "Passer cette personne",
+      "SOMEBODY_ELSE": "quelqu'un d'autre"
+    },
+    "SEARCH": "Rechercher",
+    "RECENTLY_USED_ADDED": "Entité utilisée/ajoutée récemment dans le thésaurus ",
+    "PPI": {
+      "DISCARD_MODAL": {
+        "SURE_NOT_THE_SAME": "Êtes-vous sûr qu'il ne s'agit pas de la même personne ?",
+        "DONE_WRONGLY_AFFECT_THESAURUS": "En cas d'erreur, cette action peut réduire la qualité de votre Thesaurus.",
+        "BUTTONS": {
+          "NO_GO_BACK": "Non, revenir",
+          "YES_SURE": "Oui je suis sûr"
+        }
+      },
+      "SCANNING_MODAL_TITLE": "Rétro-détection pour {{ value }}",
+      "NO_PPI_FOUND": "Aucun visage similaire pouvant correspondre à cette personne n'a été détecté dans votre librairie de media.",
+      "RECONCILE_MODAL": {
+        "SAME_PERSON": "Sont-ils la même personne ?",
+        "YOUR_PHOTO": "Votre Photo",
+        "OCCURRENCES_IN": "{{ value }} occurrences dans",
+        "MEDIA_FILES": " {{ value }} media",
+        "BUTTONS": {
+          "YES": "Oui",
+          "NO": "Non",
+          "NOT_SURE": "Je ne suis pas sûr"
+        }
+      }
+    },
+    "SEARCH_IN_THESAURUS": "Rechercher dans le thésaurus"
+  },
+  "UFOS": {
+    "PANEL": {
+      "TITLE": "Médias non assignés"
+    }
+  },
+  "USER_MENU": {
+    "APP_VERSION": "App. version",
+    "ASPERA": "Aspera",
+    "AVAILABLE_WORKSPACES": "Autres comptes",
+    "CONFIDENT_MIN": "Détection de personnes : {{value}}",
+    "CURRENT_WORKSPACE": "Connecté sur le compte",
+    "IGNORE_FALSE_POSITIVE": "Ignorer les faux positifs",
+    "ROLE": "Rôle",
+    "SEARCH_SETTINGS": "Réglages",
+    "UPLOADS": "Uploads :",
+    "UI_LANGUAGE_CONFIG": "Langue de l'interface"
+  },
+  "WORKSPACES_SWITCH_PANEL": {
+    "AVAILABLE_WORKSPACES": "Plateformes disponibles pour :",
+    "WORKSPACES": "Plateformes"
+  },
+  "MISSION_TYPES": {
+    "rush": "Rush",
+    "photos": "Photos",
+    "live": "Direct",
+    "mission": "Événement",
+    "videos": "Événement"
+  },
+  "SUBTITLE_EDITOR": {
+    "TITLE": "Éditeur de sous-titres",
+    "LANGUAGE_SELECT": "Langue",
+    "SAVE_SUBTITLE": "Enregistrer les modifications",
+    "UPDATE_SUCCESS": "Sous-titres mis-à-jour avec succès",
+    "UPDATE_ERROR": "Erreur lors de la mise-à-jour des sous-titres",
+    "DOWNLOAD_SUBTITLE": "Télécharger .srt"
+  },
+  "PLAYER": {
+    "PLAYBACK_RATE": "Vitesse",
+    "NO_CC": "Pas de sous-titres",
+    "NO_CC_AVAILABLE": "Aucun sous-titre disponible",
+    "EDIT_CC": "Éditer les sous-titres…"
+  },
+  "TOOLTIPS": {
+    "USER": {
+      "EMAIL": "Email : ",
+      "PHONE": "Téléphone : ",
+      "ORGANIZATION": "Organisation : ",
+      "ORGANIZATIONS": "Organisations : ",
+      "ROLE": "Rôle : "
+    }
+  },
+  "BATCH_MEDIA_EDITING": {
+    "MEDIA_EDITION": "Edition des medias infos par lot",
+    "SEARCH_FIELD": "Rechercher un champ",
+    "NO_RESULT": "Pas de résultat",
+    "SHARED_VALUES": "Valeurs communes :",
+    "SHARED_VALUE": "Valeur commune :",
+    "NONE": "Aucune",
+    "CLICK_FIELD_TO_EDIT_MEDIA": "Cliquez sur un champ pour éditer sa valeur pour le <em>media sélectionnés</em> :",
+    "CLICK_FIELD_TO_EDIT_MEDIAS": "Cliquez sur un champ pour éditer sa valeur pour les <em>{{ number }} medias sélectionnés</em> :",
+    "EDITING_FIELD_FOR_MEDIA": "Edition du champ <em>{{ field }}</em> pour le <em>media sélectionné</em> :",
+    "EDITING_FIELD_FOR_MEDIAS": "Edition du champ <em>{{ field }}</em> pour les <em>{{ number }} medias sélectionnés</em> :",
+    "OPTIONS": {
+      "SET": "Définir",
+      "REPLACE": "Remplacer"
+    },
+    "OVERWRITING_WARNING": "Les données précédemment renseignées seront écrasées après enregistrement.",
+    "DELETE_UNSHARED_VALUES": "Ecraser les valeurs existantes.",
+    "REMINDER": "Rappel : les valeurs héritées de l'évènement ne seront pas affectées.",
+    "ADD_VALUES": "Ajouter les valeurs aux medias sélectionnés",
+    "REPLACE_VALUES": "Remplacer les valeurs des medias sélectionnés"
+  },
+  "BATCH_MEDIA_MOVING": {
+    "MEDIA_MOVE": "Déplacer {{ value }} media vers un évènement",
+    "MEDIAS_MOVE": "Déplacer {{ value }} medias vers un évènement",
+    "SELECT_TARGET_EVENT": "Sélectionnez un évènement cible"
+  },
+  "MEDIA_COUNTER": {
+    "MEDIA": "{{ value }} médias"
+  },
+  "MXT": {
+    "PANEL": {
+      "BANNER_ACTIVE_MXT": "L’indexation automatique par IA avec MXT n’est pas disponible pour le moment sur cette plateforme.",
+      "NO_SCENE": "La détection de scènes n'a pas été effectuée pour le moment.",
+      "NO_SCENE_FOUND": "MXT didn't find any scene.",
+      "NO_SUMMARY": "Résumé indisponible.",
+      "LAUNCH_ANALYSIS": "Lancer l'analyse MXT",
+      "TRY_ON_MEDIA": "Essayer sur ce media",
+      "RELAUNCH_ANALYSIS": "Relancer",
+      "LOADING": "Chargement des scènes avec MXT...",
+      "ANALYSING": "Analyse en cours. Cela peut prendre du temps selon la durée de votre média.",
+      "SET_SEQUENCE_HIGHLIGHT": "Définir comme highlight",
+      "UNSET_SEQUENCE_HIGHLIGHT": "Ne pas définir comme highlight",
+      "FAILED": "L'analyse a échoué.",
+      "LAUNCH_DESCRIPTIONS": "Générer les descriptions MXT",
+      "ADD_TAG": "Ajouter un tag...",
+      "OPEN_CUSTOM_MOMENT_DIALOG": "Ouvrir console d'admnistration des customs moments",
+      "NO_ANALYSIS": "Ce média n'a pas été analysé par MXT et ne contient donc pas de moments générés.",
+      "PENDING": "Analyse en attente...",
+      "HIGHLIGHTED_SEQUENCE": "Séquence highlighted",
+      "NOT_HIGHLIGHTED_SEQUENCE": "Séquence non highlighted",
+      "CONTENT_CATEGORIES_TITLE": "Catégories de contenu",
+      "ADD_CONTENT_CATEGORY": "Ajouter une catégorie…",
+      "NO_TAG": "Pas de tag sur ce média."
+    }
+  },
+  "UPLOADS": {
+    "TITLE": "Import de media",
+    "COMPLETE": "Terminé",
+    "PROGRESS": "En cours",
+    "PENDING": "En attente",
+    "CANCELLED": "Annulé",
+    "PAUSED": "En pause",
+    "PAUSE": "Pause",
+    "RESUME": "Reprendre",
+    "FORCE_START": "Forcer",
+    "CANCEL": "Annuler",
+    "GLOBAL_PROGRESS": "Upload en cours",
+    "GLOBAL_COMPLETE": "Upload terminé",
+    "GLOBAL_ERROR": "Erreur d'upload",
+    "SHOW_DETAILS": "Afficher les détails",
+    "HIDE_DETAILS": "Cacher les details",
+    "ERRORS_COUNT": "{{value}} erreurs"
+  },
+  "WS_SETTINGS": {
+    "NAV": {
+      "ACCOUNT": {
+        "PROFILE": "Mon profil",
+        "TITLE": "Mon compte",
+        "DISPLAY_PREFERENCES": "Mes préférences d’affichage"
+      },
+      "WORKSPACE": {
+        "TITLE": "Espace de travail",
+        "DISPLAY_PREFERENCES": "Paramètres de l'espace de travail",
+        "DEVICES": "Appareils",
+        "DESTINATIONS": "Destinations",
+        "ENCODING_PROFILES": "Profils d’encodage",
+        "USERS": "Gérer les utilisateurs",
+        "ORGANIZATIONS": "Organisations",
+        "PROGRAMS": "Programmes",
+        "CUSTOM_FIELDS": "Champs personnalisés"
+      }
+    },
+    "WS_MENU": {
+      "SWITCH_WS": "Changer d’espace de travail",
+      "LOGOUT": "Se déconnecter"
+    },
+    "WORKSPACE": {
+      "DEVICES": {
+        "DIALOG": {
+          "SUCCESS": {
+            "CREATE": "Création de l'appareil réussie",
+            "EDIT": "L'édition de l'appareil a réussi"
+          }
+        }
+      },
+      "PROGRAMS": {
+        "DELETE_DIALOG": {
+          "TITLE": "Êtes-vous sûr de vouloir supprimer ce programme ?"
+        }
+      }
+    },
+    "ACCOUNT": {
+      "DISPLAY_PREFERENCES": {
+        "UPDATE_SUCCESS": "Préférence d’affichage  de l'{{value}} mise à jour",
+        "THEME": {
+          "VALUES": {
+            "DARK": "Sombre",
+            "LIGHT": "Clair",
+            "SYSTEM": "Selon l’appareil"
+          }
+        },
+        "MEDIA_PREVIEW": {
+          "SKIP": {
+            "LABEL": "En cliquant sur un fichier média, vous pouvez accéder directement à la page du média sans voir d’aperçu.",
+            "TITLE": "Ignorer l’aperçu média"
+          },
+          "TITLE": "Prévisualisation du média",
+          "AUTO_PLAY_VIDEO": "Lecture automatique de la vidéo dans l’aperçu média",
+          "AUTO_PLAY_VIDEO_DISABLED": "Cette option est désactivée car l’aperçu média est ignoré."
+        },
+        "AUTO_PLAY_VIDEO": "Lecture automatique de la vidéo sur la page média",
+        "SEARCH_DISPLAY_MODE": "Affichage par défaut dans la vue de recherche pour les Moments et les fichiers média",
+        "MEDIA_PANEL_FROM_SEARCH_RESULT": "Volet ouvert par défaut lors de l’ouverture d’un média depuis la recherche",
+        "MEDIA_PANEL_FROM_SEARCH_RESULT_LABEL": "Volet média par défaut",
+        "SEARCH_MODE": "Mode de la recherche par défaut",
+        "SEARCH_MODE_LABEL": "Mode de recherche par défaut",
+        "EVENT_DISPLAY_MODE": "Affichage par défaut dans la vue des événements pour les Moments et les fichiers média",
+        "DISPLAY_MODES": {
+          "GRID": "Grille",
+          "ROW": "Liste"
+        },
+        "METADATA": {
+          "TITLE": "Métadonnées à afficher dans la liste des médias",
+          "CTA": "Gérer les métadonnées"
+        },
+        "RESTORE": {
+          "LABEL": "Restaurer les préférences de l’espace de travail",
+          "TEXT": "Les préférences utilisateur remplacent les préférences de l’espace de travail"
+        }
+      }
+    }
+  },
+  "ASSET_PREVIEW": {
+    "DESCRIPTION": "Description",
+    "SUMMARY": "Résumé",
+    "DURATION": "Durée",
+    "TC_IN": "TC IN",
+    "TC_OUT": "TC OUT",
+    "FROM_MOMENT_SEQUENCE": "À partir du Moment séquence",
+    "ORIGINAL_MEDIA": {
+      "SECTION_TITLE": "Métadonnées du media original",
+      "SUBTITLES": {
+        "GENERAL": "Général",
+        "FILE_PROPERTIES": "Propriétés du fichier"
+      },
+      "EDIT": {
+        "EDIT_BUTTON": "Éditer"
+      },
+      "TITLE": "Titre",
+      "DATE": "Date",
+      "ID": "ID",
+      "ORGANIZATIONS": "Organisations",
+      "FILE_SIZE": "Taille du fichier",
+      "EXTENSION": "Extension",
+      "VIDEO": {
+        "CODEC": "Codec vidéo",
+        "FRAMERATE": "Framerate vidéo",
+        "RESOLUTION": "Résolution vidéo"
+      },
+      "AUDIO": {
+        "CODEC": "Codec audio",
+        "TRACK_COUNT": "Nombre de pistes audio"
+      },
+      "DOWNLOAD_FILE": "Télécharger le fichier {{extension}}"
+    },
+    "PREVIEW_ERROR": {
+      "NO_DOCUMENT_PREVIEW": "L'aperçu n'est pas disponible pour les documents"
+    }
+  },
+  "MEDIA_PREVIEW": {
+    "DURATION": "Durée",
+    "SIZE": "Taille",
+    "SUMMARY": "Résumé",
+    "EXTENSION": "Extension",
+    "VIDEO_CODEC": "Codec vidéo",
+    "VIDEO_FRAMERATE": "Framerate vidéo",
+    "MEDIA_FILE": "Infos du média",
+    "PEOPLE": "Personnes",
+    "MOMENTS": "Moments",
+    "RESULT_TYPE_ANNOTATION": "Moment",
+    "RESULT_TYPE_MEDIA": "Fichier Media",
+    "OPEN_SEQUENCE": "Ouvrir le moment",
+    "OPEN_MEDIA": "Ouvrir le media"
+  },
+  "MOMENTS": {
+    "HIGHLIGHTED_TOGGLE": "Highlighted",
+    "NO_MOMENT_OF_TYPE": "Aucun moment de ce type disponible",
+    "NO_MOMENT": "Aucun moment disponible",
+    "NO_SHOT_IN_SEQUENCE": "Pas de shot dans ce moment",
+    "TYPES": {
+      "SHOT": "Shot",
+      "MEDIA": "Media",
+      "MOMENT": "Moment",
+      "ALL": "Tous",
+      "SEQUENCE": "Séquence",
+      "USER": "Moments utilisateur",
+      "USER_MOMENT": "Moments utilisateur",
+      "SOUND_BITE": "Sound bite",
+      "ANNOTATION": "Annotation",
+      "TRANSCRIPT": "Transcript"
+    },
+    "ACTION": {
+      "ADD": "Ajouter un moment",
+      "EDIT": "Editer le moment",
+      "DELETE": "Supprimer le moment",
+      "DELETE_CONFIRM": "Supprimer le moment ?",
+      "HIGHLIGHT_SUCCESS": "Statut changé avec succès",
+      "HIGHLIGHT_ERROR": "Erreur lors du changement de statut",
+      "POST_SPEAKER_SUCCESS": "Speaker ajouté",
+      "POST_SPEAKER_ERROR": " Ajout du speaker impossible",
+      "POST_DESCRIPTION_ERROR": "Ajout de la description impossible",
+      "SOUND_BITE_SUCCESS": "Sound bite modifié",
+      "SOUND_BITE_ERROR": "Modification du sound bite impossible",
+      "SUCCESS": "Moment édité"
+    }
+  },
+  "DOWNLOAD_PROCESSING": {
+    "TITLE": "Préparation des téléchargements",
+    "TOOLTIP": {
+      "CANCEL": "Annuler",
+      "COPY": "Copier le titre du moment",
+      "REMOVE": "Supprimer"
+    },
+    "TOAST": {
+      "COPY": "Titre du moment copié dans le presse-papier"
+    },
+    "ERROR": "Échec du téléchargement : contactez le support",
+    "DIALOG": {
+      "CANCEL": {
+        "TITLE": "Annuler le téléchargement ?",
+        "TEXT": "Votre téléchargement n'est pas terminé. Voulez-vous annuler le téléchargement ?"
+      },
+      "CANCEL_ALL": {
+        "TITLE": "Annuler tous les téléchargements ?",
+        "TEXT": "Votre téléchargement n'est pas terminé et cette action annulera tous les téléchargements. Voulez-vous annuler tous les téléchargements ?"
+      }
+    }
+  },
+  "UI_LANGUAGE": {
+    "FRENCH": "Français",
+    "ENGLISH": "English",
+    "SPANISH": "Español",
+    "JAPANESE": "日本 (Japanese)",
+    "ARABIC": "عرب (Arabic)"
+  },
+  "AGENT": {
+    "WELCOME": {
+      "SUBTITLE": "Voici le Discovery Agent — la nouvelle façon d’explorer, de découvrir et de comprendre votre vidéothèque.",
+      "TITLE": {
+        "1": "Comment puis-je vous aider ?",
+        "2": "Que puis-je trouver pour vous ?",
+        "3": "Que recherchez-vous ?"
+      },
+      "PROMPTS_EXAMPLES": {
+        "WITHOUT_CONTEXT": {
+          "LABEL": "Que puis-je demander ? Voici quelques exemples :"
+        },
+        "WITH_CONTEXT": {
+          "MEDIA": {
+            "LABEL": "Que puis-je demander à propos de ce media?",
+            "1": "Fais un résumé",
+            "2": "Extrais les Moments clés",
+            "3": "Crée une version courte de moins de 2 minutes et choisis les meilleurs shots",
+            "4": "Trouve d'autres media similaires"
+          }
+        }
+      }
+    },
+    "PANEL": {
+      "NEW_CONVERSATION": "Nouvelle conversation",
+      "HISTORY": {
+        "TITLE": "Récents",
+        "SHOW_LESS": "Afficher moins",
+        "SHOW_MORE": "Afficher plus",
+        "DELETE": {
+          "TOOLTIP": "Supprimer la conversation",
+          "SNACKBAR": "Conversation supprimée"
+        },
+        "DIALOG": {
+          "TITLE": "Supprimer la conversation ?",
+          "CANCEL": "Non",
+          "CONFIRM": "Supprimer"
+        }
+      },
+      "TITLE": "Discovery Agent",
+      "PROMPT_INPUT": {
+        "PLACEHOLDER": "Saisissez votre demande ici"
+      }
+    },
+    "MEDIA": {
+      "DELETED": "Ce fichier média a été supprimé de votre bibliothèque",
+      "DURATION": "Durée"
+    },
+    "ACTIONS": {
+      "LIKE": {
+        "TOOLTIP": "J’aime la réponse",
+        "SNACKBAR": "Merci, votre retour est précieux !"
+      },
+      "DISLIKE": {
+        "TOOLTIP": "Je n’aime pas la réponse",
+        "SNACKBAR": "Merci beaucoup, cela nous aidera à améliorer l’agent !",
+        "DIALOG": {
+          "TITLE": "Votre retour compte pour nous !",
+          "LABEL": "Pourquoi n’avez-vous pas aimé ?",
+          "SEND": "Envoyer",
+          "CLOSE": "Fermer"
+        }
+      },
+      "CART": {
+        "TOOLTIP": "Ajouter au panier"
+      }
+    },
+    "FOLLOW_UP": {
+      "GET_MORE_RESULT": {
+        "CTA": "Voir plus de résultats",
+        "QUESTION": "Montre-moi plus de résultats s’il te plaît"
+      },
+      "GET_MORE_CONTENT_LIKE_THIS": {
+        "CTA": "Rechercher du contenu similaire",
+        "QUESTION": "Recherche du contenu similaire à ce {{ type }}"
+      }
+    },
+    "THOUGHTS": {
+      "INTRO": {
+        "1": "Je traite votre demande",
+        "2": "Un instant, je m'en occupe",
+        "3": "Je regarde cela"
+      },
+      "START_REASONING": "Analyse de votre demande",
+      "LABEL_OPENED": "Masquer mon raisonnement",
+      "LABEL_CLOSED": "Afficher mon raisonnement",
+      "PROGRESSING": {
+        "IMAGE": "Recherche de « {{ query }} » dans la bibliothèque d’images...",
+        "MOMENT": "Recherche de « {{ query }} » dans la bibliothèque de moments...",
+        "VIDEO": "Recherche de « {{ query }} » dans la bibliothèque de vidéos...",
+        "AUDIO": "Recherche de « {{ query }} » dans la bibliothèque de contenus audio...",
+        "WEB": "Recherche d’informations sur Internet concernant « {{ query }} »..."
+      }
+    },
+    "IN_PANEL": {
+      "TITLE": "Discovery Agent",
+      "CONVERSATIONS_HISTORIC": {
+        "TITLE": "Conversations",
+        "SUBTITLE": "Récentes",
+        "BACK": "Go back home",
+        "NO_RESULT": "Aucune conversation",
+        "CREATE_FIRST_CONVERSATION": "Créer votre première conversation avec Discovery Agent"
+      },
+      "BUTTONS": {
+        "NEW_CONVERSATION": "Nouvelle conversation",
+        "DISPLAY_MODE_PANEL": "Afficher en panneau latéral",
+        "DISPLAY_MODE_OVERLAY": "Afficher en pleine page",
+        "HISTORIC": "Conversations passées",
+        "CLOSE": "Fermer",
+        "ADD_CONTEXT": "Utiliser la page actuelle comme contexte"
+      },
+      "ERROR": {
+        "LOADING": {
+          "TITLE": "Une erreur s'est produite",
+          "SUBTITLE": "Le chargement de la conversation prend trop de temps.",
+          "ACTION": "Réessayer"
+        }
+      }
+    },
+    "ALREADY_THINKING_SNACKBAR": "Discovery Agent est déjà en train de réfléchir ...",
+    "DELETED_ASSET": "Media supprimé"
+  },
+  "PROJECTS": {
+    "MAIN_TITLE": "Projets",
+    "PROJECT_COUNT_SINGLE": "{{ value }} projet",
+    "PROJECT_COUNT": "{{ value }} projets",
+    "MY_PROJECTS": "Mes Projets ({{ value }})",
+    "SHARED_WITH_ME": "Partagé avec moi ({{ value }})",
+    "TITLE_CHAR_LEFT": "{{ value }} caractères restants",
+    "SHARE_THIS_PROJECT": "Partager ce projet",
+    "NO_PROJECT": "Il n'existe pas de projet pour le moment.",
+    "START_COLLECTING": "Commencez à collecter du contenu en créant un nouveau projet",
+    "FILTER": {
+      "FILTER_BY_SHARED_STATUS": "Filtrer par statut de partage",
+      "ALL": "Tous",
+      "SHARED": "Partagés",
+      "NOT_SHARED": "Non Partagés"
+    },
+    "SORT": {
+      "SORT_BY": "Trier par",
+      "LAST_CREATED": "Créés en dernier",
+      "LAST_UPDATED": "Mis à jour en dernier",
+      "NAME_A_Z": "Nom A-Z",
+      "CUSTOM": "Personnalisé"
+    },
+    "SEARCH": {
+      "LABEL": "Rechercher un projet"
+    },
+    "BUTTONS": {
+      "ADD_NEW_PROJECT": "Créer un nouveau projet",
+      "NEW_PROJECT": "Nouveau projet"
+    },
+    "EDIT_SEQUENCE_DIALOG": {
+      "TITLE": "Editer un item de votre projet",
+      "NEW_PROJECT": "Nouveau projet",
+      "DOWNLOAD": "Télécharger"
+    },
+    "DUPLICATE_PROJECT_DIALOG": {
+      "TITLE": "Dupliquer le projet {{ title }}"
+    },
+    "ACTIONS": {
+      "ITEMS_ADDED_TO_PROJECT": "Items ajoutés au projet.",
+      "ITEM_ADDED_TO_PROJECT": "Item ajouté au projet.",
+      "PROJECT_CREATED": "Nouveau projet ajouté",
+      "PROJECT_UPDATED": "Le projet a été mis à jour",
+      "PROJECT_DELETED": "Le projet a été supprimé",
+      "SEE_PROJECT": "Voir le projet"
+    },
+    "MENU": {
+      "CREATE_NEW_PROJECT": "Créer un nouveau projet",
+      "SEARCH": "Rechercher",
+      "ADD_TO_PROJECT": "Ajouter à un projet",
+      "NO_PROJECT_YET": "Aucun projet pour le moment"
+    },
+    "DETAIL": {
+      "ITEMS": "{{ value }} items",
+      "TABS": {
+        "ITEMS": "Items",
+        "MY_EXPORTS": "Mes exports"
+      },
+      "EMPTY_STATE": {
+        "PROJECT_EMPTY": "Aucun contenu dans ce projet",
+        "ADD_ITEMS_LIBRARY": "Vous pouvez ajouter des items à vos projets, les partager et les exporter",
+        "NO_ACCESS": "Vous n'avez pas accès à ce projet",
+        "REQUEST_ACCESS": "Contactez le propriétaire de ce projet pour en obtenir l'accès.",
+        "REQUEST_ACCESS_BUTTON": "Demander l'accès",
+        "NO_PREVIEW_AVAILABLE": "Pas d'aperçu disponible"
+      },
+      "MY_EXPORTS": {
+        "HEADERS": {
+          "DATE": "Date",
+          "TYPE": "Type",
+          "DETAILS": "Détails",
+          "NUMBER_OF_FILES": "Nombre de fichiers",
+          "STATUS": "Statut"
+        },
+        "STATUS": {
+          "PREPARING": "Préparation...",
+          "DELIVERING": "Livraison en cours...",
+          "READY": "Disponible",
+          "FAILED": "Echec",
+          "CANCELLED": "Annulé",
+          "UNKNOWN": "Inconnu"
+        },
+        "TYPE": {
+          "DOWNLOAD": "Téléchargement",
+          "SEND_TO": "Envoi vers une destination"
+        },
+        "NO_EXPORTS": "Pas d'export pour ce projet",
+        "DOWNLOADS_DELIVERIES": "Tous vos téléchargements et livraisons de ce projet apparaîtront ici.",
+        "SHARE_LINK": "Partager le lien",
+        "DOWNLOAD_PROJECT": "Télécharger le projet",
+        "SHARING_LINK_COPIED_TO_CLIPBOARD": "Lien de téléchargement copié dans votre presse-papier"
+      }
+    },
+    "SHARING": {
+      "ADD_USERS_AND_ORGANIZATIONS": "Ajouter des utilisateurs et des organisations",
+      "INFO": "Les personnes avec lesquelles vous partagez votre projet pourront : voir tout le contenu de votre projet,le télécharger quels que soient les droits d'accès aux fichiers originaux."
+    },
+    "DELETE_ITEM_DIALOG": {
+      "TITLE": "Supprimer un item du projet?",
+      "TEXT": "Êtes-vous sûr de vouloir supprimer “{{value}}”?",
+      "TEXT_MULTI": "Etes-vous sûr de vouloir supprimer {{value}} items?",
+      "BUTTON_CONFIRM": "Oui, supprimer"
+    },
+    "DELETE_DIALOG": {
+      "TITLE": "Supprimer ce projet?",
+      "TEXT": "Etes-vous sûr de vouloir supprimer “{{value}}”?",
+      "BUTTON_CONFIRM": "Oui, supprimer"
+    },
+    "SEND_TO_DIALOG": {
+      "TITLE": "Envoyer vers une destination",
+      "CHOOSE_DESTINATION": "Sélectionner une destination configurée."
+    },
+    "DOWNLOAD_DIALOG": {
+      "TITLE": "Télécharger le projet “{{ value }}”",
+      "ITEMS": "{{ value }} items",
+      "ITEM": "{{ value }} item",
+      "VIDEO_DURATION": "{{ value }} durée de vidéo",
+      "QUALITY": "Qualité",
+      "OPTIONS": "Options",
+      "INCLUDE_ROUGHCUT": "Inclure un bout à bout",
+      "INCLUDE_DATA_EXPORT": "Inclure un export de données/sous-titres",
+      "SELECT": {
+        "FORMAT": {
+          "VIDEO": "Vidéo",
+          "IMAGE": "Image",
+          "AUDIO": "Audio",
+          "DOCUMENT": "Document"
+        }
+      },
+      "TYPE_LABEL": {
+        "VIDEO": "{{ value }} vidéo",
+        "VIDEOS": "{{ value }} vidéos",
+        "IMAGE": "{{ value }} image",
+        "IMAGES": "{{ value }} images",
+        "AUDIO": "{{ value }} audio",
+        "AUDIOS": "{{ value }} audios",
+        "DOCUMENT": "{{ value }} document",
+        "DOCUMENTS": "{{ value }} documents"
+      }
+    },
+    "EXPORT_DATA_DIALOG": {
+      "TITLE": "Exporter données/sous-titres",
+      "FILE_FORMAT": "Format",
+      "LANGUAGE": "Langue",
+      "ADD_ANOTHER_FORMAT": "Ajouter un autre format"
+    }
+  },
+  "REPURPOSING": {
+    "TITLE": "Repurposing",
+    "PUBLICATIONS": "Publications",
+    "HOME_MOST_VIEWED": "Les plus vus",
+    "HOME_LAST_PUBLICATIONS": "Dernières publications",
+    "HOME_WAITING_REVIEW": "En attente de review",
+    "VIEW_ALL": "Voir tout",
+    "CALENDAR": "Calendrier",
+    "CALENDAR_THIS_WEEK": "Cette semaine",
+    "CALENDAR_NEXT_WEEK": "Semaine prochaine",
+    "CALENDAR_THIS_MONTH": "Ce mois-ci",
+    "CALENDAR_NEXT_MONTH": "Mois prochain",
+    "CALENDAR_EMPTY": "Aucune publication planifiée.",
+    "HOME_NO_PUBLICATIONS": "Aucune publication dans cette section.",
+    "DASHBOARD_TOTAL_VIEWS": "Vues totales",
+    "DASHBOARD_VIEWS_THIS_WEEK": "Cette semaine",
+    "DASHBOARD_VS_LAST_WEEK": "vs semaine dernière",
+    "DASHBOARD_VIEWS_EVOLUTION": "Évolution des vues sur les dernières heures",
+    "DASHBOARD_LAST_HOURS": "24 dernières heures",
+    "DASHBOARD_CHART_PROFILE": "Profil",
+    "DASHBOARD_CHART_RANGE": "Période",
+    "DASHBOARD_CHART_LAST_7_DAYS": "7 derniers jours",
+    "DASHBOARD_CHART_LAST_15_DAYS": "15 derniers jours",
+    "DASHBOARD_CHART_LAST_30_DAYS": "30 derniers jours",
+    "DASHBOARD_CHART_LAST_60_DAYS": "60 derniers jours",
+    "DASHBOARD_VIEWS_LAST_7_DAYS": "Vues (7 derniers jours)",
+    "DASHBOARD_VIEWS_LAST_15_DAYS": "Vues (15 derniers jours)",
+    "DASHBOARD_VIEWS_LAST_30_DAYS": "Vues (30 derniers jours)",
+    "DASHBOARD_VIEWS_LAST_60_DAYS": "Vues (60 derniers jours)",
+    "DASHBOARD_VIEWS_PER_DAY_AYRSHARE": "Vues cumulées par jour (Ayrshare)",
+    "DASHBOARD_PLANNED_PUBLICATIONS": "Publications planifiées",
+    "DASHBOARD_NO_PLANNED": "Aucune publication planifiée.",
+    "DASHBOARD_VIEW_CALENDAR": "Voir le calendrier",
+    "DASHBOARD_TRENDING_HASHTAGS": "Top 10 hashtags tendances mondiaux",
+    "DASHBOARD_TRENDING_HASHTAGS_SUB": "Tendances X (Twitter) dans le monde (via TwitterAPI.io)",
+    "DASHBOARD_TRENDING_HASHTAGS_EMPTY": "Aucune donnée. Configurez TWITTERAPI_IO_API_KEY sur le serveur pour activer.",
+    "DASHBOARD_TOP_USED_HASHTAGS": "Top 10 hashtags par vues",
+    "DASHBOARD_TOP_USED_HASHTAGS_SUB": "Hashtags qui ont généré le plus de vues sur vos publications",
+    "DASHBOARD_TOP_USED_HASHTAGS_EMPTY": "Pas encore de données de vues. Ajoutez des hashtags à vos distributions et des vues pour les voir ici.",
+    "DASHBOARD_VIEWS": "vues",
+    "DASHBOARD_LOADING": "Chargement…",
+    "PUBLICATIONS_EMPTY": "Aucune publication",
+    "PUBLICATIONS_EMPTY_HINT": "Créez une publication pour distribuer du contenu sur les réseaux.",
+    "NEW_PUBLICATION": "Nouvelle publication",
+    "EDIT_PUBLICATION": "Modifier la publication",
+    "CREATE_PUBLICATION": "Créer une publication",
+    "PUBLICATION_TITLE": "Titre",
+    "PUBLICATION_DESCRIPTION": "Description",
+    "PUBLICATION_POST_TEXT": "Texte du post",
+    "PUBLICATION_MEDIA_URLS": "Médias",
+    "MEDIA_BY_FORMAT": "Médias par format",
+    "MEDIA_BY_FORMAT_HINT": "Ajoutez au moins un média dans chaque format pour débloquer les plateformes correspondantes (ex. 9:16 pour Shorts, Reels, Stories).",
+    "MEDIA_FORMAT_16x9": "Format 16:9 (paysage)",
+    "MEDIA_FORMAT_9x16": "Format 9:16 (vertical)",
+    "MEDIA_FORMAT_4x5": "Format 4:5 (portrait)",
+    "MEDIA_DROP_ZONE_HINT": "Glissez des fichiers ici ou cliquez pour parcourir",
+    "UPLOADING": "Téléversement…",
+    "VIDEO_UPLOADED": "Vidéo téléversée",
+    "MEDIA_UPLOADED": "Média téléversé",
+    "REMOVE_MEDIA": "Supprimer",
+    "REPLACE_MEDIA": "Remplacer",
+    "PUBLICATION_SCHEDULED_AT": "Planifié le",
+    "TIME": "Heure",
+    "DISTRIBUTIONS": "Distributions",
+    "VIDEO": "Vidéo",
+    "DISTRIBUTIONS_EMPTY": "Aucune distribution",
+    "DISTRIBUTIONS_EMPTY_HINT": "Ajoutez une distribution pour publier sur une plateforme.",
+    "ADD_DISTRIBUTION": "Ajouter une distribution",
+    "NEW_DISTRIBUTION": "Nouvelle distribution",
+    "PLATFORM": "Plateforme",
+    "YOUTUBE_PUBLICATION_TYPE": "Type de publication YouTube",
+    "STATUS": "Statut",
+    "POST_URL": "URL du post",
+    "VIEW_POST_ON_PLATFORM": "Voir la publication sur {{ platform }}",
+    "FIELD_POST_URL": "URL du post",
+    "FIELD_AYRSHARE_POST_ID": "ID post Ayrshare",
+    "FIELD_PLATFORM_POST_ID": "ID post plateforme",
+    "FIELD_ERROR": "Erreur",
+    "FIELD_STATUS": "Statut",
+    "FIELD_PUBLISHED_AT": "Publié le",
+    "FIELD_VIEWS": "Vues",
+    "CUMULATIVE_VIEWS": "Vues cumulées",
+    "FIELD_SCHEDULED_AT": "Planifié le",
+    "FIELD_POST_TEXT": "Texte du post",
+    "FIELD_CREATED_AT": "Créé le",
+    "FIELD_UPDATED_AT": "Modifié le",
+    "PUBLISH": "Publier",
+    "PLAN": "Planifier",
+    "PLANNED": "Planifié : {{date}}",
+    "TAG_PLANNED": "Planifié",
+    "SCHEDULE_PUBLICATION": "Planifier la publication",
+    "CONFIRM_SCHEDULE": "Planifier",
+    "OTHER_SCHEDULED_DATES": "Autres publications planifiées",
+    "BACK": "Retour",
+    "REFRESH_STATUS": "Actualiser le statut et les vues",
+    "NEXT": "Suivant",
+    "CREATE_STEP_1": "Téléverser les médias",
+    "CREATE_STEP_2": "Détails de la publication",
+    "AYRSHARE_PROFILE": "Profil Ayrshare",
+    "LOADING_PROFILES": "Chargement des profils…",
+    "NO_PROFILES": "Aucun profil Ayrshare. Ajoutez-en un dans les paramètres.",
+    "LOADING_PLATFORMS": "Chargement des plateformes…",
+    "GENERATE_CONTENT": "Générer titre, description et texte",
+    "GENERATING": "Génération…",
+    "SAVE": "Enregistrer",
+    "CANCEL": "Annuler",
+    "DELETE": "Supprimer",
+    "STATUS_DRAFT": "Brouillon",
+    "STATUS_PENDING": "En attente",
+    "STATUS_PUBLISHING": "Publication",
+    "STATUS_PUBLISHED": "Publié",
+    "STATUS_ERROR": "Erreur",
+    "STATUS_FAILED": "Échec",
+    "STATUS_REVIEW": "Review",
+    "STATUS_REVIEW": "Review",
+    "DELETE_PUBLICATION_CONFIRM": "Supprimer cette publication ?",
+    "DELETE_DISTRIBUTION_CONFIRM": "Supprimer cette distribution ?",
+    "PUBLISH_CONFIRM_TITLE": "Publier la publication",
+    "PUBLISH_CONFIRM_TEXT": "Cela va publier sur toutes les plateformes sélectionnées. Continuer ?",
+    "PUBLISH_ONE_CONFIRM_TEXT": "Publier cette distribution maintenant ?",
+    "SEND_TO_REVIEW": "Envoyer en review",
+    "APPROVE_REVIEW": "Approuver la review",
+    "SAVE_AND_PUBLISH_CONFIRM_TITLE": "Enregistrer et publier",
+    "SAVE_AND_PUBLISH_CONFIRM_TEXT": "Enregistrer cette publication et la publier immédiatement sur toutes les plateformes sélectionnées ?",
+    "SELECT_PLATFORMS": "Choisir les plateformes",
+    "PLATFORMS_BY_UPLOADED_FORMAT_HINT": "Les plateformes ci-dessous sont activées selon les formats de médias que vous avez téléversés (ex. 9:16 pour Shorts, Reels, Stories).",
+    "PLATFORM_PREVIEWS": "Aperçu sur chaque plateforme",
+    "SELECT_PLATFORMS_HINT": "Cochez les plateformes à qui distribuer cette publication. Dépliez une ligne pour les options spécifiques.",
+    "PLATFORM_OVERRIDE_POST_TEXT": "Texte du post (override)",
+    "PLATFORM_OVERRIDE_POST_TEXT_HELP": "Remplacer le texte du post pour cette plateforme uniquement. Vide = défaut de la publication.",
+    "PLATFORM_OVERRIDE_MEDIA": "URLs des médias (override, une par ligne)",
+    "PLATFORM_OVERRIDE_MEDIA_HELP": "Remplacer les médias pour cette plateforme. Vide = défaut de la publication.",
+    "PLATFORM_OVERRIDE_SCHEDULED": "Planifié le (override)",
+    "PLATFORM_OVERRIDE_SCHEDULED_HELP": "Remplacer la date/heure pour cette plateforme. Vide = défaut de la publication.",
+    "YES": "Oui",
+    "NO": "Non",
+    "ACTIVE_PLATFORMS": "Plateformes activées",
+    "INACTIVE_PLATFORMS": "Plateformes non activées",
+    "HASHTAGS": "Hashtags",
+    "HASHTAGS_HELP": "Ajoutez ici les hashtags spécifiques à cette plateforme. Nous recommandons des tags courts en minuscules, par exemple #shorts ou #reels.",
+    "HASHTAGS_MASTER_HINT": "Hashtags par défaut pour toutes les plateformes. Surchargez dans la colonne de droite si besoin.",
+    "HASHTAGS_OVERRIDE_HINT": "Laisser vide pour utiliser les hashtags maître, ou ajouter des tags spécifiques à la plateforme.",
+    "MASTER": "Maître",
+    "PLATFORM_OVERRIDE_USE_MASTER": "Laisser vide pour utiliser le texte maître",
+    "PLATFORMS": {
+      "YOUTUBE": "YouTube",
+      "TIKTOK": "TikTok",
+      "LINKEDIN": "LinkedIn",
+      "FACEBOOK": "Facebook",
+      "INSTAGRAM": "Instagram",
+      "TWITTER": "X (Twitter)",
+      "PINTEREST": "Pinterest",
+      "GOOGLE_BUSINESS": "Google Business Profile",
+      "THREADS": "Threads",
+      "BLUESKY": "Bluesky",
+      "SNAPCHAT": "Snapchat"
+    },
+    "PUBLICATION_TYPES": {
+      "YOUTUBE_VIDEO": "Vidéo",
+      "YOUTUBE_VIDEO_HELP": "Vidéo classique (format paysage 16:9 recommandé).",
+      "YOUTUBE_SHORTS": "Shorts",
+      "YOUTUBE_SHORTS_HELP": "Vidéo courte verticale (≤ 3 min, format 9:16).",
+      "TIKTOK_VIDEO": "Vidéo",
+      "TIKTOK_VIDEO_HELP": "Vidéo courte verticale (format 9:16).",
+      "INSTAGRAM_FEED": "Feed / Carrousel",
+      "INSTAGRAM_FEED_HELP": "Publication dans le fil (images ou vidéos, carrousel jusqu'à 10).",
+      "INSTAGRAM_REELS": "Reels",
+      "INSTAGRAM_REELS_HELP": "Vidéo courte verticale (format 9:16, onglet Reels).",
+      "INSTAGRAM_STORIES": "Stories",
+      "INSTAGRAM_STORIES_HELP": "Story (une image ou vidéo, disparaît après 24 h, format 9:16).",
+      "FACEBOOK_POST": "Publication",
+      "FACEBOOK_POST_HELP": "Publication classique dans le fil (images ou vidéo).",
+      "FACEBOOK_REELS": "Reels",
+      "FACEBOOK_REELS_HELP": "Vidéo courte verticale (3–60 s, format 9:16).",
+      "FACEBOOK_STORIES": "Stories",
+      "FACEBOOK_STORIES_HELP": "Story (photo ou vidéo, 24 h, format 9:16).",
+      "LINKEDIN_POST": "Publication",
+      "LINKEDIN_POST_HELP": "Publication dans le fil LinkedIn.",
+      "TWITTER_POST": "Post",
+      "PINTEREST_PIN": "Épingler",
+      "THREADS_POST": "Publication",
+      "BLUESKY_POST": "Publication",
+      "GMB_POST": "Publication",
+      "SNAPCHAT_STORY": "Story",
+      "SNAPCHAT_STORY_HELP": "Story éphémère (24 h, 9:16). Une image ou vidéo par post.",
+      "SNAPCHAT_SAVED_STORY": "Story enregistrée",
+      "SNAPCHAT_SAVED_STORY_HELP": "Story permanente sur votre profil public (9:16).",
+      "SNAPCHAT_SPOTLIGHT": "Spotlight",
+      "SNAPCHAT_SPOTLIGHT_HELP": "Vidéo permanente sur Spotlight (9:16). Hashtags pris en charge."
+    },
+    "PLATFORM_OPTIONS": {
+      "YOUTUBE_TITLE": "Titre de la vidéo",
+      "YOUTUBE_TITLE_HELP": "Requis pour YouTube. Max 100 caractères.",
+      "YOUTUBE_DESCRIPTION": "Description",
+      "YOUTUBE_DESCRIPTION_HELP": "Description sous la vidéo.",
+      "YOUTUBE_VISIBILITY": "Visibilité",
+      "YOUTUBE_VISIBILITY_HELP": "Public, non répertorié ou privé.",
+      "TIKTOK_TITLE": "Titre du post",
+      "TIKTOK_TITLE_HELP": "Légende ou titre du post TikTok.",
+      "TIKTOK_VISIBILITY": "Visibilité",
+      "TIKTOK_VISIBILITY_HELP": "Public, privé, abonnés ou amis.",
+      "TIKTOK_DISABLE_COMMENTS": "Désactiver les commentaires",
+      "TIKTOK_DISABLE_COMMENTS_HELP": "Les utilisateurs ne pourront pas commenter.",
+      "LINKEDIN_VISIBILITY": "Visibilité",
+      "LINKEDIN_VISIBILITY_HELP": "Public, connexions ou utilisateurs connectés.",
+      "LINKEDIN_ALTTEXT": "Texte alternatif des images",
+      "LINKEDIN_ALTTEXT_HELP": "Pour l'accessibilité et les lecteurs d'écran.",
+      "VISIBILITY_PUBLIC": "Public",
+      "VISIBILITY_PRIVATE": "Privé",
+      "VISIBILITY_UNLISTED": "Non répertorié",
+      "VISIBILITY_FOLLOWERS": "Abonnés uniquement",
+      "VISIBILITY_FRIENDS": "Amis uniquement",
+      "VISIBILITY_CONNECTIONS": "Connexions uniquement",
+      "VISIBILITY_LOGGEDIN": "Utilisateurs connectés uniquement"
+    }
+  },
+  "PROJECT": {
+    "DIALOG": {
+      "CREATE_TITLE": "Créer un nouveau projet",
+      "RENAME_ITEM": "Renommer un item",
+      "EDIT_TITLE": "Editer le projet",
+      "DELETE": {
+        "TITLE": "Supprimer projet",
+        "SUB_TITLE": "Vous êtes sur le point de supprimer le projet : {{ value }}, êtes vous certain ? "
+      },
+      "ITEM": {
+        "DELETE": {
+          "TITLE": "Supprimer des élements du projet",
+          "SUB_TITLE": "Vous êtes sur le point de supprimer  {{ value }} item(s) de ce projet, êtes vous certain ?"
+        }
+      }
+    },
+    "SNACKBAR": {
+      "CREATION_SUCCESS": "Projet créé avec succès",
+      "SUCCESS_DELETE_MESSAGE": "Projet supprimé avec succès",
+      "DUPLICATE_PROJECT_SUCCESS": "Projet dupliqué avec succès",
+      "ITEM": {
+        "DELETED_SUCCESS": "Élément(s) supprimé(s)",
+        "MOVE_SUCCESS": "Élément déplacé"
+      }
+    },
+    "FORM": {
+      "LABEL": {
+        "TITLE": "Titre du projet",
+        "NAME": "Nom"
+      },
+      "ERROR": {
+        "TITLE_REQUIRED": "La saisie du titre est obligatoire"
+      }
+    }
+  }
+}
