@@ -15,10 +15,12 @@ const trends_repository_1 = require("./spi/trends.repository");
 const publication_service_1 = require("./domain/publication.service");
 const distribution_service_1 = require("./domain/distribution.service");
 const ayrshare_profile_service_1 = require("./domain/ayrshare-profile.service");
+const ayrshare_webhook_event_service_1 = require("./domain/ayrshare-webhook-event.service");
 const publications_controller_1 = require("./api/publications.controller");
 const distributions_controller_1 = require("./api/distributions.controller");
 const ayrshare_controller_1 = require("./api/ayrshare.controller");
 const trends_controller_1 = require("./api/trends.controller");
+const webhooks_controller_1 = require("./api/webhooks.controller");
 let RepurposingModule = class RepurposingModule {
 };
 exports.RepurposingModule = RepurposingModule;
@@ -30,6 +32,7 @@ exports.RepurposingModule = RepurposingModule = __decorate([
             distributions_controller_1.DistributionsController,
             ayrshare_controller_1.AyrshareController,
             trends_controller_1.TrendsController,
+            webhooks_controller_1.WebhooksController,
         ],
         providers: [
             ayrshare_repository_1.AyrshareRepository,
@@ -37,6 +40,7 @@ exports.RepurposingModule = RepurposingModule = __decorate([
             publication_service_1.PublicationService,
             distribution_service_1.DistributionService,
             ayrshare_profile_service_1.AyrshareProfileService,
+            ayrshare_webhook_event_service_1.AyrshareWebhookEventService,
         ],
     })
 ], RepurposingModule);

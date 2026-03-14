@@ -44,4 +44,22 @@ export declare class DistributionService {
     private effective;
     publish(id: string): Promise<Distribution>;
     refreshAyrshareStatusForPublication(publicationId: string): Promise<void>;
+    handleAyrshareWebhook(payload: {
+        action?: string;
+        status?: string;
+        id?: string;
+        postIds?: Array<{
+            platform?: string;
+            id?: string;
+            postUrl?: string;
+            post_url?: string;
+            status?: string;
+            error?: string;
+        }>;
+        errors?: string[];
+        [key: string]: unknown;
+    }): Promise<{
+        ayrshareProfileId?: string;
+    }>;
+    private updateViewCountFromAyrshare;
 }

@@ -353,10 +353,80 @@ let DistributionService = class DistributionService {
                         ...(status === 'success' && { publishedAt: new Date() }),
                     },
                 });
+                if (status === 'success') {
+                    await this.updateViewCountFromAyrshare(d.id, d.ayrsharePostId, d.platform, publication.ayrshareProfileId);
+                }
             }
             catch {
             }
         }));
+    }
+    async handleAyrshareWebhook(payload) {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+        if (payload.action !== 'scheduled' || !((_a = payload.id) === null || _a === void 0 ? void 0 : _a.trim())) {
+            return {};
+        }
+        const ayrsharePostId = payload.id.trim();
+        const distribution = await this.prisma.distribution.findFirst({
+            where: { ayrsharePostId },
+            include: { publication: true },
+        });
+        if (!distribution) {
+            return {};
+        }
+        const ayrshareProfileId = (_c = (_b = distribution.publication) === null || _b === void 0 ? void 0 : _b.ayrshareProfileId) !== null && _c !== void 0 ? _c : undefined;
+        const postIds = (_d = payload.postIds) !== null && _d !== void 0 ? _d : [];
+        const platformLower = ((_e = distribution.platform) !== null && _e !== void 0 ? _e : '').toLowerCase();
+        const platformEntry = postIds.find((p) => { var _a; return ((_a = p.platform) !== null && _a !== void 0 ? _a : '').toLowerCase() === platformLower; });
+        const platformStatus = platformEntry === null || platformEntry === void 0 ? void 0 : platformEntry.status;
+        const platformPostIdValue = (_f = platformEntry === null || platformEntry === void 0 ? void 0 : platformEntry.id) !== null && _f !== void 0 ? _f : null;
+        const isPlatformPending = platformStatus === 'pending' || platformPostIdValue === 'pending';
+        const status = payload.status === 'error' || platformStatus === 'failed'
+            ? 'error'
+            : payload.status === 'success' && !isPlatformPending
+                ? 'success'
+                : 'pending';
+        const errorMessage = ((_g = payload.errors) === null || _g === void 0 ? void 0 : _g.length)
+            ? payload.errors.join('; ')
+            : (_h = platformEntry === null || platformEntry === void 0 ? void 0 : platformEntry.error) !== null && _h !== void 0 ? _h : null;
+        const postUrl = (_k = (_j = platformEntry === null || platformEntry === void 0 ? void 0 : platformEntry.postUrl) !== null && _j !== void 0 ? _j : platformEntry === null || platformEntry === void 0 ? void 0 : platformEntry.post_url) !== null && _k !== void 0 ? _k : null;
+        await this.prisma.distribution.update({
+            where: { id: distribution.id },
+            data: {
+                status,
+                platformPostId: platformPostIdValue,
+                postUrl,
+                errorMessage,
+                ...(status === 'success' && { publishedAt: new Date() }),
+            },
+        });
+        if (status === 'success') {
+            await this.updateViewCountFromAyrshare(distribution.id, ayrsharePostId, distribution.platform, (_m = (_l = distribution.publication) === null || _l === void 0 ? void 0 : _l.ayrshareProfileId) !== null && _m !== void 0 ? _m : null);
+        }
+        return ayrshareProfileId ? { ayrshareProfileId } : {};
+    }
+    async updateViewCountFromAyrshare(distributionId, ayrsharePostId, platform, ayrshareProfileId) {
+        var _a;
+        let profileKey;
+        if (ayrshareProfileId) {
+            try {
+                profileKey = await this.ayrshareProfiles.getProfileKeyByIdOnly(ayrshareProfileId);
+            }
+            catch {
+            }
+        }
+        try {
+            const analytics = await this.ayrshare.getPostAnalytics(ayrsharePostId, [platform], profileKey);
+            const views = (_a = analytics[platform]) === null || _a === void 0 ? void 0 : _a.views;
+            if (typeof views === 'number' && !Number.isNaN(views)) {
+                await this.prisma.distribution.update({
+                    where: { id: distributionId },
+                    data: { viewCount: views },
+                });
+            }
+        }
+        catch {
+        }
     }
 };
 exports.DistributionService = DistributionService;

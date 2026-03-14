@@ -60,3 +60,25 @@ model AyrshareProfile {
   @@unique([workspaceId, profileKey])
 }
 
+/// Raw Ayrshare webhook events (scheduled, social, messages, feed, batch, accountActivity).
+/// Full payload stored as JSON for auditing and API access.
+model AyrshareWebhookEvent {
+  id                  String   @id @default(uuid())
+  /// Webhook action: scheduled | social | messages | feed | batch | accountActivity
+  action              String
+  /// Ayrshare hook id (when present in payload) for dedup/reference
+  hookId              String?
+  /// Ayrshare user/profile reference id (refId in payload)
+  refId               String?
+  /// Our profile id when known (e.g. from publication for scheduled events)
+  ayrshareProfileId   String?
+  /// Full JSON payload from Ayrshare
+  payload             Json
+  createdAt           DateTime @default(now())
+
+  @@index([action])
+  @@index([refId])
+  @@index([ayrshareProfileId])
+  @@index([createdAt])
+}
+

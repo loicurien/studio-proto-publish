@@ -421,10 +421,132 @@ export class DistributionService {
               ...(status === 'success' && { publishedAt: new Date() }),
             },
           });
+          if (status === 'success') {
+            await this.updateViewCountFromAyrshare(
+              d.id,
+              d.ayrsharePostId,
+              d.platform,
+              publication.ayrshareProfileId,
+            );
+          }
         } catch {
           // skip
         }
       }),
     );
+  }
+
+  /**
+   * Handle incoming Ayrshare webhook (e.g. scheduled action when a post is published or fails).
+   * Updates the distribution matching ayrsharePostId with status, postUrl, platformPostId, errorMessage.
+   * On success, fetches post analytics and updates viewCount when available.
+   * Returns ayrshareProfileId when the event can be linked to our profile (for webhook event storage).
+   */
+  async handleAyrshareWebhook(payload: {
+    action?: string;
+    status?: string;
+    id?: string;
+    postIds?: Array<{
+      platform?: string;
+      id?: string;
+      postUrl?: string;
+      post_url?: string;
+      status?: string;
+      error?: string;
+    }>;
+    errors?: string[];
+    [key: string]: unknown;
+  }): Promise<{ ayrshareProfileId?: string }> {
+    if (payload.action !== 'scheduled' || !payload.id?.trim()) {
+      return {};
+    }
+    const ayrsharePostId = payload.id.trim();
+    const distribution = await this.prisma.distribution.findFirst({
+      where: { ayrsharePostId },
+      include: { publication: true },
+    });
+    if (!distribution) {
+      return {};
+    }
+    const ayrshareProfileId =
+      distribution.publication?.ayrshareProfileId ?? undefined;
+    const postIds = payload.postIds ?? [];
+    const platformLower = (distribution.platform ?? '').toLowerCase();
+    const platformEntry = postIds.find(
+      (p) => (p.platform ?? '').toLowerCase() === platformLower,
+    );
+    const platformStatus = platformEntry?.status;
+    const platformPostIdValue = platformEntry?.id ?? null;
+    const isPlatformPending =
+      platformStatus === 'pending' || platformPostIdValue === 'pending';
+    const status =
+      payload.status === 'error' || platformStatus === 'failed'
+        ? 'error'
+        : payload.status === 'success' && !isPlatformPending
+          ? 'success'
+          : 'pending';
+    const errorMessage = payload.errors?.length
+      ? payload.errors.join('; ')
+      : platformEntry?.error ?? null;
+    const postUrl = platformEntry?.postUrl ?? platformEntry?.post_url ?? null;
+
+    await this.prisma.distribution.update({
+      where: { id: distribution.id },
+      data: {
+        status,
+        platformPostId: platformPostIdValue,
+        postUrl,
+        errorMessage,
+        ...(status === 'success' && { publishedAt: new Date() }),
+      },
+    });
+
+    if (status === 'success') {
+      await this.updateViewCountFromAyrshare(
+        distribution.id,
+        ayrsharePostId,
+        distribution.platform,
+        distribution.publication?.ayrshareProfileId ?? null,
+      );
+    }
+    return ayrshareProfileId ? { ayrshareProfileId } : {};
+  }
+
+  /**
+   * Fetch post analytics from Ayrshare and update distribution.viewCount.
+   * Non-blocking: failures are ignored so webhook response is not delayed.
+   */
+  private async updateViewCountFromAyrshare(
+    distributionId: string,
+    ayrsharePostId: string,
+    platform: string,
+    ayrshareProfileId: string | null,
+  ): Promise<void> {
+    let profileKey: string | undefined;
+    if (ayrshareProfileId) {
+      try {
+        profileKey = await this.ayrshareProfiles.getProfileKeyByIdOnly(
+          ayrshareProfileId,
+        );
+      } catch {
+        // no profile, try without (primary profile)
+      }
+    }
+    try {
+      const analytics = await this.ayrshare.getPostAnalytics(
+        ayrsharePostId,
+        [platform],
+        profileKey,
+      );
+      const views = analytics[platform]?.views;
+      if (typeof views === 'number' && !Number.isNaN(views)) {
+        await this.prisma.distribution.update({
+          where: { id: distributionId },
+          data: { viewCount: views },
+        });
+      }
+    } catch {
+      // Analytics may be unavailable immediately after publish; ignore
+    }
   }
 }

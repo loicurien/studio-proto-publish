@@ -6,10 +6,12 @@ import { TrendsRepository } from './spi/trends.repository';
 import { PublicationService } from './domain/publication.service';
 import { DistributionService } from './domain/distribution.service';
 import { AyrshareProfileService } from './domain/ayrshare-profile.service';
+import { AyrshareWebhookEventService } from './domain/ayrshare-webhook-event.service';
 import { PublicationsController } from './api/publications.controller';
 import { DistributionsController } from './api/distributions.controller';
 import { AyrshareController } from './api/ayrshare.controller';
 import { TrendsController } from './api/trends.controller';
+import { WebhooksController } from './api/webhooks.controller';
 
 @Module({
   imports: [UrlPresignerModule, HttpClientModule],
@@ -18,6 +20,7 @@ import { TrendsController } from './api/trends.controller';
     DistributionsController,
     AyrshareController,
     TrendsController,
+    WebhooksController,
   ],
   providers: [
     AyrshareRepository,
@@ -25,6 +28,7 @@ import { TrendsController } from './api/trends.controller';
     PublicationService,
     DistributionService,
     AyrshareProfileService,
+    AyrshareWebhookEventService,
   ],
 })
 export class RepurposingModule {}
