@@ -203,9 +203,9 @@ export class DistributionService {
     if (!d) {
       throw new NotFoundException(`Distribution ${id} not found`);
     }
-    if (d.status !== 'draft') {
+    if (d.status !== 'draft' && d.status !== 'error') {
       throw new BadRequestException(
-        `Distribution must be in draft status to publish (current: ${d.status})`,
+        `Distribution must be in draft or error status to publish (current: ${d.status})`,
       );
     }
 
@@ -311,49 +311,153 @@ export class DistributionService {
       );
     }
 
-    const response = await this.ayrshare.publishPost(
-      payload as Parameters<AyrshareRepository['publishPost']>[0],
-      profileKey,
-    );
+    try {
+      const response = await this.ayrshare.publishPost(
+        payload as Parameters<AyrshareRepository['publishPost']>[0],
+        profileKey,
+      );
 
-    const postIds = response.postIds ?? [];
-    const platformEntry = postIds.find((p) => p.platform === d.platform);
-    const platformStatus = platformEntry?.status;
-    const platformPostIdValue = platformEntry?.id ?? null;
-    const isPlatformPending =
-      platformStatus === 'pending' || platformPostIdValue === 'pending';
-    const status =
-      response.status === 'error' || platformStatus === 'failed'
-        ? 'error'
-        : response.status === 'success' && !isPlatformPending
-          ? 'success'
-          : 'pending';
-    const errorMessage = response.errors?.length
-      ? response.errors.join('; ')
-      : platformEntry?.error ?? null;
-    const postUrl = platformEntry?.postUrl ?? platformEntry?.post_url ?? null;
-    const ayrsharePostId = response.id ?? null;
+      const postIds = response.postIds ?? [];
+      const platformEntry = postIds.find((p) => p.platform === d.platform);
+      const platformStatus = platformEntry?.status;
+      const platformPostIdValue = platformEntry?.id ?? null;
+      const isPlatformPending =
+        platformStatus === 'pending' || platformPostIdValue === 'pending';
+      const status =
+        response.status === 'error' || platformStatus === 'failed'
+          ? 'error'
+          : response.status === 'success' && !isPlatformPending
+            ? 'success'
+            : 'pending';
+      const errorParts = [...(response.errors ?? [])];
+      if (platformEntry?.error?.trim() && !errorParts.includes(platformEntry.error.trim()))
+        errorParts.push(platformEntry.error.trim());
+      const errorMessage = errorParts.length ? errorParts.join('; ') : null;
+      const postUrl = platformEntry?.postUrl ?? platformEntry?.post_url ?? null;
+      const ayrsharePostId = response.id ?? null;
 
-    const updated = await this.prisma.distribution.update({
-      where: { id },
-      data: {
-        status,
-        ayrsharePostId,
-        platformPostId: platformPostIdValue,
-        postUrl,
-        errorMessage,
-        publishedAt: status === 'success' ? new Date() : null,
-      },
-    });
-
-    if (status === 'success' && publication.scheduledAt) {
-      await this.prisma.publication.update({
-        where: { id: publication.id },
-        data: { scheduledAt: null },
+      const updated = await this.prisma.distribution.update({
+        where: { id },
+        data: {
+          status,
+          ayrsharePostId,
+          platformPostId: platformPostIdValue,
+          postUrl,
+          errorMessage,
+          publishedAt: status === 'success' ? new Date() : null,
+        },
       });
+
+      if (status === 'success' && publication.scheduledAt) {
+        await this.prisma.publication.update({
+          where: { id: publication.id },
+          data: { scheduledAt: null },
+        });
+      }
+
+      return updated;
+    } catch (err: unknown) {
+      const message = this.normalizePublishError(err);
+      const updated = await this.prisma.distribution.update({
+        where: { id },
+        data: { status: 'error', errorMessage: message },
+      });
+      return updated;
+    }
+  }
+
+  /**
+   * Build an explicit, detailed error message from Ayrshare/axios errors
+   * so the UI can show actionable feedback. Prioritizes Ayrshare's message/errors/details.
+   */
+  private normalizePublishError(err: unknown): string {
+    const parts: string[] = [];
+
+    if (err && typeof err === 'object' && 'response' in err) {
+      const ax = err as {
+        response?: { status?: number; data?: unknown };
+        message?: string;
+      };
+      const status = ax.response?.status;
+      const data = ax.response?.data;
+
+      if (data != null && typeof data === 'object') {
+        const obj = data as Record<string, unknown>;
+        // Top-level message (e.g. Ayrshare "Invalid request")
+        if (typeof obj.message === 'string' && obj.message.trim())
+          parts.push(obj.message.trim());
+        if (typeof obj.error === 'string' && obj.error.trim() && !parts.includes(obj.error.trim()))
+          parts.push(obj.error.trim());
+        // Ayrshare errors array: strings or { message, detail, details } per their docs
+        if (Array.isArray(obj.errors) && obj.errors.length > 0) {
+          const messages = obj.errors
+            .map((e) => {
+              if (typeof e === 'string') return e.trim() || null;
+              if (e == null || typeof e !== 'object') return null;
+              const o = e as Record<string, unknown>;
+              const msg =
+                typeof o.message === 'string'
+                  ? o.message.trim()
+                  : typeof o.detail === 'string'
+                    ? o.detail.trim()
+                    : typeof o.details === 'string'
+                      ? o.details.trim()
+                      : null;
+              return msg || null;
+            })
+            .filter((s): s is string => typeof s === 'string' && s.length > 0);
+          if (messages.length) parts.push(messages.join('; '));
+        }
+        // Nested posts[0].errors (same shape as top-level when API wraps response)
+        const posts = obj.posts as unknown[] | undefined;
+        const firstPost = Array.isArray(posts) && posts.length ? (posts[0] as Record<string, unknown>) : null;
+        const nestedErrors = firstPost?.errors;
+        if (Array.isArray(nestedErrors) && nestedErrors.length > 0 && parts.length === 0) {
+          const messages = nestedErrors
+            .map((e) => {
+              if (typeof e === 'string') return e.trim() || null;
+              if (e == null || typeof e !== 'object') return null;
+              const o = e as Record<string, unknown>;
+              return (
+                (typeof o.message === 'string' && o.message.trim()) ||
+                (typeof o.details === 'string' && o.details.trim()) ||
+                (typeof o.detail === 'string' && o.detail.trim()) ||
+                null
+              );
+            })
+            .filter((s): s is string => typeof s === 'string' && s.length > 0);
+          if (messages.length) parts.push(messages.join('; '));
+        }
+      }
+
+      // Prepend HTTP status only when we have no API message, so Ayrshare message is shown first
+      if (status != null && parts.length === 0) {
+        const statusText =
+          status === 400
+            ? 'Bad request'
+            : status === 401
+              ? 'Unauthorized (check API key or profile)'
+              : status === 403
+                ? 'Forbidden (check account permissions)'
+                : status === 404
+                  ? 'Not found'
+                  : status === 429
+                    ? 'Too many requests (rate limit)'
+                    : status >= 500
+                      ? 'Server error'
+                      : `HTTP ${status}`;
+        parts.push(statusText);
+      } else if (status != null && parts.length > 0 && !parts[0].toLowerCase().includes('http')) {
+        parts.push(`(HTTP ${status})`);
+      }
     }
 
-    return updated;
+    if (parts.length > 0) return parts.join(' – ');
+
+    if (err instanceof Error && err.message?.trim())
+      return err.message.trim();
+    if (typeof err === 'string' && err.trim()) return err.trim();
+    return 'Publish request failed. Check your connection and platform settings, then retry.';
   }
 
   async refreshAyrshareStatusForPublication(publicationId: string): Promise<void> {

@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../../prisma.service';
 import { Publication, Distribution } from '@prisma/client';
+import { getRandomOfficeSuggestion } from './the-office-suggestions';
 
 export interface CreatePublicationInput {
   title: string;
@@ -88,32 +89,16 @@ export class PublicationService {
     await this.prisma.publication.delete({ where: { id } });
   }
 
-  async suggestContent(prompt?: string): Promise<{
+  /**
+   * Suggests title, description, post text and hashtags for The Office–themed content.
+   * Each call returns a random draw from curated titles and punchlines so results vary.
+   */
+  async suggestContent(_prompt?: string): Promise<{
     title: string;
     description?: string;
     postText?: string;
     hashtags?: string[];
   }> {
-    const defaultHashtags = ['#social', '#content', '#engagement'];
-    if (prompt?.trim()) {
-      const slug = prompt
-        .slice(0, 50)
-        .toLowerCase()
-        .replace(/\s+/g, '')
-        .replace(/[^a-z0-9]/g, '');
-      return {
-        title: prompt.slice(0, 100),
-        description: `Description for: ${prompt.slice(0, 200)}`,
-        postText: `Post content: ${prompt.slice(0, 500)}`,
-        hashtags: [`#${slug || 'topic'}`, ...defaultHashtags].slice(0, 5),
-      };
-    }
-    return {
-      title: 'New publication',
-      description: 'Brief description of your publication.',
-      postText:
-        'Share your message here. Add hashtags and a call to action for better engagement.',
-      hashtags: defaultHashtags,
-    };
+    return getRandomOfficeSuggestion();
   }
 }
