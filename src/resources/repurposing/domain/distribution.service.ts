@@ -617,8 +617,8 @@ export class DistributionService {
   }
 
   /**
-   * Fetch live view counts from Ayrshare for distributions that have been published,
-   * then return the top ones sorted by view count (for "Most viewed" list).
+   * Return most viewed items quickly from stored DB viewCount.
+   * Then refresh Ayrshare analytics in background so next calls get fresh values.
    */
   async getMostViewedFromAyrshare(
     limit = 12,
@@ -636,41 +636,35 @@ export class DistributionService {
       orderBy: { updatedAt: 'desc' },
       take: cap,
     });
-    const withViews = await Promise.all(
-      rows.map(async (d) => {
-        let profileKey: string | undefined;
-        if (d.publication.ayrshareProfileId) {
-          try {
-            profileKey = await this.ayrshareProfiles.getProfileKeyByIdOnly(
+    // Fast path: use persisted counts so this endpoint stays responsive.
+    const withViews = rows.map((d) => ({
+      publication: d.publication as Publication & { distributions: Distribution[] },
+      distribution: d,
+      viewCount: d.viewCount ?? 0,
+    }));
+
+    // Background refresh: limited concurrency to reduce external API pressure.
+    const refreshViewsInBackground = async (): Promise<void> => {
+      const parallel = 6;
+      for (let i = 0; i < rows.length; i += parallel) {
+        const chunk = rows.slice(i, i + parallel);
+        await Promise.allSettled(
+          chunk.map((d) =>
+            this.updateViewCountFromAyrshare(
+              d.id,
+              d.ayrsharePostId!,
+              d.platform,
               d.publication.ayrshareProfileId,
-            );
-          } catch {
-            // use primary profile
-          }
-        }
-        let viewCount = 0;
-        try {
-          const analytics = await this.ayrshare.getPostAnalytics(
-            d.ayrsharePostId!,
-            [d.platform],
-            profileKey,
-          );
-          const v = analytics[d.platform]?.views;
-          if (typeof v === 'number' && !Number.isNaN(v)) viewCount = v;
-        } catch {
-          // skip failed analytics
-        }
-        return {
-          publication: d.publication as Publication & { distributions: Distribution[] },
-          distribution: d,
-          viewCount,
-        };
-      }),
-    );
-    return withViews
-      .filter((x) => x.viewCount > 0)
-      .sort((a, b) => b.viewCount - a.viewCount)
-      .slice(0, limit);
+            ),
+          ),
+        );
+      }
+    };
+    void refreshViewsInBackground();
+
+    const sorted = withViews.sort((a, b) => b.viewCount - a.viewCount);
+    const nonZero = sorted.filter((x) => x.viewCount > 0);
+    return (nonZero.length > 0 ? nonZero : sorted).slice(0, limit);
   }
 
   /**
