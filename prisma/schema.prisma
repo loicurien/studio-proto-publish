@@ -40,6 +40,7 @@ model Distribution {
   hashtags         String?      // JSON array of hashtags, e.g. ["#tag1","#tag2"]
   preferredFormat  String?      // e.g. 16:9, 9:16, 4:5
   viewCount        Int?         // from Ayrshare post analytics (refreshed when loading publication)
+  likeCount        Int?         // from Ayrshare post analytics (refreshed with viewCount)
   createdAt        DateTime     @default(now())
   updatedAt        DateTime     @updatedAt
 }

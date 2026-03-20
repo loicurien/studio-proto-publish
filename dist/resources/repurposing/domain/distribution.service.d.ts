@@ -3,7 +3,7 @@ import { UrlPresignerService } from '../../../common/url-presigner/url-presigner
 import { UserRequestCredentialsService } from '../../../common/http-client/user-request-credentials.service';
 import { AyrshareRepository } from '../spi/ayrshare.repository';
 import { AyrshareProfileService } from './ayrshare-profile.service';
-import { Distribution } from '@prisma/client';
+import { Distribution, Publication } from '@prisma/client';
 export interface CreateDistributionInput {
     platform: string;
     postText?: string;
@@ -43,6 +43,7 @@ export declare class DistributionService {
     approvePublicationReview(publicationId: string): Promise<void>;
     private effective;
     publish(id: string): Promise<Distribution>;
+    private normalizePublishError;
     refreshAyrshareStatusForPublication(publicationId: string): Promise<void>;
     handleAyrshareWebhook(payload: {
         action?: string;
@@ -61,5 +62,12 @@ export declare class DistributionService {
     }): Promise<{
         ayrshareProfileId?: string;
     }>;
-    private updateViewCountFromAyrshare;
+    getMostViewedFromAyrshare(limit?: number): Promise<{
+        publication: Publication & {
+            distributions: Distribution[];
+        };
+        distribution: Distribution;
+        viewCount: number;
+    }[]>;
+    private updatePostMetricsFromAyrshare;
 }

@@ -33,6 +33,7 @@ export class DistributionResponseDto {
   hashtags?: string[];
   preferredFormat?: string;
   viewCount?: number;
+  likeCount?: number;
   createdAt!: string;
   updatedAt!: string;
 
@@ -53,6 +54,7 @@ export class DistributionResponseDto {
     hashtags?: string | null;
     preferredFormat?: string | null;
     viewCount?: number | null;
+    likeCount?: number | null;
     createdAt: Date;
     updatedAt: Date;
   }): DistributionResponseDto {
@@ -75,6 +77,7 @@ export class DistributionResponseDto {
     dto.hashtags = d.hashtags ? (JSON.parse(d.hashtags) as string[]) : undefined;
     dto.preferredFormat = d.preferredFormat ?? undefined;
     dto.viewCount = d.viewCount ?? undefined;
+    dto.likeCount = d.likeCount ?? undefined;
     dto.createdAt = d.createdAt.toISOString();
     dto.updatedAt = d.updatedAt.toISOString();
     return dto;

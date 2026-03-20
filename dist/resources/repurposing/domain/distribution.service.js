@@ -35,7 +35,7 @@ let DistributionService = class DistributionService {
         try {
             const rows = await this.prisma.distribution.findMany({
                 where: { hashtags: { not: null } },
-                select: { hashtags: true, viewCount: true },
+                select: { hashtags: true, viewCount: true, likeCount: true },
             });
             const viewsByTag = new Map();
             for (const row of rows) {
@@ -177,8 +177,8 @@ let DistributionService = class DistributionService {
         if (!d) {
             throw new common_1.NotFoundException(`Distribution ${id} not found`);
         }
-        if (d.status !== 'draft') {
-            throw new common_1.BadRequestException(`Distribution must be in draft status to publish (current: ${d.status})`);
+        if (d.status !== 'draft' && d.status !== 'error') {
+            throw new common_1.BadRequestException(`Distribution must be in draft or error status to publish (current: ${d.status})`);
         }
         const publication = d.publication;
         const postText = (_a = this.effective(d.postText, publication.postText)) !== null && _a !== void 0 ? _a : '';
@@ -267,40 +267,134 @@ let DistributionService = class DistributionService {
             throw new common_1.BadRequestException('No Ayrshare profile is set for this publication and the workspace has no profile. ' +
                 'Create a publication with an Ayrshare profile selected, or add a profile (POST /repurposing/ayrshare/profiles).');
         }
-        const response = await this.ayrshare.publishPost(payload, profileKey);
-        const postIds = (_e = response.postIds) !== null && _e !== void 0 ? _e : [];
-        const platformEntry = postIds.find((p) => p.platform === d.platform);
-        const platformStatus = platformEntry === null || platformEntry === void 0 ? void 0 : platformEntry.status;
-        const platformPostIdValue = (_f = platformEntry === null || platformEntry === void 0 ? void 0 : platformEntry.id) !== null && _f !== void 0 ? _f : null;
-        const isPlatformPending = platformStatus === 'pending' || platformPostIdValue === 'pending';
-        const status = response.status === 'error' || platformStatus === 'failed'
-            ? 'error'
-            : response.status === 'success' && !isPlatformPending
-                ? 'success'
-                : 'pending';
-        const errorMessage = ((_g = response.errors) === null || _g === void 0 ? void 0 : _g.length)
-            ? response.errors.join('; ')
-            : (_h = platformEntry === null || platformEntry === void 0 ? void 0 : platformEntry.error) !== null && _h !== void 0 ? _h : null;
-        const postUrl = (_k = (_j = platformEntry === null || platformEntry === void 0 ? void 0 : platformEntry.postUrl) !== null && _j !== void 0 ? _j : platformEntry === null || platformEntry === void 0 ? void 0 : platformEntry.post_url) !== null && _k !== void 0 ? _k : null;
-        const ayrsharePostId = (_l = response.id) !== null && _l !== void 0 ? _l : null;
-        const updated = await this.prisma.distribution.update({
-            where: { id },
-            data: {
-                status,
-                ayrsharePostId,
-                platformPostId: platformPostIdValue,
-                postUrl,
-                errorMessage,
-                publishedAt: status === 'success' ? new Date() : null,
-            },
-        });
-        if (status === 'success' && publication.scheduledAt) {
-            await this.prisma.publication.update({
-                where: { id: publication.id },
-                data: { scheduledAt: null },
+        try {
+            const response = await this.ayrshare.publishPost(payload, profileKey);
+            const postIds = (_e = response.postIds) !== null && _e !== void 0 ? _e : [];
+            const platformEntry = postIds.find((p) => p.platform === d.platform);
+            const platformStatus = platformEntry === null || platformEntry === void 0 ? void 0 : platformEntry.status;
+            const platformPostIdValue = (_f = platformEntry === null || platformEntry === void 0 ? void 0 : platformEntry.id) !== null && _f !== void 0 ? _f : null;
+            const isPlatformPending = platformStatus === 'pending' || platformPostIdValue === 'pending';
+            const status = response.status === 'error' || platformStatus === 'failed'
+                ? 'error'
+                : response.status === 'success' && !isPlatformPending
+                    ? 'success'
+                    : 'pending';
+            const errorParts = [...((_g = response.errors) !== null && _g !== void 0 ? _g : [])];
+            if (((_h = platformEntry === null || platformEntry === void 0 ? void 0 : platformEntry.error) === null || _h === void 0 ? void 0 : _h.trim()) && !errorParts.includes(platformEntry.error.trim()))
+                errorParts.push(platformEntry.error.trim());
+            const errorMessage = errorParts.length ? errorParts.join('; ') : null;
+            const postUrl = (_k = (_j = platformEntry === null || platformEntry === void 0 ? void 0 : platformEntry.postUrl) !== null && _j !== void 0 ? _j : platformEntry === null || platformEntry === void 0 ? void 0 : platformEntry.post_url) !== null && _k !== void 0 ? _k : null;
+            const ayrsharePostId = (_l = response.id) !== null && _l !== void 0 ? _l : null;
+            const updated = await this.prisma.distribution.update({
+                where: { id },
+                data: {
+                    status,
+                    ayrsharePostId,
+                    platformPostId: platformPostIdValue,
+                    postUrl,
+                    errorMessage,
+                    publishedAt: status === 'success' ? new Date() : null,
+                },
             });
+            if (status === 'success' && publication.scheduledAt) {
+                await this.prisma.publication.update({
+                    where: { id: publication.id },
+                    data: { scheduledAt: null },
+                });
+            }
+            return updated;
         }
-        return updated;
+        catch (err) {
+            const message = this.normalizePublishError(err);
+            const updated = await this.prisma.distribution.update({
+                where: { id },
+                data: { status: 'error', errorMessage: message },
+            });
+            return updated;
+        }
+    }
+    normalizePublishError(err) {
+        var _a, _b, _c;
+        const parts = [];
+        if (err && typeof err === 'object' && 'response' in err) {
+            const ax = err;
+            const status = (_a = ax.response) === null || _a === void 0 ? void 0 : _a.status;
+            const data = (_b = ax.response) === null || _b === void 0 ? void 0 : _b.data;
+            if (data != null && typeof data === 'object') {
+                const obj = data;
+                if (typeof obj.message === 'string' && obj.message.trim())
+                    parts.push(obj.message.trim());
+                if (typeof obj.error === 'string' && obj.error.trim() && !parts.includes(obj.error.trim()))
+                    parts.push(obj.error.trim());
+                if (Array.isArray(obj.errors) && obj.errors.length > 0) {
+                    const messages = obj.errors
+                        .map((e) => {
+                        if (typeof e === 'string')
+                            return e.trim() || null;
+                        if (e == null || typeof e !== 'object')
+                            return null;
+                        const o = e;
+                        const msg = typeof o.message === 'string'
+                            ? o.message.trim()
+                            : typeof o.detail === 'string'
+                                ? o.detail.trim()
+                                : typeof o.details === 'string'
+                                    ? o.details.trim()
+                                    : null;
+                        return msg || null;
+                    })
+                        .filter((s) => typeof s === 'string' && s.length > 0);
+                    if (messages.length)
+                        parts.push(messages.join('; '));
+                }
+                const posts = obj.posts;
+                const firstPost = Array.isArray(posts) && posts.length ? posts[0] : null;
+                const nestedErrors = firstPost === null || firstPost === void 0 ? void 0 : firstPost.errors;
+                if (Array.isArray(nestedErrors) && nestedErrors.length > 0 && parts.length === 0) {
+                    const messages = nestedErrors
+                        .map((e) => {
+                        if (typeof e === 'string')
+                            return e.trim() || null;
+                        if (e == null || typeof e !== 'object')
+                            return null;
+                        const o = e;
+                        return ((typeof o.message === 'string' && o.message.trim()) ||
+                            (typeof o.details === 'string' && o.details.trim()) ||
+                            (typeof o.detail === 'string' && o.detail.trim()) ||
+                            null);
+                    })
+                        .filter((s) => typeof s === 'string' && s.length > 0);
+                    if (messages.length)
+                        parts.push(messages.join('; '));
+                }
+            }
+            if (status != null && parts.length === 0) {
+                const statusText = status === 400
+                    ? 'Bad request'
+                    : status === 401
+                        ? 'Unauthorized (check API key or profile)'
+                        : status === 403
+                            ? 'Forbidden (check account permissions)'
+                            : status === 404
+                                ? 'Not found'
+                                : status === 429
+                                    ? 'Too many requests (rate limit)'
+                                    : status >= 500
+                                        ? 'Server error'
+                                        : `HTTP ${status}`;
+                parts.push(statusText);
+            }
+            else if (status != null && parts.length > 0 && !parts[0].toLowerCase().includes('http')) {
+                parts.push(`(HTTP ${status})`);
+            }
+        }
+        if (parts.length > 0)
+            return parts.join(' – ');
+        if (err instanceof Error && ((_c = err.message) === null || _c === void 0 ? void 0 : _c.trim()))
+            return err.message.trim();
+        if (typeof err === 'string' && err.trim())
+            return err.trim();
+        return 'Publish request failed. Check your connection and platform settings, then retry.';
     }
     async refreshAyrshareStatusForPublication(publicationId) {
         var _a;
@@ -354,7 +448,7 @@ let DistributionService = class DistributionService {
                     },
                 });
                 if (status === 'success') {
-                    await this.updateViewCountFromAyrshare(d.id, d.ayrsharePostId, d.platform, publication.ayrshareProfileId);
+                    await this.updatePostMetricsFromAyrshare(d.id, d.ayrsharePostId, d.platform, publication.ayrshareProfileId);
                 }
             }
             catch {
@@ -401,12 +495,39 @@ let DistributionService = class DistributionService {
             },
         });
         if (status === 'success') {
-            await this.updateViewCountFromAyrshare(distribution.id, ayrsharePostId, distribution.platform, (_m = (_l = distribution.publication) === null || _l === void 0 ? void 0 : _l.ayrshareProfileId) !== null && _m !== void 0 ? _m : null);
+            await this.updatePostMetricsFromAyrshare(distribution.id, ayrsharePostId, distribution.platform, (_m = (_l = distribution.publication) === null || _l === void 0 ? void 0 : _l.ayrshareProfileId) !== null && _m !== void 0 ? _m : null);
         }
         return ayrshareProfileId ? { ayrshareProfileId } : {};
     }
-    async updateViewCountFromAyrshare(distributionId, ayrsharePostId, platform, ayrshareProfileId) {
-        var _a;
+    async getMostViewedFromAyrshare(limit = 12) {
+        const cap = Math.min(80, limit * 4);
+        const rows = await this.prisma.distribution.findMany({
+            where: { ayrsharePostId: { not: null } },
+            include: { publication: { include: { distributions: true } } },
+            orderBy: { updatedAt: 'desc' },
+            take: cap,
+        });
+        const withViews = rows.map((d) => {
+            var _a;
+            return ({
+                publication: d.publication,
+                distribution: d,
+                viewCount: (_a = d.viewCount) !== null && _a !== void 0 ? _a : 0,
+            });
+        });
+        const refreshViewsInBackground = async () => {
+            const parallel = 6;
+            for (let i = 0; i < rows.length; i += parallel) {
+                const chunk = rows.slice(i, i + parallel);
+                await Promise.allSettled(chunk.map((d) => this.updatePostMetricsFromAyrshare(d.id, d.ayrsharePostId, d.platform, d.publication.ayrshareProfileId)));
+            }
+        };
+        void refreshViewsInBackground();
+        const sorted = withViews.sort((a, b) => b.viewCount - a.viewCount);
+        const nonZero = sorted.filter((x) => x.viewCount > 0);
+        return (nonZero.length > 0 ? nonZero : sorted).slice(0, limit);
+    }
+    async updatePostMetricsFromAyrshare(distributionId, ayrsharePostId, platform, ayrshareProfileId) {
         let profileKey;
         if (ayrshareProfileId) {
             try {
@@ -417,11 +538,20 @@ let DistributionService = class DistributionService {
         }
         try {
             const analytics = await this.ayrshare.getPostAnalytics(ayrsharePostId, [platform], profileKey);
-            const views = (_a = analytics[platform]) === null || _a === void 0 ? void 0 : _a.views;
+            const row = analytics[platform];
+            const views = row === null || row === void 0 ? void 0 : row.views;
+            const likes = row === null || row === void 0 ? void 0 : row.likes;
+            const data = {};
             if (typeof views === 'number' && !Number.isNaN(views)) {
+                data.viewCount = Math.round(views);
+            }
+            if (typeof likes === 'number' && !Number.isNaN(likes)) {
+                data.likeCount = Math.round(likes);
+            }
+            if (Object.keys(data).length > 0) {
                 await this.prisma.distribution.update({
                     where: { id: distributionId },
-                    data: { viewCount: views },
+                    data,
                 });
             }
         }

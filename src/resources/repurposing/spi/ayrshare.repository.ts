@@ -229,9 +229,11 @@ export class AyrshareRepository {
     ayrsharePostId: string,
     platforms: string[],
     profileKey?: string,
-  ): Promise<Record<string, { views?: number }>> {
-    const cacheKey = `analytics:post:${ayrsharePostId}:${[...platforms].sort().join(',')}:${profileKey ?? ''}`;
-    const cached = this.getCached<Record<string, { views?: number }>>(cacheKey);
+  ): Promise<Record<string, { views?: number; likes?: number }>> {
+    const cacheKey = `analytics:post:v2:${ayrsharePostId}:${[...platforms].sort().join(',')}:${profileKey ?? ''}`;
+    const cached = this.getCached<Record<string, { views?: number; likes?: number }>>(
+      cacheKey,
+    );
     if (cached !== undefined) return cached;
 
     this.requireApiKey();
@@ -247,7 +249,7 @@ export class AyrshareRepository {
       { id: ayrsharePostId, platforms: platformsLower },
       { headers },
     );
-    const result: Record<string, { views?: number }> = {};
+    const result: Record<string, { views?: number; likes?: number }> = {};
     const dataObj = data as Record<string, unknown>;
     for (const platform of platforms) {
       const responseKey = Object.keys(dataObj).find(
@@ -259,10 +261,60 @@ export class AyrshareRepository {
       if (!pl || typeof pl !== 'object') continue;
       const analytics = (pl.analytics as Record<string, unknown>) ?? pl;
       const views = this.extractViewsFromAnalytics(platform, analytics);
-      if (views != null) result[platform] = { views };
+      const likes = this.extractLikesFromAnalytics(platform, analytics);
+      if (views != null || likes != null) {
+        result[platform] = {
+          ...(views != null ? { views } : {}),
+          ...(likes != null ? { likes } : {}),
+        };
+      }
     }
     this.setCache(cacheKey, result);
     return result;
+  }
+
+  private extractLikesFromAnalytics(
+    platform: string,
+    analytics: Record<string, unknown>,
+  ): number | undefined {
+    const num = (v: unknown): number | undefined =>
+      typeof v === 'number' && !Number.isNaN(v) ? v : undefined;
+    const pl = platform.toLowerCase();
+    if (pl === 'youtube') {
+      return num(analytics.likes);
+    }
+    if (pl === 'tiktok') {
+      return num(analytics.likeCount);
+    }
+    if (pl === 'instagram' || pl === 'facebook') {
+      const reactions = analytics.reactions as Record<string, unknown> | undefined;
+      const reactionTotal = num(reactions?.total);
+      return num(analytics.likeCount) ?? reactionTotal;
+    }
+    if (pl === 'linkedin') {
+      return num(analytics.likeCount);
+    }
+    if (pl === 'twitter' || pl === 'x') {
+      const pubM = analytics.publicMetrics as Record<string, unknown> | undefined;
+      const orgM = analytics.organicMetrics as Record<string, unknown> | undefined;
+      return num(pubM?.likeCount) ?? num(orgM?.likeCount);
+    }
+    if (pl === 'threads') {
+      return num(analytics.likes);
+    }
+    if (pl === 'bluesky') {
+      return num(analytics.likeCount);
+    }
+    if (pl === 'pinterest') {
+      return num(analytics.totalReactions);
+    }
+    if (pl === 'reddit') {
+      return num(analytics.ups);
+    }
+    if (pl === 'snapchat') {
+      return undefined;
+    }
+    return num(analytics.likeCount) ?? num(analytics.likes);
   }
 
   private extractViewsFromAnalytics(

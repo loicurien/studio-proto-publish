@@ -9,7 +9,7 @@ class UpdateDistributionDto {
 exports.UpdateDistributionDto = UpdateDistributionDto;
 class DistributionResponseDto {
     static from(d) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
         const dto = new DistributionResponseDto();
         dto.id = d.id;
         dto.publicationId = d.publicationId;
@@ -29,6 +29,7 @@ class DistributionResponseDto {
         dto.hashtags = d.hashtags ? JSON.parse(d.hashtags) : undefined;
         dto.preferredFormat = (_h = d.preferredFormat) !== null && _h !== void 0 ? _h : undefined;
         dto.viewCount = (_j = d.viewCount) !== null && _j !== void 0 ? _j : undefined;
+        dto.likeCount = (_k = d.likeCount) !== null && _k !== void 0 ? _k : undefined;
         dto.createdAt = d.createdAt.toISOString();
         dto.updatedAt = d.updatedAt.toISOString();
         return dto;

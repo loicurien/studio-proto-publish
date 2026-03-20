@@ -10,6 +10,9 @@ export declare class PublicationsController {
     constructor(publicationService: PublicationService, distributionService: DistributionService, urlPresigner: UrlPresignerService);
     suggestContent(dto: SuggestContentRequestDto): Promise<SuggestContentResponseDto>;
     list(limitStr?: string, offsetStr?: string): Promise<PublicationResponseDto[]>;
+    getMostViewedFromAyrshare(limitStr?: string): Promise<{
+        items: PublicationResponseDto[];
+    }>;
     refreshAyrshareStatus(id: string): Promise<PublicationResponseDto>;
     getOne(id: string): Promise<PublicationResponseDto>;
     sendToReview(id: string): Promise<PublicationResponseDto>;

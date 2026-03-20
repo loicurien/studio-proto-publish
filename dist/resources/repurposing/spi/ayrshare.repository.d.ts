@@ -38,8 +38,11 @@ export interface AyrshareUserProfileResponse {
 export declare class AyrshareRepository {
     private readonly client;
     private readonly logger;
+    private readonly cache;
     constructor();
     private requireApiKey;
+    private getCached;
+    private setCache;
     publishPost(params: AyrsharePublishParams, profileKey?: string): Promise<AyrsharePostResponse>;
     getPostStatus(ayrsharePostId: string, profileKey?: string): Promise<AyrsharePostResponse>;
     deletePost(ayrsharePostId: string, profileKey?: string): Promise<{
@@ -47,7 +50,9 @@ export declare class AyrshareRepository {
     }>;
     getPostAnalytics(ayrsharePostId: string, platforms: string[], profileKey?: string): Promise<Record<string, {
         views?: number;
+        likes?: number;
     }>>;
+    private extractLikesFromAnalytics;
     private extractViewsFromAnalytics;
     getUserProfile(profileKey: string): Promise<AyrshareUserProfileResponse>;
     getSocialAnalytics(platforms: string[], options?: {

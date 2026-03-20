@@ -31,6 +31,7 @@ export declare class DistributionResponseDto {
     hashtags?: string[];
     preferredFormat?: string;
     viewCount?: number;
+    likeCount?: number;
     createdAt: string;
     updatedAt: string;
     static from(d: {
@@ -50,6 +51,7 @@ export declare class DistributionResponseDto {
         hashtags?: string | null;
         preferredFormat?: string | null;
         viewCount?: number | null;
+        likeCount?: number | null;
         createdAt: Date;
         updatedAt: Date;
     }): DistributionResponseDto;

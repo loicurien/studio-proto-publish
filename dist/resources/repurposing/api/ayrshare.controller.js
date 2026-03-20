@@ -65,9 +65,15 @@ let AyrshareController = class AyrshareController {
             throw new Error('profileId query is required');
         }
         const profileKey = await this.ayrshareProfiles.getProfileKeyById(profileId, workspaceId);
-        const platforms = platformsStr
-            ? platformsStr.split(',').map((p) => p.trim()).filter(Boolean)
+        const requested = platformsStr
+            ? platformsStr.split(',').map((p) => p.trim().toLowerCase()).filter(Boolean)
             : ['facebook', 'instagram', 'tiktok', 'youtube'];
+        const active = await this.ayrshareProfiles.getActivePlatformsForProfile(profileId, workspaceId);
+        const activeSet = new Set(active.map((p) => p.toLowerCase()));
+        const platforms = requested.filter((p) => activeSet.has(p));
+        if (platforms.length === 0) {
+            return {};
+        }
         const daily = dailyStr === 'true' || dailyStr === '1';
         const quarters = quartersStr !== undefined && quartersStr !== ''
             ? Math.min(4, Math.max(1, Number(quartersStr) || 1))

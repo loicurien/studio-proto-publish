@@ -34,6 +34,17 @@ let PublicationsController = class PublicationsController {
         const list = await this.publicationService.findAll(limit, offset);
         return Promise.all(list.map((p) => this.withPresignedMediaUrls(p)));
     }
+    async getMostViewedFromAyrshare(limitStr) {
+        const limit = limitStr
+            ? Math.min(20, parseInt(limitStr, 10) || 12)
+            : 12;
+        const rows = await this.distributionService.getMostViewedFromAyrshare(limit);
+        const items = await Promise.all(rows.map(({ publication, distribution, viewCount }) => this.withPresignedMediaUrls({
+            ...publication,
+            distributions: [{ ...distribution, viewCount }],
+        })));
+        return { items };
+    }
     async refreshAyrshareStatus(id) {
         await this.distributionService.refreshAyrshareStatusForPublication(id);
         const p = await this.publicationService.findOne(id);
@@ -142,6 +153,13 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], PublicationsController.prototype, "list", null);
+__decorate([
+    (0, common_1.Get)('most-viewed/ayrshare'),
+    __param(0, (0, common_1.Query)('limit')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PublicationsController.prototype, "getMostViewedFromAyrshare", null);
 __decorate([
     (0, common_1.Get)(':id/refresh-ayrshare-status'),
     __param(0, (0, common_1.Param)('id')),

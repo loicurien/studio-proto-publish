@@ -52,7 +52,7 @@ export class DistributionService {
     try {
       const rows = await this.prisma.distribution.findMany({
         where: { hashtags: { not: null } },
-        select: { hashtags: true, viewCount: true },
+        select: { hashtags: true, viewCount: true, likeCount: true },
       });
       const viewsByTag = new Map<string, number>();
       for (const row of rows) {
@@ -526,7 +526,7 @@ export class DistributionService {
             },
           });
           if (status === 'success') {
-            await this.updateViewCountFromAyrshare(
+            await this.updatePostMetricsFromAyrshare(
               d.id,
               d.ayrsharePostId,
               d.platform,
@@ -606,7 +606,7 @@ export class DistributionService {
     });
 
     if (status === 'success') {
-      await this.updateViewCountFromAyrshare(
+      await this.updatePostMetricsFromAyrshare(
         distribution.id,
         ayrsharePostId,
         distribution.platform,
@@ -650,7 +650,7 @@ export class DistributionService {
         const chunk = rows.slice(i, i + parallel);
         await Promise.allSettled(
           chunk.map((d) =>
-            this.updateViewCountFromAyrshare(
+            this.updatePostMetricsFromAyrshare(
               d.id,
               d.ayrsharePostId!,
               d.platform,
@@ -668,10 +668,11 @@ export class DistributionService {
   }
 
   /**
-   * Fetch post analytics from Ayrshare and update distribution.viewCount.
-   * Non-blocking: failures are ignored so webhook response is not delayed.
+   * Fetch post analytics from Ayrshare and update distribution.viewCount /
+   * likeCount. Non-blocking: failures are ignored so webhook response is not
+   * delayed.
    */
-  private async updateViewCountFromAyrshare(
+  private async updatePostMetricsFromAyrshare(
     distributionId: string,
     ayrsharePostId: string,
     platform: string,
@@ -693,11 +694,20 @@ export class DistributionService {
         [platform],
         profileKey,
       );
-      const views = analytics[platform]?.views;
+      const row = analytics[platform];
+      const views = row?.views;
+      const likes = row?.likes;
+      const data: { viewCount?: number; likeCount?: number } = {};
       if (typeof views === 'number' && !Number.isNaN(views)) {
+        data.viewCount = Math.round(views);
+      }
+      if (typeof likes === 'number' && !Number.isNaN(likes)) {
+        data.likeCount = Math.round(likes);
+      }
+      if (Object.keys(data).length > 0) {
         await this.prisma.distribution.update({
           where: { id: distributionId },
-          data: { viewCount: views },
+          data,
         });
       }
     } catch {

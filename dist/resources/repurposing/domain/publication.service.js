@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PublicationService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../../../prisma.service");
+const the_office_suggestions_1 = require("./the-office-suggestions");
 let PublicationService = class PublicationService {
     constructor(prisma) {
         this.prisma = prisma;
@@ -73,27 +74,8 @@ let PublicationService = class PublicationService {
         await this.findOne(id);
         await this.prisma.publication.delete({ where: { id } });
     }
-    async suggestContent(prompt) {
-        const defaultHashtags = ['#social', '#content', '#engagement'];
-        if (prompt === null || prompt === void 0 ? void 0 : prompt.trim()) {
-            const slug = prompt
-                .slice(0, 50)
-                .toLowerCase()
-                .replace(/\s+/g, '')
-                .replace(/[^a-z0-9]/g, '');
-            return {
-                title: prompt.slice(0, 100),
-                description: `Description for: ${prompt.slice(0, 200)}`,
-                postText: `Post content: ${prompt.slice(0, 500)}`,
-                hashtags: [`#${slug || 'topic'}`, ...defaultHashtags].slice(0, 5),
-            };
-        }
-        return {
-            title: 'New publication',
-            description: 'Brief description of your publication.',
-            postText: 'Share your message here. Add hashtags and a call to action for better engagement.',
-            hashtags: defaultHashtags,
-        };
+    async suggestContent(_prompt) {
+        return (0, the_office_suggestions_1.getRandomOfficeSuggestion)();
     }
 };
 exports.PublicationService = PublicationService;

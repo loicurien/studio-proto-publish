@@ -29,7 +29,7 @@ export declare class PublicationService {
     create(input: CreatePublicationInput): Promise<Publication>;
     update(id: string, input: UpdatePublicationInput): Promise<Publication>;
     remove(id: string): Promise<void>;
-    suggestContent(prompt?: string): Promise<{
+    suggestContent(_prompt?: string): Promise<{
         title: string;
         description?: string;
         postText?: string;
