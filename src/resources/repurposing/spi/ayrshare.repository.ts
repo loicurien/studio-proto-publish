@@ -9,6 +9,12 @@ function redactApiKey(key: string | undefined): string {
   return `${key.slice(0, 4)}...${key.slice(-4)}`;
 }
 
+/** Keep log lines bounded when Ayrshare returns large analytics payloads. */
+function truncateForLog(json: string, maxChars = 14_000): string {
+  if (json.length <= maxChars) return json;
+  return `${json.slice(0, maxChars)}…[truncated ${json.length - maxChars} chars]`;
+}
+
 export interface AyrsharePublishParams {
   post: string;
   platforms: string[];
@@ -189,6 +195,9 @@ export class AyrshareRepository {
     >(`/post/${ayrsharePostId}`, {
       headers: Object.keys(headers).length ? headers : undefined,
     });
+    this.logger.log(
+      `[Ayrshare] GET /post/${ayrsharePostId} raw=${truncateForLog(JSON.stringify(data))}`,
+    );
     const withPosts = data as AyrsharePostApiResponse;
     const firstPost = withPosts.posts?.[0];
     const rawErrors =
@@ -249,6 +258,9 @@ export class AyrshareRepository {
       { id: ayrsharePostId, platforms: platformsLower },
       { headers },
     );
+    this.logger.log(
+      `[Ayrshare] POST /analytics/post id=${ayrsharePostId} platforms=${platformsLower.join(',')} raw=${truncateForLog(JSON.stringify(data))}`,
+    );
     const result: Record<string, { views?: number; likes?: number }> = {};
     const dataObj = data as Record<string, unknown>;
     for (const platform of platforms) {
@@ -270,6 +282,9 @@ export class AyrshareRepository {
       }
     }
     this.setCache(cacheKey, result);
+    this.logger.log(
+      `[Ayrshare] POST /analytics/post id=${ayrsharePostId} parsed=${JSON.stringify(result)}`,
+    );
     return result;
   }
 
@@ -399,6 +414,9 @@ export class AyrshareRepository {
         { headers },
       );
       const result = data ?? {};
+      this.logger.log(
+        `[Ayrshare] POST /analytics/social platforms=${body.platforms} daily=${body.daily === true} raw=${truncateForLog(JSON.stringify(result))}`,
+      );
       this.setCache(cacheKey, result);
       return result;
     } catch (err) {

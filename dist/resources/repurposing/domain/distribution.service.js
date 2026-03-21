@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var DistributionService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DistributionService = void 0;
 const common_1 = require("@nestjs/common");
@@ -16,13 +17,14 @@ const url_presigner_service_1 = require("../../../common/url-presigner/url-presi
 const user_request_credentials_service_1 = require("../../../common/http-client/user-request-credentials.service");
 const ayrshare_repository_1 = require("../spi/ayrshare.repository");
 const ayrshare_profile_service_1 = require("./ayrshare-profile.service");
-let DistributionService = class DistributionService {
+let DistributionService = DistributionService_1 = class DistributionService {
     constructor(prisma, ayrshare, ayrshareProfiles, userRequest, urlPresigner) {
         this.prisma = prisma;
         this.ayrshare = ayrshare;
         this.ayrshareProfiles = ayrshareProfiles;
         this.userRequest = userRequest;
         this.urlPresigner = urlPresigner;
+        this.logger = new common_1.Logger(DistributionService_1.name);
     }
     async findByPublicationId(publicationId) {
         return this.prisma.distribution.findMany({
@@ -418,6 +420,7 @@ let DistributionService = class DistributionService {
             profileKey =
                 (_a = (await this.ayrshareProfiles.getFirstProfileKeyForWorkspace(this.userRequest.workspaceId))) !== null && _a !== void 0 ? _a : undefined;
         }
+        this.logger.log(`[Ayrshare] refresh publication=${publicationId} distributions=${toRefresh.length} profileKey=${profileKey ? `${profileKey.slice(0, 8)}…` : '(none)'}`);
         await Promise.all(toRefresh.map(async (d) => {
             var _a, _b, _c, _d, _e, _f, _g;
             try {
@@ -548,19 +551,25 @@ let DistributionService = class DistributionService {
             if (typeof likes === 'number' && !Number.isNaN(likes)) {
                 data.likeCount = Math.round(likes);
             }
+            this.logger.log(`[Ayrshare] metrics distribution=${distributionId} platform=${platform} ayrsharePostId=${ayrsharePostId} parsedRow=${JSON.stringify(row !== null && row !== void 0 ? row : null)} dbPatch=${JSON.stringify(data)}`);
             if (Object.keys(data).length > 0) {
                 await this.prisma.distribution.update({
                     where: { id: distributionId },
                     data,
                 });
             }
+            else {
+                this.logger.warn(`[Ayrshare] metrics distribution=${distributionId} no view/like fields extracted (check raw analytics/post response above)`);
+            }
         }
-        catch {
+        catch (err) {
+            const msg = err instanceof Error ? err.message : String(err);
+            this.logger.warn(`[Ayrshare] metrics distribution=${distributionId} ayrsharePostId=${ayrsharePostId} failed: ${msg}`);
         }
     }
 };
 exports.DistributionService = DistributionService;
-exports.DistributionService = DistributionService = __decorate([
+exports.DistributionService = DistributionService = DistributionService_1 = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService,
         ayrshare_repository_1.AyrshareRepository,

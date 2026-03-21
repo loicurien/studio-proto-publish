@@ -34,6 +34,8 @@ export class DistributionResponseDto {
   preferredFormat?: string;
   viewCount?: number;
   likeCount?: number;
+  shareCount?: number;
+  commentCount?: number;
   createdAt!: string;
   updatedAt!: string;
 
@@ -55,6 +57,8 @@ export class DistributionResponseDto {
     preferredFormat?: string | null;
     viewCount?: number | null;
     likeCount?: number | null;
+    shareCount?: number | null;
+    commentCount?: number | null;
     createdAt: Date;
     updatedAt: Date;
   }): DistributionResponseDto {
@@ -78,6 +82,8 @@ export class DistributionResponseDto {
     dto.preferredFormat = d.preferredFormat ?? undefined;
     dto.viewCount = d.viewCount ?? undefined;
     dto.likeCount = d.likeCount ?? undefined;
+    dto.shareCount = d.shareCount ?? undefined;
+    dto.commentCount = d.commentCount ?? undefined;
     dto.createdAt = d.createdAt.toISOString();
     dto.updatedAt = d.updatedAt.toISOString();
     return dto;

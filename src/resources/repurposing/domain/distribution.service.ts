@@ -1,5 +1,6 @@
 import {
   Injectable,
+  Logger,
   NotFoundException,
   BadRequestException,
   ServiceUnavailableException,
@@ -31,6 +32,8 @@ export interface UpdateDistributionInput {
 
 @Injectable()
 export class DistributionService {
+  private readonly logger = new Logger(DistributionService.name);
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly ayrshare: AyrshareRepository,
@@ -488,6 +491,9 @@ export class DistributionService {
           this.userRequest.workspaceId,
         )) ?? undefined;
     }
+    this.logger.log(
+      `[Ayrshare] refresh publication=${publicationId} distributions=${toRefresh.length} profileKey=${profileKey ? `${profileKey.slice(0, 8)}…` : '(none)'}`,
+    );
     await Promise.all(
       toRefresh.map(async (d) => {
         try {
@@ -704,14 +710,24 @@ export class DistributionService {
       if (typeof likes === 'number' && !Number.isNaN(likes)) {
         data.likeCount = Math.round(likes);
       }
+      this.logger.log(
+        `[Ayrshare] metrics distribution=${distributionId} platform=${platform} ayrsharePostId=${ayrsharePostId} parsedRow=${JSON.stringify(row ?? null)} dbPatch=${JSON.stringify(data)}`,
+      );
       if (Object.keys(data).length > 0) {
         await this.prisma.distribution.update({
           where: { id: distributionId },
           data,
         });
+      } else {
+        this.logger.warn(
+          `[Ayrshare] metrics distribution=${distributionId} no view/like fields extracted (check raw analytics/post response above)`,
+        );
       }
-    } catch {
-      // Analytics may be unavailable immediately after publish; ignore
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      this.logger.warn(
+        `[Ayrshare] metrics distribution=${distributionId} ayrsharePostId=${ayrsharePostId} failed: ${msg}`,
+      );
     }
   }
 }

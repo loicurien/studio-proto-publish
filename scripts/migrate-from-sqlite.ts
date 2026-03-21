@@ -68,6 +68,7 @@ async function main(): Promise<void> {
             hashtags: dist.hashtags,
             preferredFormat: dist.preferredFormat,
             viewCount: dist.viewCount,
+            likeCount: dist.likeCount,
             createdAt: dist.createdAt,
             updatedAt: dist.updatedAt,
           },

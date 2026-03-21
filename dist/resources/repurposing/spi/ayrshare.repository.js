@@ -53,6 +53,11 @@ function redactApiKey(key) {
         return key ? '***' : '(none)';
     return `${key.slice(0, 4)}...${key.slice(-4)}`;
 }
+function truncateForLog(json, maxChars = 14000) {
+    if (json.length <= maxChars)
+        return json;
+    return `${json.slice(0, maxChars)}…[truncated ${json.length - maxChars} chars]`;
+}
 function normalizeAyrshareErrors(errors) {
     if (!(errors === null || errors === void 0 ? void 0 : errors.length))
         return [];
@@ -139,6 +144,7 @@ let AyrshareRepository = AyrshareRepository_1 = class AyrshareRepository {
         const { data } = await this.client.get(`/post/${ayrsharePostId}`, {
             headers: Object.keys(headers).length ? headers : undefined,
         });
+        this.logger.log(`[Ayrshare] GET /post/${ayrsharePostId} raw=${truncateForLog(JSON.stringify(data))}`);
         const withPosts = data;
         const firstPost = (_a = withPosts.posts) === null || _a === void 0 ? void 0 : _a[0];
         const rawErrors = (_b = firstPost === null || firstPost === void 0 ? void 0 : firstPost.errors) !== null && _b !== void 0 ? _b : data.errors;
@@ -184,6 +190,7 @@ let AyrshareRepository = AyrshareRepository_1 = class AyrshareRepository {
         }
         const platformsLower = platforms.map((p) => (p !== null && p !== void 0 ? p : '').toLowerCase());
         const { data } = await this.client.post('/analytics/post', { id: ayrsharePostId, platforms: platformsLower }, { headers });
+        this.logger.log(`[Ayrshare] POST /analytics/post id=${ayrsharePostId} platforms=${platformsLower.join(',')} raw=${truncateForLog(JSON.stringify(data))}`);
         const result = {};
         const dataObj = data;
         for (const platform of platforms) {
@@ -204,6 +211,7 @@ let AyrshareRepository = AyrshareRepository_1 = class AyrshareRepository {
             }
         }
         this.setCache(cacheKey, result);
+        this.logger.log(`[Ayrshare] POST /analytics/post id=${ayrsharePostId} parsed=${JSON.stringify(result)}`);
         return result;
     }
     extractLikesFromAnalytics(platform, analytics) {
@@ -296,6 +304,7 @@ let AyrshareRepository = AyrshareRepository_1 = class AyrshareRepository {
         try {
             const { data } = await this.client.post('/analytics/social', body, { headers });
             const result = data !== null && data !== void 0 ? data : {};
+            this.logger.log(`[Ayrshare] POST /analytics/social platforms=${body.platforms} daily=${body.daily === true} raw=${truncateForLog(JSON.stringify(result))}`);
             this.setCache(cacheKey, result);
             return result;
         }

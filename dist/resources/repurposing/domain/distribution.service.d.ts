@@ -26,6 +26,7 @@ export declare class DistributionService {
     private readonly ayrshareProfiles;
     private readonly userRequest;
     private readonly urlPresigner;
+    private readonly logger;
     constructor(prisma: PrismaService, ayrshare: AyrshareRepository, ayrshareProfiles: AyrshareProfileService, userRequest: UserRequestCredentialsService, urlPresigner: UrlPresignerService);
     findByPublicationId(publicationId: string): Promise<Distribution[]>;
     getTopViewedHashtags(limit?: number): Promise<{

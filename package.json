@@ -10,6 +10,7 @@
     "start:dev": "ts-node-dev --respawn --transpile-only src/main.ts",
     "prisma:generate": "prisma generate",
     "prisma:db:push": "prisma db push",
+    "prisma:migrate:deploy": "prisma migrate deploy",
     "postinstall": "prisma generate",
     "migrate:from-sqlite": "ts-node scripts/migrate-from-sqlite.ts",
     "script:rename-studio-profile": "ts-node scripts/rename-ayrshare-profile.ts"

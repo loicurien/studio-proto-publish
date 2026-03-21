@@ -32,6 +32,8 @@ export declare class DistributionResponseDto {
     preferredFormat?: string;
     viewCount?: number;
     likeCount?: number;
+    shareCount?: number;
+    commentCount?: number;
     createdAt: string;
     updatedAt: string;
     static from(d: {
@@ -52,6 +54,8 @@ export declare class DistributionResponseDto {
         preferredFormat?: string | null;
         viewCount?: number | null;
         likeCount?: number | null;
+        shareCount?: number | null;
+        commentCount?: number | null;
         createdAt: Date;
         updatedAt: Date;
     }): DistributionResponseDto;
