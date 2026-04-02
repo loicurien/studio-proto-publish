@@ -4,14 +4,19 @@ import type { Request } from 'express';
 
 export const WORKSPACE_ID_HEADER = 'X-Nb-Workspace';
 
+/** Studio prototype default workspace when no workspace header is sent. */
+export const DEFAULT_STUDIO_WORKSPACE_ID = 'studio';
+
 @Injectable({ scope: Scope.REQUEST })
 export class UserRequestCredentialsService {
-  /** For prototype: defaults to 'default-workspace' when header is missing. */
+  /** For prototype: defaults to {@link DEFAULT_STUDIO_WORKSPACE_ID} when header is missing. */
   get workspaceId(): string {
     const req = this.request as Request & { headers?: Record<string, string> };
     const raw =
       req?.headers?.[WORKSPACE_ID_HEADER] ?? req?.headers?.['x-nb-workspace'];
-    return typeof raw === 'string' && raw.trim() ? raw : 'default-workspace';
+    return typeof raw === 'string' && raw.trim()
+      ? raw
+      : DEFAULT_STUDIO_WORKSPACE_ID;
   }
 
   /** Bearer token from Authorization header (e.g. for signing asset URLs). */

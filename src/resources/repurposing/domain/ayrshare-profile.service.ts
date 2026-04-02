@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { DEFAULT_STUDIO_WORKSPACE_ID } from '../../../common/http-client/user-request-credentials.service';
 import { PrismaService } from '../../../prisma.service';
 import { AyrshareRepository } from '../spi/ayrshare.repository';
 
@@ -16,10 +17,19 @@ export class AyrshareProfileService {
   ) {}
 
   async listProfilesForWorkspace(workspaceId: string): Promise<AyrshareProfileListItem[]> {
-    const rows = await this.prisma.ayrshareProfile.findMany({
+    let rows = await this.prisma.ayrshareProfile.findMany({
       where: { workspaceId },
       orderBy: { name: 'asc' },
     });
+    if (
+      rows.length === 0 &&
+      workspaceId !== DEFAULT_STUDIO_WORKSPACE_ID
+    ) {
+      rows = await this.prisma.ayrshareProfile.findMany({
+        where: { workspaceId: DEFAULT_STUDIO_WORKSPACE_ID },
+        orderBy: { name: 'asc' },
+      });
+    }
     return rows.map((r) => ({
       id: r.id,
       name: r.name,
