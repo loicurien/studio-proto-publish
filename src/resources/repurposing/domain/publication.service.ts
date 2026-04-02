@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../../prisma.service';
 import { Publication, Distribution } from '@prisma/client';
-import { getRandomOfficeSuggestion } from './the-office-suggestions';
+import { getRandomSocialPostSuggestion } from './social-post-suggestions';
 
 export interface CreatePublicationInput {
   title: string;
@@ -90,8 +90,8 @@ export class PublicationService {
   }
 
   /**
-   * Suggests title, description, post text and hashtags for The Office–themed content.
-   * Each call returns a random draw from curated titles and punchlines so results vary.
+   * Suggests title, description, post text and hashtags from generic social templates.
+   * Each call returns a random draw so results vary.
    */
   async suggestContent(_prompt?: string): Promise<{
     title: string;
@@ -99,6 +99,6 @@ export class PublicationService {
     postText?: string;
     hashtags?: string[];
   }> {
-    return getRandomOfficeSuggestion();
+    return getRandomSocialPostSuggestion();
   }
 }
