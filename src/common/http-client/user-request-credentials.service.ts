@@ -4,19 +4,17 @@ import type { Request } from 'express';
 
 export const WORKSPACE_ID_HEADER = 'X-Nb-Workspace';
 
-/** Studio prototype default workspace when no workspace header is sent. */
+/** Fixed workspace for the Railway prototype (`x-nb-workspace` is ignored). */
 export const DEFAULT_STUDIO_WORKSPACE_ID = 'studio';
 
 @Injectable({ scope: Scope.REQUEST })
 export class UserRequestCredentialsService {
-  /** For prototype: defaults to {@link DEFAULT_STUDIO_WORKSPACE_ID} when header is missing. */
+  /**
+   * Railway prototype: always `studio`. Incoming `X-Nb-Workspace` / `x-nb-workspace`
+   * is not used so tenant/workspace from the main app cannot split prototype data.
+   */
   get workspaceId(): string {
-    const req = this.request as Request & { headers?: Record<string, string> };
-    const raw =
-      req?.headers?.[WORKSPACE_ID_HEADER] ?? req?.headers?.['x-nb-workspace'];
-    return typeof raw === 'string' && raw.trim()
-      ? raw
-      : DEFAULT_STUDIO_WORKSPACE_ID;
+    return DEFAULT_STUDIO_WORKSPACE_ID;
   }
 
   /** Bearer token from Authorization header (e.g. for signing asset URLs). */

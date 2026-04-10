@@ -12,16 +12,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserRequestCredentialsService = exports.WORKSPACE_ID_HEADER = void 0;
+exports.UserRequestCredentialsService = exports.DEFAULT_STUDIO_WORKSPACE_ID = exports.WORKSPACE_ID_HEADER = void 0;
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 exports.WORKSPACE_ID_HEADER = 'X-Nb-Workspace';
+exports.DEFAULT_STUDIO_WORKSPACE_ID = 'studio';
 let UserRequestCredentialsService = class UserRequestCredentialsService {
     get workspaceId() {
-        var _a, _b, _c;
-        const req = this.request;
-        const raw = (_b = (_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a[exports.WORKSPACE_ID_HEADER]) !== null && _b !== void 0 ? _b : (_c = req === null || req === void 0 ? void 0 : req.headers) === null || _c === void 0 ? void 0 : _c['x-nb-workspace'];
-        return typeof raw === 'string' && raw.trim() ? raw : 'default-workspace';
+        return exports.DEFAULT_STUDIO_WORKSPACE_ID;
     }
     get token() {
         var _a, _b, _c;

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PublicationService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../../../prisma.service");
-const the_office_suggestions_1 = require("./the-office-suggestions");
+const social_post_suggestions_1 = require("./social-post-suggestions");
 let PublicationService = class PublicationService {
     constructor(prisma) {
         this.prisma = prisma;
@@ -75,7 +75,7 @@ let PublicationService = class PublicationService {
         await this.prisma.publication.delete({ where: { id } });
     }
     async suggestContent(_prompt) {
-        return (0, the_office_suggestions_1.getRandomOfficeSuggestion)();
+        return (0, social_post_suggestions_1.getRandomSocialPostSuggestion)();
     }
 };
 exports.PublicationService = PublicationService;

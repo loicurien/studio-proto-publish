@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AyrshareProfileService = void 0;
 const common_1 = require("@nestjs/common");
+const user_request_credentials_service_1 = require("../../../common/http-client/user-request-credentials.service");
 const prisma_service_1 = require("../../../prisma.service");
 const ayrshare_repository_1 = require("../spi/ayrshare.repository");
 let AyrshareProfileService = class AyrshareProfileService {
@@ -19,10 +20,17 @@ let AyrshareProfileService = class AyrshareProfileService {
         this.ayrshare = ayrshare;
     }
     async listProfilesForWorkspace(workspaceId) {
-        const rows = await this.prisma.ayrshareProfile.findMany({
+        let rows = await this.prisma.ayrshareProfile.findMany({
             where: { workspaceId },
             orderBy: { name: 'asc' },
         });
+        if (rows.length === 0 &&
+            workspaceId !== user_request_credentials_service_1.DEFAULT_STUDIO_WORKSPACE_ID) {
+            rows = await this.prisma.ayrshareProfile.findMany({
+                where: { workspaceId: user_request_credentials_service_1.DEFAULT_STUDIO_WORKSPACE_ID },
+                orderBy: { name: 'asc' },
+            });
+        }
         return rows.map((r) => ({
             id: r.id,
             name: r.name,

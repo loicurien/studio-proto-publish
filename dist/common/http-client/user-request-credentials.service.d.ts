@@ -1,4 +1,5 @@
 export declare const WORKSPACE_ID_HEADER = "X-Nb-Workspace";
+export declare const DEFAULT_STUDIO_WORKSPACE_ID = "studio";
 export declare class UserRequestCredentialsService {
     private readonly request;
     get workspaceId(): string;
