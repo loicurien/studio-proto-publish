@@ -48,6 +48,31 @@ export class PublicationsController {
   }
 
   /**
+   * Lifetime totals (views / likes / shares) across all published
+   * distributions, aggregated per platform. Uses persisted Ayrshare counters
+   * so the response is fast and decoupled from the daily time-series used
+   * by charts (no date window). Triggers a background refresh from Ayrshare
+   * so subsequent calls see fresher numbers.
+   */
+  @Get('stats/totals')
+  async getLifetimeTotals(): Promise<{
+    totalViews: number;
+    totalLikes: number;
+    totalShares: number;
+    byPlatform: Record<
+      string,
+      {
+        views: number;
+        likes: number;
+        shares: number;
+        distributionCount: number;
+      }
+    >;
+  }> {
+    return this.distributionService.getLifetimeTotals({ refresh: true });
+  }
+
+  /**
    * Most viewed posts by live Ayrshare view count (one card per distribution).
    */
   @Get('most-viewed/ayrshare')

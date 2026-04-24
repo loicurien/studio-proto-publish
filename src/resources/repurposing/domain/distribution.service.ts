@@ -623,6 +623,110 @@ export class DistributionService {
   }
 
   /**
+   * Lifetime aggregated counters (views/likes/shares) per platform across all
+   * distributions that have been published through Ayrshare. Reads persisted
+   * `Distribution.viewCount/likeCount/shareCount` so the response stays fast
+   * and is decoupled from the daily time-series used by charts.
+   *
+   * When `refresh` is true, schedules a background refresh from Ayrshare
+   * (same strategy as `getMostViewedFromAyrshare`) so subsequent calls have
+   * more up-to-date counters.
+   */
+  async getLifetimeTotals(
+    options: { refresh?: boolean } = {},
+  ): Promise<{
+    totalViews: number;
+    totalLikes: number;
+    totalShares: number;
+    byPlatform: Record<
+      string,
+      {
+        views: number;
+        likes: number;
+        shares: number;
+        distributionCount: number;
+      }
+    >;
+  }> {
+    const rows = await this.prisma.distribution.findMany({
+      where: { ayrsharePostId: { not: null } },
+      select: {
+        id: true,
+        platform: true,
+        viewCount: true,
+        likeCount: true,
+        shareCount: true,
+        ayrsharePostId: true,
+        publication: { select: { ayrshareProfileId: true } },
+      },
+    });
+
+    const byPlatform: Record<
+      string,
+      {
+        views: number;
+        likes: number;
+        shares: number;
+        distributionCount: number;
+      }
+    > = {};
+    let totalViews = 0;
+    let totalLikes = 0;
+    let totalShares = 0;
+    for (const d of rows) {
+      const platform = (d.platform ?? '').toLowerCase();
+      if (!platform) continue;
+      const views = d.viewCount ?? 0;
+      const likes = d.likeCount ?? 0;
+      const shares = d.shareCount ?? 0;
+      totalViews += views;
+      totalLikes += likes;
+      totalShares += shares;
+      const bucket =
+        byPlatform[platform] ??
+        (byPlatform[platform] = {
+          views: 0,
+          likes: 0,
+          shares: 0,
+          distributionCount: 0,
+        });
+      bucket.views += views;
+      bucket.likes += likes;
+      bucket.shares += shares;
+      bucket.distributionCount += 1;
+    }
+
+    if (options.refresh) {
+      const refreshable = rows.filter(
+        (
+          d,
+        ): d is typeof d & {
+          ayrsharePostId: string;
+        } => !!d.ayrsharePostId && d.ayrsharePostId.trim() !== '',
+      );
+      const refreshInBackground = async (): Promise<void> => {
+        const parallel = 6;
+        for (let i = 0; i < refreshable.length; i += parallel) {
+          const chunk = refreshable.slice(i, i + parallel);
+          await Promise.allSettled(
+            chunk.map((d) =>
+              this.updatePostMetricsFromAyrshare(
+                d.id,
+                d.ayrsharePostId,
+                d.platform,
+                d.publication?.ayrshareProfileId ?? null,
+              ),
+            ),
+          );
+        }
+      };
+      void refreshInBackground();
+    }
+
+    return { totalViews, totalLikes, totalShares, byPlatform };
+  }
+
+  /**
    * Return most viewed items quickly from stored DB viewCount.
    * Then refresh Ayrshare analytics in background so next calls get fresh values.
    */
