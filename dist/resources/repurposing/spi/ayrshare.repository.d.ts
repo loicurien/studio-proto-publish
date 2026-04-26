@@ -58,5 +58,6 @@ export declare class AyrshareRepository {
     getSocialAnalytics(platforms: string[], options?: {
         daily?: boolean;
         quarters?: number;
+        aggregate?: boolean;
     }, profileKey?: string): Promise<Record<string, unknown>>;
 }

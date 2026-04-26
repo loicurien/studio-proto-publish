@@ -17,13 +17,19 @@ const common_1 = require("@nestjs/common");
 const publication_service_1 = require("../domain/publication.service");
 const distribution_service_1 = require("../domain/distribution.service");
 const url_presigner_service_1 = require("../../../common/url-presigner/url-presigner.service");
+const ayrshare_profile_service_1 = require("../domain/ayrshare-profile.service");
+const ayrshare_repository_1 = require("../spi/ayrshare.repository");
+const user_request_credentials_service_1 = require("../../../common/http-client/user-request-credentials.service");
 const publication_entity_1 = require("./entities/publication.entity");
 const suggest_content_entity_1 = require("./entities/suggest-content.entity");
 let PublicationsController = class PublicationsController {
-    constructor(publicationService, distributionService, urlPresigner) {
+    constructor(publicationService, distributionService, urlPresigner, ayrshareProfiles, ayrshare, userRequest) {
         this.publicationService = publicationService;
         this.distributionService = distributionService;
         this.urlPresigner = urlPresigner;
+        this.ayrshareProfiles = ayrshareProfiles;
+        this.ayrshare = ayrshare;
+        this.userRequest = userRequest;
     }
     async suggestContent(dto) {
         return this.publicationService.suggestContent(dto.prompt);
@@ -33,6 +39,68 @@ let PublicationsController = class PublicationsController {
         const offset = offsetStr ? parseInt(offsetStr, 10) : 0;
         const list = await this.publicationService.findAll(limit, offset);
         return Promise.all(list.map((p) => this.withPresignedMediaUrls(p)));
+    }
+    async getLifetimeTotals() {
+        return this.distributionService.getLifetimeTotals({ refresh: true });
+    }
+    async getSocialTotals() {
+        var _a, _b, _c, _d, _e, _f;
+        const workspaceId = this.userRequest.workspaceId;
+        if (!workspaceId) {
+            throw new Error(`${user_request_credentials_service_1.WORKSPACE_ID_HEADER} header is required`);
+        }
+        const profiles = await this.ayrshareProfiles.listProfilesForWorkspace(workspaceId);
+        const first = profiles[0];
+        if (!first) {
+            return { totalViews: 0, totalLikes: 0, totalShares: 0, byPlatform: {} };
+        }
+        const profileKey = first.profileKey;
+        const active = await this.ayrshare.getUserProfile(profileKey);
+        const activePlatforms = ((_a = active.activeSocialAccounts) !== null && _a !== void 0 ? _a : [])
+            .map((p) => (p === 'gmb' ? 'googlebusiness' : (p !== null && p !== void 0 ? p : '').toLowerCase()))
+            .filter(Boolean);
+        const platforms = activePlatforms.length
+            ? activePlatforms
+            : ['facebook', 'instagram', 'tiktok', 'youtube'];
+        const raw = await this.ayrshare.getSocialAnalytics(platforms, { aggregate: true }, profileKey);
+        const num = (v) => typeof v === 'number' && !Number.isNaN(v) ? v : 0;
+        const byPlatform = {};
+        let totalViews = 0;
+        let totalLikes = 0;
+        let totalShares = 0;
+        for (const platform of platforms) {
+            const pl = raw === null || raw === void 0 ? void 0 : raw[platform];
+            const analytics = (_c = (_b = pl === null || pl === void 0 ? void 0 : pl.analytics) !== null && _b !== void 0 ? _b : pl) !== null && _c !== void 0 ? _c : {};
+            const reachTotal = num((_d = analytics.reach) === null || _d === void 0 ? void 0 : _d.total);
+            const impressionsTotal = num((_e = analytics.impressions) === null || _e === void 0 ? void 0 : _e.total);
+            const views = num(analytics.viewCountTotal) ||
+                num(analytics.views) ||
+                num((_f = analytics.pageMediaView) === null || _f === void 0 ? void 0 : _f.total) ||
+                (platform === 'instagram' ? reachTotal || impressionsTotal : 0);
+            const likes = num(analytics.likeCountTotal) ||
+                num(analytics.likes) ||
+                num(analytics.likeCount);
+            const shares = num(analytics.shareCountTotal) ||
+                num(analytics.shares) ||
+                num(analytics.shareCount);
+            if (views <= 0 && likes <= 0 && shares <= 0)
+                continue;
+            byPlatform[platform] = {
+                views: Math.round(views),
+                likes: Math.round(likes),
+                shares: Math.round(shares),
+                distributionCount: 0,
+            };
+            totalViews += views;
+            totalLikes += likes;
+            totalShares += shares;
+        }
+        return {
+            totalViews: Math.round(totalViews),
+            totalLikes: Math.round(totalLikes),
+            totalShares: Math.round(totalShares),
+            byPlatform,
+        };
     }
     async getMostViewedFromAyrshare(limitStr) {
         const limit = limitStr
@@ -154,6 +222,18 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PublicationsController.prototype, "list", null);
 __decorate([
+    (0, common_1.Get)('stats/totals'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], PublicationsController.prototype, "getLifetimeTotals", null);
+__decorate([
+    (0, common_1.Get)('stats/social-totals'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], PublicationsController.prototype, "getSocialTotals", null);
+__decorate([
     (0, common_1.Get)('most-viewed/ayrshare'),
     __param(0, (0, common_1.Query)('limit')),
     __metadata("design:type", Function),
@@ -214,6 +294,9 @@ exports.PublicationsController = PublicationsController = __decorate([
     (0, common_1.Controller)('repurposing/publications'),
     __metadata("design:paramtypes", [publication_service_1.PublicationService,
         distribution_service_1.DistributionService,
-        url_presigner_service_1.UrlPresignerService])
+        url_presigner_service_1.UrlPresignerService,
+        ayrshare_profile_service_1.AyrshareProfileService,
+        ayrshare_repository_1.AyrshareRepository,
+        user_request_credentials_service_1.UserRequestCredentialsService])
 ], PublicationsController);
 //# sourceMappingURL=publications.controller.js.map

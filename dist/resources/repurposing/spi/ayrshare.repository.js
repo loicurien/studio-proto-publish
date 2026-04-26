@@ -283,8 +283,8 @@ let AyrshareRepository = AyrshareRepository_1 = class AyrshareRepository {
         return data;
     }
     async getSocialAnalytics(platforms, options = {}, profileKey) {
-        var _a, _b, _c, _d, _e;
-        const cacheKey = `analytics:social:${[...platforms].sort().join(',')}:${(_a = options.daily) !== null && _a !== void 0 ? _a : ''}:${(_b = options.quarters) !== null && _b !== void 0 ? _b : ''}:${profileKey !== null && profileKey !== void 0 ? profileKey : ''}`;
+        var _a, _b, _c, _d, _e, _f;
+        const cacheKey = `analytics:social:${[...platforms].sort().join(',')}:${(_a = options.daily) !== null && _a !== void 0 ? _a : ''}:${(_b = options.quarters) !== null && _b !== void 0 ? _b : ''}:${(_c = options.aggregate) !== null && _c !== void 0 ? _c : ''}:${profileKey !== null && profileKey !== void 0 ? profileKey : ''}`;
         const cached = this.getCached(cacheKey);
         if (cached !== undefined)
             return cached;
@@ -296,6 +296,8 @@ let AyrshareRepository = AyrshareRepository_1 = class AyrshareRepository {
             body.daily = true;
         if (options.quarters != null)
             body.quarters = options.quarters;
+        if (options.aggregate === true)
+            body.aggregate = true;
         const headers = {
             'Content-Type': 'application/json',
         };
@@ -310,13 +312,13 @@ let AyrshareRepository = AyrshareRepository_1 = class AyrshareRepository {
         }
         catch (err) {
             if ((0, axios_1.isAxiosError)(err)) {
-                const status = (_c = err.response) === null || _c === void 0 ? void 0 : _c.status;
-                const resBody = (_d = err.response) === null || _d === void 0 ? void 0 : _d.data;
+                const status = (_d = err.response) === null || _d === void 0 ? void 0 : _d.status;
+                const resBody = (_e = err.response) === null || _e === void 0 ? void 0 : _e.data;
                 const message = typeof (resBody === null || resBody === void 0 ? void 0 : resBody.message) === 'string'
                     ? resBody.message
                     : Array.isArray(resBody === null || resBody === void 0 ? void 0 : resBody.errors)
                         ? resBody.errors.join('; ')
-                        : (_e = err.message) !== null && _e !== void 0 ? _e : 'Ayrshare social analytics request failed';
+                        : (_f = err.message) !== null && _f !== void 0 ? _f : 'Ayrshare social analytics request failed';
                 this.logger.warn(`[Ayrshare] getSocialAnalytics failed status=${status} message=${message}`);
                 throw new common_1.BadGatewayException(`Ayrshare analytics: ${message}`);
             }

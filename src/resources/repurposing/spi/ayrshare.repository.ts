@@ -390,10 +390,10 @@ export class AyrshareRepository {
    */
   async getSocialAnalytics(
     platforms: string[],
-    options: { daily?: boolean; quarters?: number } = {},
+    options: { daily?: boolean; quarters?: number; aggregate?: boolean } = {},
     profileKey?: string,
   ): Promise<Record<string, unknown>> {
-    const cacheKey = `analytics:social:${[...platforms].sort().join(',')}:${options.daily ?? ''}:${options.quarters ?? ''}:${profileKey ?? ''}`;
+    const cacheKey = `analytics:social:${[...platforms].sort().join(',')}:${options.daily ?? ''}:${options.quarters ?? ''}:${options.aggregate ?? ''}:${profileKey ?? ''}`;
     const cached = this.getCached<Record<string, unknown>>(cacheKey);
     if (cached !== undefined) return cached;
 
@@ -403,6 +403,7 @@ export class AyrshareRepository {
     };
     if (options.daily === true) body.daily = true;
     if (options.quarters != null) body.quarters = options.quarters;
+    if (options.aggregate === true) body.aggregate = true;
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     };

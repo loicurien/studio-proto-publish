@@ -502,6 +502,61 @@ let DistributionService = DistributionService_1 = class DistributionService {
         }
         return ayrshareProfileId ? { ayrshareProfileId } : {};
     }
+    async getLifetimeTotals(options = {}) {
+        var _a, _b, _c, _d, _e;
+        const rows = await this.prisma.distribution.findMany({
+            where: { ayrsharePostId: { not: null } },
+            select: {
+                id: true,
+                platform: true,
+                viewCount: true,
+                likeCount: true,
+                shareCount: true,
+                ayrsharePostId: true,
+                publication: { select: { ayrshareProfileId: true } },
+            },
+        });
+        const byPlatform = {};
+        let totalViews = 0;
+        let totalLikes = 0;
+        let totalShares = 0;
+        for (const d of rows) {
+            const platform = ((_a = d.platform) !== null && _a !== void 0 ? _a : '').toLowerCase();
+            if (!platform)
+                continue;
+            const views = (_b = d.viewCount) !== null && _b !== void 0 ? _b : 0;
+            const likes = (_c = d.likeCount) !== null && _c !== void 0 ? _c : 0;
+            const shares = (_d = d.shareCount) !== null && _d !== void 0 ? _d : 0;
+            totalViews += views;
+            totalLikes += likes;
+            totalShares += shares;
+            const bucket = (_e = byPlatform[platform]) !== null && _e !== void 0 ? _e : (byPlatform[platform] = {
+                views: 0,
+                likes: 0,
+                shares: 0,
+                distributionCount: 0,
+            });
+            bucket.views += views;
+            bucket.likes += likes;
+            bucket.shares += shares;
+            bucket.distributionCount += 1;
+        }
+        if (options.refresh) {
+            const refreshable = rows.filter((d) => !!d.ayrsharePostId && d.ayrsharePostId.trim() !== '');
+            const refreshInBackground = async () => {
+                const parallel = 6;
+                for (let i = 0; i < refreshable.length; i += parallel) {
+                    const chunk = refreshable.slice(i, i + parallel);
+                    await Promise.allSettled(chunk.map((d) => {
+                        var _a, _b;
+                        return this.updatePostMetricsFromAyrshare(d.id, d.ayrsharePostId, d.platform, (_b = (_a = d.publication) === null || _a === void 0 ? void 0 : _a.ayrshareProfileId) !== null && _b !== void 0 ? _b : null);
+                    }));
+                }
+            };
+            void refreshInBackground();
+        }
+        return { totalViews, totalLikes, totalShares, byPlatform };
+    }
     async getMostViewedFromAyrshare(limit = 12) {
         const cap = Math.min(80, limit * 4);
         const rows = await this.prisma.distribution.findMany({

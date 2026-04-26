@@ -72,10 +72,15 @@ export class AyrshareProfileService {
     const profileKey = await this.getProfileKeyById(profileId, workspaceId);
     const profile = await this.ayrshare.getUserProfile(profileKey);
     const raw = (profile.activeSocialAccounts ?? []) as string[];
-    return raw.map((p) => {
-      if (p === 'gmb') return 'googlebusiness';
-      return p;
-    });
+    return [
+      ...new Set(
+        raw.map((p) => {
+          if (p === 'gmb') return 'googlebusiness';
+          if (p === 'ig') return 'instagram';
+          return (p ?? '').toLowerCase();
+        }),
+      ),
+    ];
   }
 
   async upsertProfileForWorkspace(

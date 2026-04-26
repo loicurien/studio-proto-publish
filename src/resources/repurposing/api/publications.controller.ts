@@ -11,6 +11,12 @@ import {
 import { PublicationService } from '../domain/publication.service';
 import { DistributionService } from '../domain/distribution.service';
 import { UrlPresignerService } from '../../../common/url-presigner/url-presigner.service';
+import { AyrshareProfileService } from '../domain/ayrshare-profile.service';
+import { AyrshareRepository } from '../spi/ayrshare.repository';
+import {
+  UserRequestCredentialsService,
+  WORKSPACE_ID_HEADER,
+} from '../../../common/http-client/user-request-credentials.service';
 import {
   CreatePublicationDto,
   PublicationResponseDto,
@@ -21,12 +27,62 @@ import {
   SuggestContentResponseDto,
 } from './entities/suggest-content.entity';
 
+function numFromUnknown(v: unknown): number {
+  return typeof v === 'number' && !Number.isNaN(v) ? v : 0;
+}
+
+/**
+ * Sums a metric's `total` if present, otherwise sums time-series `values` entries
+ * (Ayrshare/Instagram may expose `values: [{ value: n }, ...]` without `total`).
+ */
+function sumMetricTotalOrSeries(
+  m: unknown,
+  num: (v: unknown) => number = numFromUnknown,
+): number {
+  if (m == null || typeof m !== 'object') return 0;
+  const o = m as Record<string, unknown>;
+  const t = num(o.total);
+  if (t > 0) return t;
+  const values = o.values;
+  if (!Array.isArray(values)) return 0;
+  let sum = 0;
+  for (const row of values) {
+    if (row != null && typeof row === 'object') {
+      const r = row as Record<string, unknown>;
+      const v1 = num(r.value);
+      if (v1 > 0) {
+        sum += v1;
+      } else {
+        const inner = r.values;
+        if (Array.isArray(inner)) {
+          for (const n of inner) {
+            if (typeof n === 'number' && !Number.isNaN(n)) sum += n;
+          }
+        }
+      }
+    } else if (typeof row === 'number' && !Number.isNaN(row)) {
+      sum += row;
+    }
+  }
+  return sum;
+}
+
+function normalizeAyrsharePlatformId(p: string | undefined | null): string {
+  if (p == null) return '';
+  if (p === 'gmb') return 'googlebusiness';
+  if (p === 'ig') return 'instagram';
+  return p.toLowerCase();
+}
+
 @Controller('repurposing/publications')
 export class PublicationsController {
   constructor(
     private readonly publicationService: PublicationService,
     private readonly distributionService: DistributionService,
     private readonly urlPresigner: UrlPresignerService,
+    private readonly ayrshareProfiles: AyrshareProfileService,
+    private readonly ayrshare: AyrshareRepository,
+    private readonly userRequest: UserRequestCredentialsService,
   ) {}
 
   @Post('suggest-content')
@@ -70,6 +126,149 @@ export class PublicationsController {
     >;
   }> {
     return this.distributionService.getLifetimeTotals({ refresh: true });
+  }
+
+  /**
+   * Social (account-level) totals by platform.
+   *
+   * This endpoint intentionally ignores the chart time window (7/15/30/60 days)
+   * and returns the totals as provided by social platforms through Ayrshare
+   * social analytics (e.g. TikTok `viewCountTotal`).
+   *
+   * It exists because some platforms (notably TikTok) may not provide a reliable
+   * daily time-series through social analytics, while the totals shown in
+   * native dashboards are still available as aggregate counters.
+   */
+  @Get('stats/social-totals')
+  async getSocialTotals(): Promise<{
+    totalViews: number;
+    totalLikes: number;
+    totalShares: number;
+    byPlatform: Record<
+      string,
+      { views: number; likes: number; shares: number; distributionCount: number }
+    >;
+  }> {
+    const workspaceId = this.userRequest.workspaceId;
+    if (!workspaceId) {
+      throw new Error(`${WORKSPACE_ID_HEADER} header is required`);
+    }
+    const profiles = await this.ayrshareProfiles.listProfilesForWorkspace(
+      workspaceId,
+    );
+    const first = profiles[0];
+    if (!first) {
+      return { totalViews: 0, totalLikes: 0, totalShares: 0, byPlatform: {} };
+    }
+    const profileKey = first.profileKey;
+    const active = await this.ayrshare.getUserProfile(profileKey);
+    const activePlatforms = [
+      ...new Set(
+        ((active.activeSocialAccounts ?? []) as string[]).map(
+          normalizeAyrsharePlatformId,
+        ),
+      ),
+    ].filter(Boolean);
+    const platforms = activePlatforms.length
+      ? activePlatforms
+      : ['facebook', 'instagram', 'tiktok', 'youtube'];
+    const raw = await this.ayrshare.getSocialAnalytics(
+      platforms,
+      { aggregate: true },
+      profileKey,
+    );
+
+    const num = (v: unknown): number =>
+      typeof v === 'number' && !Number.isNaN(v) ? v : 0;
+    const fromSocial: Record<
+      string,
+      { views: number; likes: number; shares: number; distributionCount: number }
+    > = {};
+
+    for (const platform of platforms) {
+      let pl = raw?.[platform] as Record<string, unknown> | undefined;
+      if (pl == null && platform === 'instagram') {
+        pl = raw?.ig as Record<string, unknown> | undefined;
+      }
+      const analytics = (pl?.analytics as Record<string, unknown>) ?? pl ?? {};
+      const reachT = num(
+        (analytics.reach as { total?: unknown } | undefined)?.total,
+      );
+      const impT = num(
+        (analytics.impressions as { total?: unknown } | undefined)?.total,
+      );
+      const reachS = sumMetricTotalOrSeries(analytics.reach, num);
+      const impS = sumMetricTotalOrSeries(analytics.impressions, num);
+      const views = Math.max(
+        num(analytics.viewCountTotal) ||
+          num(analytics.views) ||
+          num(
+            (analytics.pageMediaView as { total?: unknown } | undefined)?.total,
+          ),
+        reachS,
+        impS,
+        reachT,
+        impT,
+      );
+      const likes =
+        num(analytics.likeCountTotal) ||
+        num(analytics.likes) ||
+        num(analytics.likeCount);
+      const shares =
+        num(analytics.shareCountTotal) ||
+        num(analytics.shares) ||
+        num(analytics.shareCount);
+
+      if (views <= 0 && likes <= 0 && shares <= 0) continue;
+      fromSocial[platform] = {
+        views: Math.round(views),
+        likes: Math.round(likes),
+        shares: Math.round(shares),
+        distributionCount: 0,
+      };
+    }
+
+    const db = await this.distributionService.getLifetimeTotals({
+      refresh: false,
+    });
+    const byPlatform: Record<
+      string,
+      { views: number; likes: number; shares: number; distributionCount: number }
+    > = {};
+    const platformKeys = new Set([
+      ...Object.keys(fromSocial),
+      ...Object.keys(db.byPlatform),
+    ]);
+    for (const platform of platformKeys) {
+      const a = fromSocial[platform];
+      const b = db.byPlatform[platform];
+      const views = Math.max(a?.views ?? 0, b?.views ?? 0);
+      const likes = Math.max(a?.likes ?? 0, b?.likes ?? 0);
+      const shares = Math.max(a?.shares ?? 0, b?.shares ?? 0);
+      if (views <= 0 && likes <= 0 && shares <= 0) continue;
+      byPlatform[platform] = {
+        views: Math.round(views),
+        likes: Math.round(likes),
+        shares: Math.round(shares),
+        distributionCount: b?.distributionCount ?? 0,
+      };
+    }
+
+    let totalViews = 0;
+    let totalLikes = 0;
+    let totalShares = 0;
+    for (const p of Object.values(byPlatform)) {
+      totalViews += p.views;
+      totalLikes += p.likes;
+      totalShares += p.shares;
+    }
+
+    return {
+      totalViews: Math.round(totalViews),
+      totalLikes: Math.round(totalLikes),
+      totalShares: Math.round(totalShares),
+      byPlatform,
+    };
   }
 
   /**

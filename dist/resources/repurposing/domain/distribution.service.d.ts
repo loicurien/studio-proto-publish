@@ -63,6 +63,19 @@ export declare class DistributionService {
     }): Promise<{
         ayrshareProfileId?: string;
     }>;
+    getLifetimeTotals(options?: {
+        refresh?: boolean;
+    }): Promise<{
+        totalViews: number;
+        totalLikes: number;
+        totalShares: number;
+        byPlatform: Record<string, {
+            views: number;
+            likes: number;
+            shares: number;
+            distributionCount: number;
+        }>;
+    }>;
     getMostViewedFromAyrshare(limit?: number): Promise<{
         publication: Publication & {
             distributions: Distribution[];
