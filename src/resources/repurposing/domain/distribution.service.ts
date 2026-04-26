@@ -807,12 +807,16 @@ export class DistributionService {
       const row = analytics[platform];
       const views = row?.views;
       const likes = row?.likes;
-      const data: { viewCount?: number; likeCount?: number } = {};
+      const shares = row?.shares;
+      const data: { viewCount?: number; likeCount?: number; shareCount?: number } = {};
       if (typeof views === 'number' && !Number.isNaN(views)) {
         data.viewCount = Math.round(views);
       }
       if (typeof likes === 'number' && !Number.isNaN(likes)) {
         data.likeCount = Math.round(likes);
+      }
+      if (typeof shares === 'number' && !Number.isNaN(shares)) {
+        data.shareCount = Math.round(shares);
       }
       this.logger.log(
         `[Ayrshare] metrics distribution=${distributionId} platform=${platform} ayrsharePostId=${ayrsharePostId} parsedRow=${JSON.stringify(row ?? null)} dbPatch=${JSON.stringify(data)}`,

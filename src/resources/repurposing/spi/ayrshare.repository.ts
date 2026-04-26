@@ -238,9 +238,9 @@ export class AyrshareRepository {
     ayrsharePostId: string,
     platforms: string[],
     profileKey?: string,
-  ): Promise<Record<string, { views?: number; likes?: number }>> {
-    const cacheKey = `analytics:post:v2:${ayrsharePostId}:${[...platforms].sort().join(',')}:${profileKey ?? ''}`;
-    const cached = this.getCached<Record<string, { views?: number; likes?: number }>>(
+  ): Promise<Record<string, { views?: number; likes?: number; shares?: number }>> {
+    const cacheKey = `analytics:post:v3:${ayrsharePostId}:${[...platforms].sort().join(',')}:${profileKey ?? ''}`;
+    const cached = this.getCached<Record<string, { views?: number; likes?: number; shares?: number }>>(
       cacheKey,
     );
     if (cached !== undefined) return cached;
@@ -261,7 +261,7 @@ export class AyrshareRepository {
     this.logger.log(
       `[Ayrshare] POST /analytics/post id=${ayrsharePostId} platforms=${platformsLower.join(',')} raw=${truncateForLog(JSON.stringify(data))}`,
     );
-    const result: Record<string, { views?: number; likes?: number }> = {};
+    const result: Record<string, { views?: number; likes?: number; shares?: number }> = {};
     const dataObj = data as Record<string, unknown>;
     for (const platform of platforms) {
       const responseKey = Object.keys(dataObj).find(
@@ -274,10 +274,12 @@ export class AyrshareRepository {
       const analytics = (pl.analytics as Record<string, unknown>) ?? pl;
       const views = this.extractViewsFromAnalytics(platform, analytics);
       const likes = this.extractLikesFromAnalytics(platform, analytics);
-      if (views != null || likes != null) {
+      const shares = this.extractSharesFromAnalytics(platform, analytics);
+      if (views != null || likes != null || shares != null) {
         result[platform] = {
           ...(views != null ? { views } : {}),
           ...(likes != null ? { likes } : {}),
+          ...(shares != null ? { shares } : {}),
         };
       }
     }
@@ -366,6 +368,33 @@ export class AyrshareRepository {
       return num(video?.viewCount) ?? num(analytics.views);
     }
     return num(analytics.views) ?? num(analytics.viewsCount);
+  }
+
+  private extractSharesFromAnalytics(
+    platform: string,
+    analytics: Record<string, unknown>,
+  ): number | undefined {
+    const num = (v: unknown): number | undefined =>
+      typeof v === 'number' && !Number.isNaN(v) ? v : undefined;
+    const pl = platform.toLowerCase();
+    if (pl === 'youtube') {
+      return num(analytics.shares) ?? num((analytics as { shareCount?: unknown }).shareCount);
+    }
+    if (pl === 'tiktok') {
+      return num(analytics.shareCount) ?? num(analytics.shares);
+    }
+    if (pl === 'instagram' || pl === 'facebook') {
+      return (
+        num((analytics as { shareCount?: unknown }).shareCount) ??
+        num((analytics as { sharesCount?: unknown }).sharesCount) ??
+        num(analytics.shares)
+      );
+    }
+    if (pl === 'linkedin' || pl === 'twitter' || pl === 'x') {
+      const pm = analytics.publicMetrics as Record<string, unknown> | undefined;
+      return num(pm?.shareCount) ?? num(analytics.shareCount) ?? num(analytics.shares);
+    }
+    return num(analytics.shareCount) ?? num(analytics.shares) ?? num(analytics.repostCount);
   }
 
   async getUserProfile(
