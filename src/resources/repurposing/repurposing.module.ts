@@ -7,12 +7,14 @@ import { PublicationService } from './domain/publication.service';
 import { DistributionService, AyrshareMetricsRefreshJob } from './domain/distribution.service';
 import { AyrshareProfileService } from './domain/ayrshare-profile.service';
 import { AyrshareWebhookEventService } from './domain/ayrshare-webhook-event.service';
-import { PublicationsController } from './api/publications.controller';
+import {
+  AdminController,
+  PublicationsController,
+} from './api/publications.controller';
 import { DistributionsController } from './api/distributions.controller';
 import { AyrshareController } from './api/ayrshare.controller';
 import { TrendsController } from './api/trends.controller';
 import { WebhooksController } from './api/webhooks.controller';
-import { AdminController } from './api/admin.controller';
 
 @Module({
   imports: [UrlPresignerModule, HttpClientModule],

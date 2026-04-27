@@ -12,7 +12,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PublicationsController = void 0;
+exports.AdminController = exports.PublicationsController = void 0;
 const common_1 = require("@nestjs/common");
 const publication_service_1 = require("../domain/publication.service");
 const distribution_service_1 = require("../domain/distribution.service");
@@ -389,4 +389,33 @@ exports.PublicationsController = PublicationsController = __decorate([
         ayrshare_repository_1.AyrshareRepository,
         user_request_credentials_service_1.UserRequestCredentialsService])
 ], PublicationsController);
+let AdminController = class AdminController {
+    constructor(distributions) {
+        this.distributions = distributions;
+    }
+    async refreshMetrics(body, token) {
+        const expected = process.env.ADMIN_TOKEN;
+        if (expected && token !== expected) {
+            throw new Error('Unauthorized');
+        }
+        const attempted = await this.distributions.refreshRecentAyrshareMetrics({
+            maxCandidates: body === null || body === void 0 ? void 0 : body.maxCandidates,
+            concurrency: body === null || body === void 0 ? void 0 : body.concurrency,
+        });
+        return { attempted };
+    }
+};
+exports.AdminController = AdminController;
+__decorate([
+    (0, common_1.Post)('refresh-metrics'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Headers)('x-admin-token')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", Promise)
+], AdminController.prototype, "refreshMetrics", null);
+exports.AdminController = AdminController = __decorate([
+    (0, common_1.Controller)('repurposing/admin'),
+    __metadata("design:paramtypes", [distribution_service_1.DistributionService])
+], AdminController);
 //# sourceMappingURL=publications.controller.js.map

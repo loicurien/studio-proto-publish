@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
   Param,
   Patch,
   Post,
@@ -442,5 +443,41 @@ export class PublicationsController {
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<void> {
     await this.publicationService.remove(id);
+  }
+}
+
+type RefreshMetricsBody = {
+  maxCandidates?: number;
+  concurrency?: number;
+};
+
+/**
+ * Admin routes (same file as publications API so deploys never miss a sibling module).
+ */
+@Controller('repurposing/admin')
+export class AdminController {
+  constructor(private readonly distributions: DistributionService) {}
+
+  /**
+   * Manual trigger for the hourly cron job refreshing Ayrshare metrics.
+   *
+   * Auth:
+   * - If env var ADMIN_TOKEN is set, require header `x-admin-token` to match.
+   * - If ADMIN_TOKEN is not set, the endpoint is open (intended for local/dev).
+   */
+  @Post('refresh-metrics')
+  async refreshMetrics(
+    @Body() body: RefreshMetricsBody,
+    @Headers('x-admin-token') token?: string,
+  ): Promise<{ attempted: number }> {
+    const expected = process.env.ADMIN_TOKEN;
+    if (expected && token !== expected) {
+      throw new Error('Unauthorized');
+    }
+    const attempted = await this.distributions.refreshRecentAyrshareMetrics({
+      maxCandidates: body?.maxCandidates,
+      concurrency: body?.concurrency,
+    });
+    return { attempted };
   }
 }

@@ -53,3 +53,15 @@ export declare class PublicationsController {
     update(id: string, dto: UpdatePublicationDto): Promise<PublicationResponseDto>;
     remove(id: string): Promise<void>;
 }
+type RefreshMetricsBody = {
+    maxCandidates?: number;
+    concurrency?: number;
+};
+export declare class AdminController {
+    private readonly distributions;
+    constructor(distributions: DistributionService);
+    refreshMetrics(body: RefreshMetricsBody, token?: string): Promise<{
+        attempted: number;
+    }>;
+}
+export {};

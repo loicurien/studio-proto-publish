@@ -21,7 +21,6 @@ const distributions_controller_1 = require("./api/distributions.controller");
 const ayrshare_controller_1 = require("./api/ayrshare.controller");
 const trends_controller_1 = require("./api/trends.controller");
 const webhooks_controller_1 = require("./api/webhooks.controller");
-const admin_controller_1 = require("./api/admin.controller");
 let RepurposingModule = class RepurposingModule {
 };
 exports.RepurposingModule = RepurposingModule;
@@ -34,7 +33,7 @@ exports.RepurposingModule = RepurposingModule = __decorate([
             ayrshare_controller_1.AyrshareController,
             trends_controller_1.TrendsController,
             webhooks_controller_1.WebhooksController,
-            admin_controller_1.AdminController,
+            publications_controller_1.AdminController,
         ],
         providers: [
             ayrshare_repository_1.AyrshareRepository,
