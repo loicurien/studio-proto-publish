@@ -92,3 +92,9 @@ export declare class DistributionService {
     }): Promise<number>;
     private updatePostMetricsFromAyrshare;
 }
+export declare class AyrshareMetricsRefreshJob {
+    private readonly distributions;
+    private readonly log;
+    constructor(distributions: DistributionService);
+    refreshHourly(): Promise<void>;
+}

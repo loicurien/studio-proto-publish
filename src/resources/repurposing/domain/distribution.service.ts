@@ -5,6 +5,7 @@ import {
   BadRequestException,
   ServiceUnavailableException,
 } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '../../../prisma.service';
 import { UrlPresignerService } from '../../../common/url-presigner/url-presigner.service';
 import { UserRequestCredentialsService } from '../../../common/http-client/user-request-credentials.service';
@@ -920,6 +921,30 @@ export class DistributionService {
       this.logger.warn(
         `[Ayrshare] metrics distribution=${distributionId} ayrsharePostId=${ayrsharePostId} failed: ${msg}`,
       );
+    }
+  }
+}
+
+/**
+ * Hourly Ayrshare metrics refresh (lives in this file so a single `tsc` output
+ * never depends on a missing sibling module in minimal deploys).
+ */
+@Injectable()
+export class AyrshareMetricsRefreshJob {
+  private readonly log = new Logger(AyrshareMetricsRefreshJob.name);
+
+  constructor(private readonly distributions: DistributionService) {}
+
+  @Cron(CronExpression.EVERY_HOUR)
+  async refreshHourly(): Promise<void> {
+    try {
+      const refreshed = await this.distributions.refreshRecentAyrshareMetrics({
+        maxCandidates: 200,
+      });
+      this.log.log(`[Ayrshare] hourly refresh done refreshed=${refreshed}`);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      this.log.warn(`[Ayrshare] hourly refresh failed: ${msg}`);
     }
   }
 }

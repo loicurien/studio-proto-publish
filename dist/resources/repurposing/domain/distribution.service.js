@@ -8,10 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var DistributionService_1;
+var DistributionService_1, AyrshareMetricsRefreshJob_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DistributionService = void 0;
+exports.AyrshareMetricsRefreshJob = exports.DistributionService = void 0;
 const common_1 = require("@nestjs/common");
+const schedule_1 = require("@nestjs/schedule");
 const prisma_service_1 = require("../../../prisma.service");
 const url_presigner_service_1 = require("../../../common/url-presigner/url-presigner.service");
 const user_request_credentials_service_1 = require("../../../common/http-client/user-request-credentials.service");
@@ -680,4 +681,33 @@ exports.DistributionService = DistributionService = DistributionService_1 = __de
         user_request_credentials_service_1.UserRequestCredentialsService,
         url_presigner_service_1.UrlPresignerService])
 ], DistributionService);
+let AyrshareMetricsRefreshJob = AyrshareMetricsRefreshJob_1 = class AyrshareMetricsRefreshJob {
+    constructor(distributions) {
+        this.distributions = distributions;
+        this.log = new common_1.Logger(AyrshareMetricsRefreshJob_1.name);
+    }
+    async refreshHourly() {
+        try {
+            const refreshed = await this.distributions.refreshRecentAyrshareMetrics({
+                maxCandidates: 200,
+            });
+            this.log.log(`[Ayrshare] hourly refresh done refreshed=${refreshed}`);
+        }
+        catch (err) {
+            const msg = err instanceof Error ? err.message : String(err);
+            this.log.warn(`[Ayrshare] hourly refresh failed: ${msg}`);
+        }
+    }
+};
+exports.AyrshareMetricsRefreshJob = AyrshareMetricsRefreshJob;
+__decorate([
+    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_HOUR),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AyrshareMetricsRefreshJob.prototype, "refreshHourly", null);
+exports.AyrshareMetricsRefreshJob = AyrshareMetricsRefreshJob = AyrshareMetricsRefreshJob_1 = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [DistributionService])
+], AyrshareMetricsRefreshJob);
 //# sourceMappingURL=distribution.service.js.map
