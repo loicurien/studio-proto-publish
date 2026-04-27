@@ -41,6 +41,9 @@ export declare class PublicationsController {
     getMostViewedFromAyrshare(limitStr?: string): Promise<{
         items: PublicationResponseDto[];
     }>;
+    getMostViewedPublications(limitStr?: string): Promise<{
+        items: PublicationResponseDto[];
+    }>;
     refreshAyrshareStatus(id: string): Promise<PublicationResponseDto>;
     getOne(id: string): Promise<PublicationResponseDto>;
     sendToReview(id: string): Promise<PublicationResponseDto>;

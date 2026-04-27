@@ -83,5 +83,12 @@ export declare class DistributionService {
         distribution: Distribution;
         viewCount: number;
     }[]>;
+    getMostViewedPublicationsByDbViews(limit?: number): Promise<(Publication & {
+        distributions: Distribution[];
+    })[]>;
+    refreshRecentAyrshareMetrics(options?: {
+        maxCandidates?: number;
+        concurrency?: number;
+    }): Promise<number>;
     private updatePostMetricsFromAyrshare;
 }

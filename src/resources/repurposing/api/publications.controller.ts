@@ -294,6 +294,28 @@ export class PublicationsController {
     return { items };
   }
 
+  /**
+   * Most viewed publications by aggregated DB viewCount (sum across platforms).
+   *
+   * Notes:
+   * - Reads persisted counters (Distribution.viewCount) for speed.
+   * - Use the hourly cron / admin trigger to keep counters fresh.
+   */
+  @Get('most-viewed/publication')
+  async getMostViewedPublications(
+    @Query('limit') limitStr?: string,
+  ): Promise<{ items: PublicationResponseDto[] }> {
+    const limit = limitStr
+      ? Math.min(20, parseInt(limitStr, 10) || 12)
+      : 12;
+    const pubs =
+      await this.distributionService.getMostViewedPublicationsByDbViews(limit);
+    const items = await Promise.all(
+      pubs.map((p) => this.withPresignedMediaUrls(p)),
+    );
+    return { items };
+  }
+
   @Get(':id/refresh-ayrshare-status')
   async refreshAyrshareStatus(
     @Param('id') id: string,

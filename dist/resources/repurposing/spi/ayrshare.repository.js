@@ -177,7 +177,7 @@ let AyrshareRepository = AyrshareRepository_1 = class AyrshareRepository {
     }
     async getPostAnalytics(ayrsharePostId, platforms, profileKey) {
         var _a;
-        const cacheKey = `analytics:post:v2:${ayrsharePostId}:${[...platforms].sort().join(',')}:${profileKey !== null && profileKey !== void 0 ? profileKey : ''}`;
+        const cacheKey = `analytics:post:v3:${ayrsharePostId}:${[...platforms].sort().join(',')}:${profileKey !== null && profileKey !== void 0 ? profileKey : ''}`;
         const cached = this.getCached(cacheKey);
         if (cached !== undefined)
             return cached;
@@ -203,10 +203,12 @@ let AyrshareRepository = AyrshareRepository_1 = class AyrshareRepository {
             const analytics = (_a = pl.analytics) !== null && _a !== void 0 ? _a : pl;
             const views = this.extractViewsFromAnalytics(platform, analytics);
             const likes = this.extractLikesFromAnalytics(platform, analytics);
-            if (views != null || likes != null) {
+            const shares = this.extractSharesFromAnalytics(platform, analytics);
+            if (views != null || likes != null || shares != null) {
                 result[platform] = {
                     ...(views != null ? { views } : {}),
                     ...(likes != null ? { likes } : {}),
+                    ...(shares != null ? { shares } : {}),
                 };
             }
         }
@@ -272,6 +274,25 @@ let AyrshareRepository = AyrshareRepository_1 = class AyrshareRepository {
             return (_k = num(video === null || video === void 0 ? void 0 : video.viewCount)) !== null && _k !== void 0 ? _k : num(analytics.views);
         }
         return (_l = num(analytics.views)) !== null && _l !== void 0 ? _l : num(analytics.viewsCount);
+    }
+    extractSharesFromAnalytics(platform, analytics) {
+        var _a, _b, _c, _d, _e, _f, _g, _h;
+        const num = (v) => typeof v === 'number' && !Number.isNaN(v) ? v : undefined;
+        const pl = platform.toLowerCase();
+        if (pl === 'youtube') {
+            return (_a = num(analytics.shares)) !== null && _a !== void 0 ? _a : num(analytics.shareCount);
+        }
+        if (pl === 'tiktok') {
+            return (_b = num(analytics.shareCount)) !== null && _b !== void 0 ? _b : num(analytics.shares);
+        }
+        if (pl === 'instagram' || pl === 'facebook') {
+            return ((_d = (_c = num(analytics.shareCount)) !== null && _c !== void 0 ? _c : num(analytics.sharesCount)) !== null && _d !== void 0 ? _d : num(analytics.shares));
+        }
+        if (pl === 'linkedin' || pl === 'twitter' || pl === 'x') {
+            const pm = analytics.publicMetrics;
+            return (_f = (_e = num(pm === null || pm === void 0 ? void 0 : pm.shareCount)) !== null && _e !== void 0 ? _e : num(analytics.shareCount)) !== null && _f !== void 0 ? _f : num(analytics.shares);
+        }
+        return (_h = (_g = num(analytics.shareCount)) !== null && _g !== void 0 ? _g : num(analytics.shares)) !== null && _h !== void 0 ? _h : num(analytics.repostCount);
     }
     async getUserProfile(profileKey) {
         this.requireApiKey();

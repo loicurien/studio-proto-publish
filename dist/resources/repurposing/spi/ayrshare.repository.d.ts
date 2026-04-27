@@ -51,9 +51,11 @@ export declare class AyrshareRepository {
     getPostAnalytics(ayrsharePostId: string, platforms: string[], profileKey?: string): Promise<Record<string, {
         views?: number;
         likes?: number;
+        shares?: number;
     }>>;
     private extractLikesFromAnalytics;
     private extractViewsFromAnalytics;
+    private extractSharesFromAnalytics;
     getUserProfile(profileKey: string): Promise<AyrshareUserProfileResponse>;
     getSocialAnalytics(platforms: string[], options?: {
         daily?: boolean;

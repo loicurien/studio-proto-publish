@@ -585,6 +585,50 @@ let DistributionService = DistributionService_1 = class DistributionService {
         const nonZero = sorted.filter((x) => x.viewCount > 0);
         return (nonZero.length > 0 ? nonZero : sorted).slice(0, limit);
     }
+    async getMostViewedPublicationsByDbViews(limit = 12) {
+        const rows = await this.prisma.distribution.groupBy({
+            by: ['publicationId'],
+            where: { viewCount: { not: null } },
+            _sum: { viewCount: true },
+            orderBy: { _sum: { viewCount: 'desc' } },
+            take: Math.min(50, Math.max(1, limit)),
+        });
+        const publicationIds = rows.map((r) => r.publicationId);
+        if (publicationIds.length === 0)
+            return [];
+        const pubs = await this.prisma.publication.findMany({
+            where: { id: { in: publicationIds } },
+            include: { distributions: true },
+        });
+        const byId = new Map(pubs.map((p) => [p.id, p]));
+        const ordered = publicationIds
+            .map((id) => byId.get(id))
+            .filter((p) => !!p);
+        return ordered;
+    }
+    async refreshRecentAyrshareMetrics(options = {}) {
+        var _a, _b;
+        const maxCandidates = Math.min(Math.max((_a = options.maxCandidates) !== null && _a !== void 0 ? _a : 200, 1), 1000);
+        const concurrency = Math.min(Math.max((_b = options.concurrency) !== null && _b !== void 0 ? _b : 6, 1), 12);
+        const rows = await this.prisma.distribution.findMany({
+            where: {
+                ayrsharePostId: { not: null },
+                status: { in: ['success', 'pending'] },
+            },
+            include: { publication: true },
+            orderBy: { updatedAt: 'desc' },
+            take: maxCandidates,
+        });
+        const refreshable = rows.filter((d) => !!d.ayrsharePostId && d.ayrsharePostId.trim() !== '');
+        for (let i = 0; i < refreshable.length; i += concurrency) {
+            const chunk = refreshable.slice(i, i + concurrency);
+            await Promise.allSettled(chunk.map((d) => {
+                var _a, _b;
+                return this.updatePostMetricsFromAyrshare(d.id, d.ayrsharePostId, d.platform, (_b = (_a = d.publication) === null || _a === void 0 ? void 0 : _a.ayrshareProfileId) !== null && _b !== void 0 ? _b : null);
+            }));
+        }
+        return refreshable.length;
+    }
     async updatePostMetricsFromAyrshare(distributionId, ayrsharePostId, platform, ayrshareProfileId) {
         let profileKey;
         if (ayrshareProfileId) {
@@ -599,12 +643,16 @@ let DistributionService = DistributionService_1 = class DistributionService {
             const row = analytics[platform];
             const views = row === null || row === void 0 ? void 0 : row.views;
             const likes = row === null || row === void 0 ? void 0 : row.likes;
+            const shares = row === null || row === void 0 ? void 0 : row.shares;
             const data = {};
             if (typeof views === 'number' && !Number.isNaN(views)) {
                 data.viewCount = Math.round(views);
             }
             if (typeof likes === 'number' && !Number.isNaN(likes)) {
                 data.likeCount = Math.round(likes);
+            }
+            if (typeof shares === 'number' && !Number.isNaN(shares)) {
+                data.shareCount = Math.round(shares);
             }
             this.logger.log(`[Ayrshare] metrics distribution=${distributionId} platform=${platform} ayrsharePostId=${ayrsharePostId} parsedRow=${JSON.stringify(row !== null && row !== void 0 ? row : null)} dbPatch=${JSON.stringify(data)}`);
             if (Object.keys(data).length > 0) {

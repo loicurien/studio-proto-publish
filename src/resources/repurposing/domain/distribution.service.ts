@@ -778,6 +778,90 @@ export class DistributionService {
   }
 
   /**
+   * Return most viewed publications by aggregated DB viewCount across all
+   * distributions (all platforms combined).
+   *
+   * This does NOT call Ayrshare inline; it relies on persisted counters.
+   * Use the hourly cron / manual refresh to keep DB values fresh.
+   */
+  async getMostViewedPublicationsByDbViews(
+    limit = 12,
+  ): Promise<(Publication & { distributions: Distribution[] })[]> {
+    const rows = await this.prisma.distribution.groupBy({
+      by: ['publicationId'],
+      where: { viewCount: { not: null } },
+      _sum: { viewCount: true },
+      orderBy: { _sum: { viewCount: 'desc' } },
+      take: Math.min(50, Math.max(1, limit)),
+    });
+    const publicationIds = rows.map((r) => r.publicationId);
+    if (publicationIds.length === 0) return [];
+
+    const pubs = await this.prisma.publication.findMany({
+      where: { id: { in: publicationIds } },
+      include: { distributions: true },
+    });
+    const byId = new Map(pubs.map((p) => [p.id, p]));
+    // Preserve ordering by aggregated sum.
+    const ordered = publicationIds
+      .map((id) => byId.get(id))
+      .filter((p): p is Publication & { distributions: Distribution[] } => !!p);
+    return ordered;
+  }
+
+  /**
+   * Hourly job: refresh DB counters from Ayrshare for a bounded set of recent distributions.
+   *
+   * Strategy:
+   * - Select a capped list of candidates from DB (recently updated & with Ayrshare IDs).
+   * - Fetch analytics from Ayrshare with limited concurrency.
+   * - Persist viewCount/likeCount/shareCount into DB (same logic as the endpoint background refresh).
+   *
+   * Returns the number of attempted refreshes (successful + failed).
+   */
+  async refreshRecentAyrshareMetrics(options: {
+    maxCandidates?: number;
+    concurrency?: number;
+  } = {}): Promise<number> {
+    const maxCandidates = Math.min(Math.max(options.maxCandidates ?? 200, 1), 1000);
+    const concurrency = Math.min(Math.max(options.concurrency ?? 6, 1), 12);
+
+    const rows = await this.prisma.distribution.findMany({
+      where: {
+        ayrsharePostId: { not: null },
+        status: { in: ['success', 'pending'] },
+      },
+      include: { publication: true },
+      orderBy: { updatedAt: 'desc' },
+      take: maxCandidates,
+    });
+
+    const refreshable = rows.filter(
+      (
+        d,
+      ): d is typeof d & {
+        ayrsharePostId: string;
+      } => !!d.ayrsharePostId && d.ayrsharePostId.trim() !== '',
+    );
+
+    for (let i = 0; i < refreshable.length; i += concurrency) {
+      const chunk = refreshable.slice(i, i + concurrency);
+      await Promise.allSettled(
+        chunk.map((d) =>
+          this.updatePostMetricsFromAyrshare(
+            d.id,
+            d.ayrsharePostId,
+            d.platform,
+            d.publication?.ayrshareProfileId ?? null,
+          ),
+        ),
+      );
+    }
+
+    return refreshable.length;
+  }
+
+  /**
    * Fetch post analytics from Ayrshare and update distribution.viewCount /
    * likeCount. Non-blocking: failures are ignored so webhook response is not
    * delayed.

@@ -22,6 +22,52 @@ const ayrshare_repository_1 = require("../spi/ayrshare.repository");
 const user_request_credentials_service_1 = require("../../../common/http-client/user-request-credentials.service");
 const publication_entity_1 = require("./entities/publication.entity");
 const suggest_content_entity_1 = require("./entities/suggest-content.entity");
+function numFromUnknown(v) {
+    return typeof v === 'number' && !Number.isNaN(v) ? v : 0;
+}
+function sumMetricTotalOrSeries(m, num = numFromUnknown) {
+    if (m == null || typeof m !== 'object')
+        return 0;
+    const o = m;
+    const t = num(o.total);
+    if (t > 0)
+        return t;
+    const values = o.values;
+    if (!Array.isArray(values))
+        return 0;
+    let sum = 0;
+    for (const row of values) {
+        if (row != null && typeof row === 'object') {
+            const r = row;
+            const v1 = num(r.value);
+            if (v1 > 0) {
+                sum += v1;
+            }
+            else {
+                const inner = r.values;
+                if (Array.isArray(inner)) {
+                    for (const n of inner) {
+                        if (typeof n === 'number' && !Number.isNaN(n))
+                            sum += n;
+                    }
+                }
+            }
+        }
+        else if (typeof row === 'number' && !Number.isNaN(row)) {
+            sum += row;
+        }
+    }
+    return sum;
+}
+function normalizeAyrsharePlatformId(p) {
+    if (p == null)
+        return '';
+    if (p === 'gmb')
+        return 'googlebusiness';
+    if (p === 'ig')
+        return 'instagram';
+    return p.toLowerCase();
+}
 let PublicationsController = class PublicationsController {
     constructor(publicationService, distributionService, urlPresigner, ayrshareProfiles, ayrshare, userRequest) {
         this.publicationService = publicationService;
@@ -44,7 +90,7 @@ let PublicationsController = class PublicationsController {
         return this.distributionService.getLifetimeTotals({ refresh: true });
     }
     async getSocialTotals() {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
         const workspaceId = this.userRequest.workspaceId;
         if (!workspaceId) {
             throw new Error(`${user_request_credentials_service_1.WORKSPACE_ID_HEADER} header is required`);
@@ -56,27 +102,28 @@ let PublicationsController = class PublicationsController {
         }
         const profileKey = first.profileKey;
         const active = await this.ayrshare.getUserProfile(profileKey);
-        const activePlatforms = ((_a = active.activeSocialAccounts) !== null && _a !== void 0 ? _a : [])
-            .map((p) => (p === 'gmb' ? 'googlebusiness' : (p !== null && p !== void 0 ? p : '').toLowerCase()))
-            .filter(Boolean);
+        const activePlatforms = [
+            ...new Set(((_a = active.activeSocialAccounts) !== null && _a !== void 0 ? _a : []).map(normalizeAyrsharePlatformId)),
+        ].filter(Boolean);
         const platforms = activePlatforms.length
             ? activePlatforms
             : ['facebook', 'instagram', 'tiktok', 'youtube'];
         const raw = await this.ayrshare.getSocialAnalytics(platforms, { aggregate: true }, profileKey);
         const num = (v) => typeof v === 'number' && !Number.isNaN(v) ? v : 0;
-        const byPlatform = {};
-        let totalViews = 0;
-        let totalLikes = 0;
-        let totalShares = 0;
+        const fromSocial = {};
         for (const platform of platforms) {
-            const pl = raw === null || raw === void 0 ? void 0 : raw[platform];
+            let pl = raw === null || raw === void 0 ? void 0 : raw[platform];
+            if (pl == null && platform === 'instagram') {
+                pl = raw === null || raw === void 0 ? void 0 : raw.ig;
+            }
             const analytics = (_c = (_b = pl === null || pl === void 0 ? void 0 : pl.analytics) !== null && _b !== void 0 ? _b : pl) !== null && _c !== void 0 ? _c : {};
-            const reachTotal = num((_d = analytics.reach) === null || _d === void 0 ? void 0 : _d.total);
-            const impressionsTotal = num((_e = analytics.impressions) === null || _e === void 0 ? void 0 : _e.total);
-            const views = num(analytics.viewCountTotal) ||
+            const reachT = num((_d = analytics.reach) === null || _d === void 0 ? void 0 : _d.total);
+            const impT = num((_e = analytics.impressions) === null || _e === void 0 ? void 0 : _e.total);
+            const reachS = sumMetricTotalOrSeries(analytics.reach, num);
+            const impS = sumMetricTotalOrSeries(analytics.impressions, num);
+            const views = Math.max(num(analytics.viewCountTotal) ||
                 num(analytics.views) ||
-                num((_f = analytics.pageMediaView) === null || _f === void 0 ? void 0 : _f.total) ||
-                (platform === 'instagram' ? reachTotal || impressionsTotal : 0);
+                num((_f = analytics.pageMediaView) === null || _f === void 0 ? void 0 : _f.total), reachS, impS, reachT, impT);
             const likes = num(analytics.likeCountTotal) ||
                 num(analytics.likes) ||
                 num(analytics.likeCount);
@@ -85,15 +132,43 @@ let PublicationsController = class PublicationsController {
                 num(analytics.shareCount);
             if (views <= 0 && likes <= 0 && shares <= 0)
                 continue;
-            byPlatform[platform] = {
+            fromSocial[platform] = {
                 views: Math.round(views),
                 likes: Math.round(likes),
                 shares: Math.round(shares),
                 distributionCount: 0,
             };
-            totalViews += views;
-            totalLikes += likes;
-            totalShares += shares;
+        }
+        const db = await this.distributionService.getLifetimeTotals({
+            refresh: false,
+        });
+        const byPlatform = {};
+        const platformKeys = new Set([
+            ...Object.keys(fromSocial),
+            ...Object.keys(db.byPlatform),
+        ]);
+        for (const platform of platformKeys) {
+            const a = fromSocial[platform];
+            const b = db.byPlatform[platform];
+            const views = Math.max((_g = a === null || a === void 0 ? void 0 : a.views) !== null && _g !== void 0 ? _g : 0, (_h = b === null || b === void 0 ? void 0 : b.views) !== null && _h !== void 0 ? _h : 0);
+            const likes = Math.max((_j = a === null || a === void 0 ? void 0 : a.likes) !== null && _j !== void 0 ? _j : 0, (_k = b === null || b === void 0 ? void 0 : b.likes) !== null && _k !== void 0 ? _k : 0);
+            const shares = Math.max((_l = a === null || a === void 0 ? void 0 : a.shares) !== null && _l !== void 0 ? _l : 0, (_m = b === null || b === void 0 ? void 0 : b.shares) !== null && _m !== void 0 ? _m : 0);
+            if (views <= 0 && likes <= 0 && shares <= 0)
+                continue;
+            byPlatform[platform] = {
+                views: Math.round(views),
+                likes: Math.round(likes),
+                shares: Math.round(shares),
+                distributionCount: (_o = b === null || b === void 0 ? void 0 : b.distributionCount) !== null && _o !== void 0 ? _o : 0,
+            };
+        }
+        let totalViews = 0;
+        let totalLikes = 0;
+        let totalShares = 0;
+        for (const p of Object.values(byPlatform)) {
+            totalViews += p.views;
+            totalLikes += p.likes;
+            totalShares += p.shares;
         }
         return {
             totalViews: Math.round(totalViews),
@@ -111,6 +186,14 @@ let PublicationsController = class PublicationsController {
             ...publication,
             distributions: [{ ...distribution, viewCount }],
         })));
+        return { items };
+    }
+    async getMostViewedPublications(limitStr) {
+        const limit = limitStr
+            ? Math.min(20, parseInt(limitStr, 10) || 12)
+            : 12;
+        const pubs = await this.distributionService.getMostViewedPublicationsByDbViews(limit);
+        const items = await Promise.all(pubs.map((p) => this.withPresignedMediaUrls(p)));
         return { items };
     }
     async refreshAyrshareStatus(id) {
@@ -240,6 +323,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], PublicationsController.prototype, "getMostViewedFromAyrshare", null);
+__decorate([
+    (0, common_1.Get)('most-viewed/publication'),
+    __param(0, (0, common_1.Query)('limit')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PublicationsController.prototype, "getMostViewedPublications", null);
 __decorate([
     (0, common_1.Get)(':id/refresh-ayrshare-status'),
     __param(0, (0, common_1.Param)('id')),

@@ -7,11 +7,13 @@ import { PublicationService } from './domain/publication.service';
 import { DistributionService } from './domain/distribution.service';
 import { AyrshareProfileService } from './domain/ayrshare-profile.service';
 import { AyrshareWebhookEventService } from './domain/ayrshare-webhook-event.service';
+import { AyrshareMetricsRefreshJob } from './domain/ayrshare-metrics-refresh.job';
 import { PublicationsController } from './api/publications.controller';
 import { DistributionsController } from './api/distributions.controller';
 import { AyrshareController } from './api/ayrshare.controller';
 import { TrendsController } from './api/trends.controller';
 import { WebhooksController } from './api/webhooks.controller';
+import { AdminController } from './api/admin.controller';
 
 @Module({
   imports: [UrlPresignerModule, HttpClientModule],
@@ -21,6 +23,7 @@ import { WebhooksController } from './api/webhooks.controller';
     AyrshareController,
     TrendsController,
     WebhooksController,
+    AdminController,
   ],
   providers: [
     AyrshareRepository,
@@ -29,6 +32,7 @@ import { WebhooksController } from './api/webhooks.controller';
     DistributionService,
     AyrshareProfileService,
     AyrshareWebhookEventService,
+    AyrshareMetricsRefreshJob,
   ],
 })
 export class RepurposingModule {}
